@@ -1,0 +1,96 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Sat Nov 12 06:43:02 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>unpack200(1) Java Deployment Tools unpack200(1)</p>
+
+<p>NAME unpack200 - Transforms a packed file produced by
+pack200(1) into a JAR file for web deployment.</p>
+
+<p>SYNOPSIS unpack200 [ options ] input-file JAR-file</p>
+
+<p>options The command-line options. See Options.</p>
+
+<p>input-file Name of the input file, which can be a
+pack200 gzip file or a pack200 file. The input can also be
+JAR file produced by pack200(1) with an effort of 0, in
+which case the contents of the input file are copied to the
+output JAR file with the Pack200 marker.</p>
+
+<p>JAR-file Name of the output JAR file.</p>
+
+<p>DESCRIPTION The unpack200 command is a native
+implementation that transforms a packed file produced by
+pack200(1) into a JAR file. A typical usage follows. In the
+following example, the myarchive.jar file is produced from
+myarchive.pack.gz with the default unpack200 command
+settings.</p>
+
+<p>unpack200 myarchive.pack.gz myarchive.jar</p>
+
+<p>OPTIONS -Hvalue --deflate-hint=value Sets the deflation
+to be true, false, or keep on all entries within a JAR file.
+The default mode is keep. If the value is true or false,
+then the --deflate=hint option overrides the default
+behavior and sets the deflation mode on all entries within
+the output JAR file.</p>
+
+<p>-r --remove-pack-file Removes the input pack file.</p>
+
+<p>-v --verbose Displays minimal messages. Multiple
+specifications of this option displays more verbose
+messages.</p>
+
+<p>-q --quiet Specifies quiet operation with no
+messages.</p>
+
+<p>-lfilename --log-file=filename Specifies a log file
+where output messages are logged.</p>
+
+<p>-? -h --help Prints help information about the unpack200
+command.</p>
+
+<p>-V --version Prints version information about the
+unpack200 command.</p>
+
+<p>-Joption Passes option to the Java Virtual Machine,
+where option is one of the options described on the
+reference page for the Java application launcher. For
+example, -J-Xms48m sets the startup memory to 48 MB. See
+java(1).</p>
+
+<p>NOTES This command should not be confused with the
+unpack command. They are distinctly separate products.</p>
+
+<p>The Java SE API Specification provided with the JDK is
+the superseding authority in case of discrepancies.</p>
+
+<p>EXIT STATUS The following exit values are returned: 0
+for successful completion, and a value that is greater than
+0 when an error occurred.</p>
+
+<p>SEE ALSO &middot; pack200(1)</p>
+
+<p>&middot; jar(1)</p>
+
+<p>&middot; jarsigner(1)</p>
+
+<p>&middot; Pack200 and Compression at
+http://docs.oracle.com/javase/8/docs/technotes/guides/deployment/deployment-
+guide/pack200.html</p>
+
+<p>&middot; The Java SE Technical Documentation page at
+http://docs.oracle.com/javase/</p>
+
+<p>JDK 8 21 November 2013 unpack200(1)</p>
+<hr>
+</body>
+</html>

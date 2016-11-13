@@ -1,0 +1,77 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Sat Nov 12 06:20:49 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>jsadebugd(1) Troubleshooting Tools jsadebugd(1)</p>
+
+<p>NAME jsadebugd - Attaches to a Java process or core file
+and acts as a debug server. This command is experimental and
+unsupported.</p>
+
+<p>SYNOPSIS jsadebugd pid [ server-id ]</p>
+
+<p>jsadebugd executable core [ server-id ]</p>
+
+<p>pid The process ID of the process to which the debug
+server attaches. The process must be a Java process. To get
+a list of Java processes running on a machine, use the
+jps(1) command. At most one instance of the debug server can
+be attached to a single process.</p>
+
+<p>executable The Java executable from which the core dump
+was produced.</p>
+
+<p>core The core file to which the debug server should
+attach.</p>
+
+<p>server-id An optional unique ID that is needed when
+multiple debug servers are started on the same machine. This
+ID must be used by remote clients to identify the particular
+debug server to which to attach. Within a single machine,
+this ID must be unique.</p>
+
+<p>DESCRIPTION The jsadebugd command attaches to a Java
+process or core file and acts as a debug server. Remote
+clients such as jstack, jmap, and jinfo can attach to the
+server through Java Remote Method Invocation (RMI). Before
+you start the jsadebugd command, start the RMI registry with
+the rmiregistry command as follows where $JAVA_HOME is the
+JDK installation directory:</p>
+
+<p>rmiregistry
+-J-Xbootclasspath/p:$JAVA_HOME/lib/sajdi.jar</p>
+
+<p>If the RMI registry was not started, then the jsadebugd
+command starts an RMI registry in a standard (1099) port
+internally. The debug server can be stopped by sending a
+SIGINT to it. To send a SIGINT press Ctrl+C.</p>
+
+<p>Note: This utility is unsupported and may or may not be
+available in future releases of the JDK. In Windows Systems
+where dbgeng.dll is not present, Debugging Tools For Windows
+must be installed to have these tools working. The PATH
+environment variable should contain the location of jvm.dll
+used by the target process or the location from which the
+crash dump file was produced. For example, setb
+PATH=%JDK_HOMEjriinSEE ALSO &middot; jinfo(1)</p>
+
+<p>&middot; jmap(1)</p>
+
+<p>&middot; jps(1)</p>
+
+<p>&middot; jstack(1)</p>
+
+<p>&middot; rmiregistry(1)</p>
+
+<p>JDK 8 21 November 2013 jsadebugd(1)</p>
+<hr>
+</body>
+</html>

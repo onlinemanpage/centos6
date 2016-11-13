@@ -1,0 +1,87 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Sat Nov 12 06:20:43 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>jinfo(1) Troubleshooting Tools jinfo(1)</p>
+
+<p>NAME jinfo - Generates configuration information. This
+command is experimental and unsupported.</p>
+
+<p>SYNOPSIS jinfo [ option ] pid</p>
+
+<p>jinfo [ option ] executable core</p>
+
+<p>jinfo [ option ] [ servier-id ]
+remote-hostname-or-IP</p>
+
+<p>option The command-line options. See Options.</p>
+
+<p>pid The process ID for which the configuration
+information is to be printed. The process must be a Java
+process. To get a list of Java processes running on a
+machine, use the jps(1) command.</p>
+
+<p>executable The Java executable from which the core dump
+was produced.</p>
+
+<p>core The core file for which the configuration
+information is to be printed.</p>
+
+<p>remote-hostname-or-IP The remote debug server hostname
+or IP address. See jsadebugd(1).</p>
+
+<p>server-id An optional unique ID to use when multiple
+debug servers are running on the same remote host.</p>
+
+<p>DESCRIPTION The jinfo command prints Java configuration
+information for a specified Java process or core file or a
+remote debug server. The configuration information includes
+Java system properties and Java Virtual Machine (JVM)
+command-line flags. If the specified process is running on a
+64-bit JVM, then you might need to specify the -J-d64
+option, for example: jinfo-J-d64 -sysprops pid.</p>
+
+<p>This utility is unsupported and might not be available
+in future releases of the JDK. In Windows Systems where
+dbgeng.dll is not present, Debugging Tools For Windows must
+be installed to have these tools working. The PATH
+environment variable should contain the location of the
+jvm.dll that is used by the target process or the location
+from which the crash dump file was produced. For example,
+set b PATH=%JDK_HOMEjriinOPTIONS no-option Prints both
+command-line flags and system property name-value pairs.</p>
+
+<p>-flag name Prints the name and value of the specified
+command-line flag.</p>
+
+<p>-flag [+|-]name enables or disables the specified
+Boolean command-line flag.</p>
+
+<p>-flag name=value Sets the specified command-line flag to
+the specified value.</p>
+
+<p>-flags Prints command-line flags passed to the JVM.</p>
+
+<p>-sysprops Prints Java system properties as name-value
+pairs.</p>
+
+<p>-h Prints a help message.</p>
+
+<p>-help Prints a help message.</p>
+
+<p>SEE ALSO &middot; jps(1)</p>
+
+<p>&middot; jsadebugd(1)</p>
+
+<p>JDK 8 21 November 2013 jinfo(1)</p>
+<hr>
+</body>
+</html>
