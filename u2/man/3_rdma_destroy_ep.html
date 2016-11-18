@@ -1,0 +1,41 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 05:17:29 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>RDMA_DESTROY_EP(3) Librdmacm Programmer s Manual
+RDMA_DESTROY_EP(3)</p>
+
+<p>NAME rdma_destroy_ep - Release a communication
+identifier.</p>
+
+<p>SYNOPSIS #include &lt;rdma/rdma_cma.h&gt;</p>
+
+<p>int rdma_destroy_ep (struct rdma_cm_id *id);</p>
+
+<p>ARGUMENTS id The communication identifier to
+destroy.</p>
+
+<p>DESCRIPTION Destroys the specified rdma_cm_id and all
+associated resources</p>
+
+<p>RETURN VALUE Returns 0 on success, or -1 on error. If an
+error occurs, errno will be set to indicate the failure
+reason.</p>
+
+<p>NOTES rdma_destroy_ep will automatically destroy any QP
+associated with the rdma_cm_id.</p>
+
+<p>SEE ALSO rdma_create_ep(3)</p>
+
+<p>librdmacm 2007-05-15 RDMA_DESTROY_EP(3)</p>
+<hr>
+</body>
+</html>

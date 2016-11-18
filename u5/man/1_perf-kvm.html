@@ -1,0 +1,111 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 04:14:21 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>PERF-KVM(1) perf Manual PERF-KVM(1)</p>
+
+<p>NAME perf-kvm - Tool to trace/measure kvm guest os</p>
+
+<p>SYNOPSIS perf kvm [--host] [--guest]
+[--guestmount=&lt;path&gt; [--guestkallsyms=&lt;path&gt;
+--guestmodules=&lt;path&gt; | --guestvmlinux=&lt;path&gt;]]
+{top|record|report|diff|buildid-list} perf kvm [--host]
+[--guest] [--guestkallsyms=&lt;path&gt;
+--guestmodules=&lt;path&gt; | --guestvmlinux=&lt;path&gt;]
+{top|record|report|diff|buildid-list|stat}</p>
+
+<p>DESCRIPTION There are a couple of variants of perf
+kvm:</p>
+
+<p>&acute;perf kvm [options] top &lt;command&gt;&acute; to
+generates and displays a performance counter profile of
+guest os in realtime of an arbitrary workload.</p>
+
+<p>&acute;perf kvm record &lt;command&gt;&acute; to record
+the performance counter profile of an arbitrary workload and
+save it into a perf data file. If both --host and --guest
+are input, the perf data file name is perf.data.kvm. If
+there is no --host but --guest, the file name is
+perf.data.guest. If there is no --guest but --host, the file
+name is perf.data.host.</p>
+
+<p>&acute;perf kvm report&acute; to display the performance
+counter profile information recorded via perf kvm
+record.</p>
+
+<p>&acute;perf kvm diff&acute; to displays the performance
+difference amongst two perf.data files captured via perf
+record.</p>
+
+<p>&acute;perf kvm buildid-list&acute; to display the
+buildids found in a perf data file, so that other tools can
+be used to fetch packages with matching symbol tables for
+use by perf report.</p>
+
+<p>&acute;perf kvm stat &lt;command&gt;&acute; to run a
+command and gather performance counter statistics.
+Especially, perf &acute;kvm stat record/report&acute;
+generates a statistical analysis of KVM events. Currently,
+vmexit, mmio and ioport events are supported. &acute;perf
+kvm stat record &lt;command&gt;&acute; records kvm events
+and the events between start and end &lt;command&gt;. And
+this command produces a file which contains tracing results
+of kvm events.</p>
+
+<p>&acute;perf kvm stat report&acute; reports statistical
+data which includes events handled time, samples, and so
+on.</p>
+
+<p>OPTIONS -i, --input= Input file name.</p>
+
+<p>-o, --output Output file name.</p>
+
+<p>--host= Collect host side performance profile.</p>
+
+<p>--guest= Collect guest side performance profile.</p>
+
+<p>--guestmount=&lt;path&gt; Guest os root file system
+mount directory. Users mounts guest os root directories
+under &lt;path&gt; by a specific filesystem access method,
+typically, sshfs. For example, start 2 guest os. The ones
+pid is 8888 and the other s is 9999. #mkdir /guestmount;
+cd/guestmount #sshfs -o allow_other,direct_io -p 5551
+localhost:/ 8888/ #sshfs -o allow_other,direct_io -p 5552
+localhost:/ 9999/ #perf kvm --host --guest
+--guestmount=~/guestmount top</p>
+
+<p>--guestkallsyms=&lt;path&gt; Guest os /proc/kallsyms
+file copy. perf kvm&acute; reads it to get guest kernel
+symbols. Users copy it out from guest os.</p>
+
+<p>--guestmodules=&lt;path&gt; Guest os /proc/modules file
+copy. perf kvm&acute; reads it to get guest kernel module
+information. Users copy it out from guest os.</p>
+
+<p>--guestvmlinux=&lt;path&gt; Guest os kernel vmlinux.</p>
+
+<p>STAT REPORT OPTIONS --vcpu=&lt;value&gt; analyze events
+which occures on this vcpu. (default: all vcpus)</p>
+
+<p>--events=&lt;value&gt; events to be analyzed. Possible
+values: vmexit, mmio, ioport. (default: vmexit)</p>
+
+<p>-k, --key=&lt;value&gt; Sorting key. Possible values:
+sample (default, sort by samples number), time (sort by
+average time).</p>
+
+<p>SEE ALSO perf-top(1), perf-record(1), perf-report(1),
+perf-diff(1), perf- buildid-list(1), perf-stat(1)</p>
+
+<p>perf 11/10/2013 PERF-KVM(1)</p>
+<hr>
+</body>
+</html>

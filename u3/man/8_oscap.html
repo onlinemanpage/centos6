@@ -1,0 +1,359 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 04:29:46 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>OSCAP(8) System Administration Utilities OSCAP(8)</p>
+
+<p>NAME oscap - OpenSCAP command line tool</p>
+
+<p>SYNOPSIS oscap [general-options] module operation
+[operation-options-and-argu- ments]</p>
+
+<p>DESCRIPTION oscap is Security Content Automation
+Protocol (SCAP) toolkit based on OpenSCAP library. It
+provides various functions for different SCAP
+specifications(modules).</p>
+
+<p>GENERAL OPTIONS -V, --version SCAP specification
+supported by the module.</p>
+
+<p>-q, --quiet No output for certain operations, only
+return code.</p>
+
+<p>-h, --help Help screen.</p>
+
+<p>MODULES oval Open Vulnerability and Assessment
+Language.</p>
+
+<p>xccdf The eXtensible Configuration Checklist Description
+Format.</p>
+
+<p>cpe Common Platform Enumeration.</p>
+
+<p>cvss Common Vulnerability Scoring System</p>
+
+<p>OVAL OPERATIONS collect [options] definitions-file Probe
+the system and gather system characteristics for all objects
+in OVAL Definition file.</p>
+
+<p>--id OBJECT-ID Collect system characteristics ONLY for
+specified OVAL Object.</p>
+
+<p>--variables FILE Provide external variables expected by
+OVAL Definitions.</p>
+
+<p>--syschar FILE Write OVAL System Characteristic into
+file</p>
+
+<p>--skip-valid Do not validate input/output files.</p>
+
+<p>eval [options] definitions-file Probe the system and
+evaluate all definitions from OVAL Defini- tion file. Print
+result of each definition to standard output. oscap returns
+0 if all definitions pass. If there is an error during
+evaluation, the return code is 1. If there is at least one
+failed result definition, oscap-scan finishes with return
+code 2.</p>
+
+<p>--id DEFINITION-ID Evaluate ONLY specified OVAL
+Definition.</p>
+
+<p>--variables FILE Provide external variables expected by
+OVAL Definitions.</p>
+
+<p>--directives FILE Use OVAL Directives content to specify
+desired results content.</p>
+
+<p>--results FILE Write OVAL Results into file.</p>
+
+<p>--report FILE Create human readable (HTML) report from
+OVAL Results.</p>
+
+<p>--skip-valid Do not validate input/output files.</p>
+
+<p>analyse [options] --results FILE definitions-file
+syschar-file In this mode, the oscap tool does not perform
+data collection on the local system, but relies upon the
+input file, which may have been generated on another system.
+The output (OVAL Results) is printed to file specified by
+--results parameter</p>
+
+<p>--variables FILE Provide external variables expected by
+OVAL Definitions.</p>
+
+<p>--directives FILE Use OVAL Directives content to specify
+desired results content.</p>
+
+<p>--skip-valid Do not validate input/output files.</p>
+
+<p>validate-xml [options] definitions-file Validate given
+OVAL file against a XML schema. Every found error is printed
+to the standard output. Return code is 0 if valida- tion
+succeeds, 1 if validation could not be performed due to some
+error, 2 if the OVAL document is not valid.</p>
+
+<p>--definitions, --variables, --syschar, --results
+--directives Specify whether the validated document is an
+OVAL Defini- tions file, external OVAL Variables, OVAL
+System Charac- teristics file, OVAL Results file or OVAL
+Directives file. Default: definitions.</p>
+
+<p>--schematron Turn on Schematron-based validation. It is
+able to find more errors and inconsistencies but is much
+slower.</p>
+
+<p>generate &lt;submodule&gt; [submodule-specific-options]
+Generate another document form an OVAL file.</p>
+
+<p>Available submodules:</p>
+
+<p>report [options] oval-results-file Generate a formatted
+HTML page containing visualisation of an OVAL results file.
+Unless the --output option is specified it will be written
+to the standard output.</p>
+
+<p>--output FILE Write the report to this file instead of
+standard output.</p>
+
+<p>list-probes [options] List supported object types (i.e.
+probes)</p>
+
+<p>--static List all probes defined in the internal
+tables.</p>
+
+<p>--dynamic List all probes supported on the current
+system (this is default behavior).</p>
+
+<p>--verbose Be verbose.</p>
+
+<p>XCCDF OPERATIONS eval [options] xccdf-file
+[oval-definitions-files] Perform evaluation driven by XCCDF
+file and use OVAL as checking engine. Print result of each
+rule to standard output. oscap returns 0 if all rules pass.
+If there is an error during evalua- tion, the return code is
+1. If there is at least one failed rule, oscap-scan finishes
+with return code 2.</p>
+
+<p>You may specify all required OVAL Definition files as
+last parameters. If you dont do that, oscap tool will try to
+load all OVAL Definition files referenced from XCCDF
+automati- caly(search in the same path as XCCDF).</p>
+
+<p>--profile PROFILE Select a particular profile from XCCDF
+document.</p>
+
+<p>--results FILE Write XCCDF results into file.</p>
+
+<p>--report FILE Write HTML report into file. You also have
+to specify --result for this feature to work.</p>
+
+<p>--oval-results Generate OVAL Result file for each OVAL
+session used for evaluation. File with name
+original-oval-definitions- filename.result.xml will be
+generated for each refer- enced OVAL file. This option (with
+conjunction with the --report option) also enables inclusion
+of additional OVAL information in the XCCDF report.</p>
+
+<p>--export-variables Generate OVAL Variables documents
+which contain external variables values that were provided
+to the OVAL checking engine during evaluation. The filename
+format is origi-
+nal-oval-definitions-filename-session-index.variables-
+variables-index.xml.</p>
+
+<p>--skip-valid Do not validate input/output files.</p>
+
+<p>resolve -o output-file xccdf-file Resolve an XCCDF file
+as described in the XCCDF specification. It will flatten
+inheritance hierarchy of XCCDF profiles, groups, rules, and
+values. Result is another XCCDF document, which will be
+written to output-file.</p>
+
+<p>--force Force resolving XCCDF document even if it is
+already marked as resolved.</p>
+
+<p>validate-xml [options] xccdf-file Validate given XCCDF
+file against a XML schema. Every found error is printed to
+the standard output. Return code is 0 if validation
+succeeds, 1 if validation could not be performed due to some
+error, 2 if the XCCDF document is not valid.</p>
+
+<p>export-oval-variables [options] xccdf-file
+[oval-definitions-files] Collect all the XCCDF values that
+would be used by OVAL during evaluation of a certain profile
+and export them as OVAL exter- nal-variables document(s).
+The filename format is original-
+oval-definitions-filename-session-index.variables-variables-
+index.xml.</p>
+
+<p>--profile PROFILE Select a particular profile from XCCDF
+document.</p>
+
+<p>generate [options] &lt;submodule&gt;
+[submodule-specific-options] Generate another document form
+an XCCDF file such as security guide or result report.</p>
+
+<p>--profile ID Apply profile with given ID to the
+Benchmark before fur- ther processing takes place.</p>
+
+<p>--format FMT Specify output format. This option applies
+only on docu- ment generators (i.e. guide, report). Avalable
+formats: html (default), docbook.</p>
+
+<p>Available submodules:</p>
+
+<p>guide [options] xccdf-file Generate a formatted document
+containing a security guide from a XCCDF Benchmark. Unless
+the --output option is specified it will be written to the
+standard output. Without profile being set only groups (not
+rules) will be included in the output.</p>
+
+<p>--output FILE Write the guide to this file instead of
+standard output.</p>
+
+<p>--hide-profile-info Information on chosen profile (e.g.
+rules selected by the profile) will be excluded from the
+document.</p>
+
+<p>report [options] xccdf-file Generate a document
+containing results of a XCCDF Bench- mark execution. Unless
+the --output option is specified it will be written to the
+standard output. ID of the TestResult element to visualise
+defaults to the most recent result (according to the
+end-time attribute).</p>
+
+<p>--output FILE Write the report to this file instead of
+standard output.</p>
+
+<p>--result-id ID ID of the XCCDF TestResult from which the
+report will be generated.</p>
+
+<p>--show what Specify what result types shall be displayed
+in the result report. The default is to show every- thing
+except for rules with results notselected and notapplicable.
+The what part is a comma-sepa- rated list of result types to
+display in addition to the default. If result type is
+prefixed by a dash -, it will be excluded from the results.
+If what is prefixed by an equality sign =, a following list
+specifies exactly what rule types to include in the report.
+Result types are: pass, fixed, notchecked, notapplicable,
+notselected, informational, unknown, error, fail.</p>
+
+<p>--oval-template template-string To use the ability to
+include additional informa- tion from OVAL in xccdf result
+file, a template which will be used to obtain OVAL result
+file names has to be specified. The template can be either a
+filename or a string containing wildcard character (percent
+sign % ). Wildcard will be replaced by the original OVAL
+definition file name as referenced from the XCCDF file. This
+way it is possible to obtain OVAL information even from
+XCCDF documents referencing several OVAL files. To use this
+option with results from an XCCDF evaluation, specify
+%.result.xml as a OVAL file name template.</p>
+
+<p>fix [options] xccdf-file Generate a script that shall
+bring the system to a state of compliance with given XCCDF
+Benchmark.</p>
+
+<p>--output FILE Write the report to this file instead of
+standard output.</p>
+
+<p>--result-id ID With this option the script generating
+engine will pick rules that failed for given test and
+generate fixes only for them.</p>
+
+<p>--template ID|FILE Template to be used to generate the
+script. If it contains a dot . it is interpreted as a loca-
+tion of a file with the template definition. Oth- erwise it
+identifies a template from standard set which currently
+includes: bash (default if no --template switch present).
+Brief explanation of the process of writing your own
+templates is in the XSL file xsl/fix.xsl in the openscap
+data directory. You can also take a look at the default
+template xsl/fixtpl-bash.xml.</p>
+
+<p>CPE OPERATIONS check name Check whether name is in
+correct CPE format.</p>
+
+<p>match name dictionary.xml Find an exact match of CPE
+name in the dictionary.</p>
+
+<p>CVSS OPERATIONS score cvss_vector Calculate score from a
+CVSS vector. Prints base score for base CVSS vector, base
+and temporal score for temporal CVSS vector, base and
+temporal and environmental score for environmental CVSS
+vector.</p>
+
+<p>describe cvss_vector Describe individual components of a
+CVSS vector in a human-read- able format and print partial
+scores.</p>
+
+<p>CVSS vector consists of several slash-separated
+components specified as key-value pairs. Each key can be
+specified at most once. Valid CVSS vector has to contain at
+least base CVSS metrics, i.e. AV, AC, AU, C, I, and A.
+Following table summarizes the components and possible
+values (second column is metric category: B for base, T for
+temporal, E for environmental):</p>
+
+<p>AV:[L|A|N] B Access vector: Local, Adjacent net- work,
+Network</p>
+
+<p>AC:[H|M|L] B Access complexity: High, Medium, Low</p>
+
+<p>AU:[M|S|N] B Required authentication: Multiple
+instances, Single instance, None</p>
+
+<p>C:[N|P|C] B Confidentiality impact: None, Partial,
+Complete</p>
+
+<p>I:[N|P|C] B Integrity impact: None, Partial, Com-
+plete</p>
+
+<p>A:[N|P|C] B Availability impact: None, Partial,
+Complete</p>
+
+<p>E:[ND|U|POC|F|H] T Exploitability: Not Defined,
+Unproven, Proof of Concept, Functional, High</p>
+
+<p>RL:[ND|OF|TF|W|U] T Remediation Level: Not Defined,
+Offi- cial Fix, Temporary Fix, Workaround, Unavailable</p>
+
+<p>RC:[ND|UC|UR|C] T Report Confidence: Not Defined, Uncon-
+firmed, Uncorroborated, Confirmed</p>
+
+<p>CDP:[ND|N|L|LM|MH|H] E Collateral Damage Potential: Not
+Defined, None, Low, Low-Medium, Medium-High, High</p>
+
+<p>TD:[ND|N|L|M|H] E Target Distribution: Not Defined,
+None, Low, Medium, High</p>
+
+<p>CR:[ND|L|M|H] E Confidentiality requirement: Not
+Defined, Low, Medium, High</p>
+
+<p>IR:[ND|L|M|H] E Integrity requirement: Not Defined, Low,
+Medium, High</p>
+
+<p>AR:[ND|L|M|H] E Availability requirement: Not Defined,
+Low, Medium, High</p>
+
+<p>CONTENT National Vulnerability Database -
+http://web.nvd.nist.gov/view/ncp/repository</p>
+
+<p>Red Hat content repository -
+http://www.redhat.com/security/data/oval/</p>
+
+<p>AUTHOR Peter Vrabec &lt;pvrabec@redhat.com&gt;</p>
+
+<p>Red Hat Jun 2010 OSCAP(8)</p>
+<hr>
+</body>
+</html>

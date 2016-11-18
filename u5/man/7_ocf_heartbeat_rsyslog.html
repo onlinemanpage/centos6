@@ -1,0 +1,81 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 04:10:56 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>OCF_HEARTBEAT_RSYSLO(7) OCF resource agents
+OCF_HEARTBEAT_RSYSLO(7)</p>
+
+<p>NAME ocf_heartbeat_rsyslog - rsyslog resource agent</p>
+
+<p>SYNOPSIS rsyslog [start | stop | status | monitor |
+meta-data | validate-all]</p>
+
+<p>DESCRIPTION This script manages a rsyslog instance as an
+HA resource.</p>
+
+<p>SUPPORTED PARAMETERS configfile This parameter specifies
+a configuration file for a rsyslog instance managed by this
+RA.</p>
+
+<p>(unique, required, string, no default)</p>
+
+<p>rsyslog_binary This parameter specifies rsyslog&acute;s
+executable file.</p>
+
+<p>(optional, string, default
+&quot;/sbin/rsyslogd&quot;)</p>
+
+<p>start_opts This parameter specifies startup options for
+a rsyslog instance managed by this RA. When no value is
+given, no startup options is used. Don&acute;t use option
+&acute;-F&acute;. It causes a stuck of a start action.</p>
+
+<p>(optional, string, no default)</p>
+
+<p>SUPPORTED ACTIONS This resource agent supports the
+following actions (operations):</p>
+
+<p>start Starts the resource. Suggested minimum timeout:
+20s.</p>
+
+<p>stop Stops the resource. Suggested minimum timeout:
+60s.</p>
+
+<p>status Performs a status check. Suggested minimum
+timeout: 20s.</p>
+
+<p>monitor Performs a detailed status check. Suggested
+minimum timeout: 20s. Suggested interval: 20s.</p>
+
+<p>meta-data Retrieves resource agent metadata (internal
+use only). Suggested minimum timeout: 5s.</p>
+
+<p>validate-all Performs a validation of the resource
+configuration. Suggested minimum timeout: 5.</p>
+
+<p>EXAMPLE The following is an example configuration for a
+rsyslog resource using the crm(8) shell:</p>
+
+<p>primitive p_rsyslog ocf:heartbeat:rsyslog params
+configfile=string op monitor depth=&quot;0&quot;
+timeout=&quot;20s&quot; interval=&quot;20s&quot;</p>
+
+<p>SEE ALSO
+http://www.linux-ha.org/wiki/rsyslog_(resource_agent)</p>
+
+<p>AUTHOR Linux-HA contributors (see the resource agent
+source for information about individual authors)</p>
+
+<p>resource-agents 3.9.2 10/10/2013
+OCF_HEARTBEAT_RSYSLO(7)</p>
+<hr>
+</body>
+</html>

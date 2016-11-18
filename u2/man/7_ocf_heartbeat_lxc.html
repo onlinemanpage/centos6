@@ -1,0 +1,89 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 05:08:44 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>OCF_HEARTBEAT_LXC(7) OCF resource agents
+OCF_HEARTBEAT_LXC(7)</p>
+
+<p>NAME ocf_heartbeat_lxc - Manages LXC containers</p>
+
+<p>SYNOPSIS lxc [start | stop | monitor | meta-data |
+validate-all]</p>
+
+<p>DESCRIPTION Allows LXC containers to be managed by the
+cluster. If the container is running &quot;init&quot; it
+will also perform an orderly shutdown. It is
+&acute;assumed&acute; that the &acute;init&acute; system
+will do an orderly shudown if presented with a &acute;kill
+-PWR&acute; signal. On a &acute;sysvinit&acute; this would
+require the container to have an inittab file containing
+&quot;p0::powerfail:/sbin/init 0&quot; I have absolutly no
+idea how this is done with &acute;upstart&acute; or
+&acute;systemd&acute;, YMMV if your container is using one
+of them.</p>
+
+<p>SUPPORTED PARAMETERS container The unique name for this
+&acute;Container Instance&acute; e.g. &acute;test1&acute;.
+(unique, required, string, no default)</p>
+
+<p>config Absolute path to the file holding the specific
+configuration for this container e.g.
+&acute;/etc/lxc/test1/config&acute;. (required, string, no
+default)</p>
+
+<p>log Absolute path to the container log file (optional,
+string, default /var/run/heartbeat/rsctmp/default.log)</p>
+
+<p>use_screen Provides the option of capturing the
+&acute;root console&acute; from the container and showing it
+on a separate screen. To see the screen output run
+&acute;screen -r {container name}&acute; The default value
+is set to &acute;false&acute;, change to &acute;true&acute;
+to activate this option (optional, boolean, default
+false)</p>
+
+<p>SUPPORTED ACTIONS This resource agent supports the
+following actions (operations):</p>
+
+<p>start Starts the resource. Suggested minimum timeout:
+10.</p>
+
+<p>stop Stops the resource. Suggested minimum timeout:
+30.</p>
+
+<p>monitor Performs a detailed status check. Suggested
+minimum timeout: 20. Suggested interval: 60.</p>
+
+<p>validate-all Performs a validation of the resource
+configuration. Suggested minimum timeout: 20.</p>
+
+<p>meta-data Retrieves resource agent metadata (internal
+use only). Suggested minimum timeout: 5.</p>
+
+<p>EXAMPLE The following is an example configuration for a
+lxc resource using the crm(8) shell:</p>
+
+<p>primitive p_lxc ocf:heartbeat:lxc params
+container=string config=string op monitor
+timeout=&quot;20&quot; interval=&quot;60&quot;
+depth=&quot;0&quot;</p>
+
+<p>SEE ALSO
+http://www.linux-ha.org/wiki/lxc_(resource_agent)</p>
+
+<p>AUTHOR Linux-HA contributors (see the resource agent
+source for information about individual authors)</p>
+
+<p>resource-agents 3.9.2 10/18/2011
+OCF_HEARTBEAT_LXC(7)</p>
+<hr>
+</body>
+</html>

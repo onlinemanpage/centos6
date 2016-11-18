@@ -1,0 +1,258 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 04:10:52 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>named_selinux(8) SELinux Policy documentation for named
+named_selinux(8)</p>
+
+<p>NAME named_selinux - Security Enhanced Linux Policy for
+the named processes</p>
+
+<p>DESCRIPTION Security-Enhanced Linux secures the named
+processes via flexible manda- tory access control.</p>
+
+<p>The named processes execute with the named_t SELinux
+type. You can check if you have these processes running by
+executing the ps command with the -Z qualifier.</p>
+
+<p>For example:</p>
+
+<p>ps -eZ | grep named_t</p>
+
+<p>ENTRYPOINTS The named_t SELinux type can be entered via
+the &quot;named_check- conf_exec_t,named_exec_t&quot; file
+types. The default entrypoint paths for the named_t domain
+are the following:&quot;</p>
+
+<p>/usr/sbin/named-checkconf, /usr/sbin/named,
+/usr/sbin/lwresd, /usr/sbin/unbound</p>
+
+<p>PROCESS TYPES SELinux defines process types (domains)
+for each process running on the system</p>
+
+<p>You can see the context of a process using the -Z option
+to ps</p>
+
+<p>Policy governs the access confined processes have to
+files. SELinux named policy is very flexible allowing users
+to setup their named pro- cesses in as secure a method as
+possible.</p>
+
+<p>The following process types are defined for named:</p>
+
+<p>named_t, namespace_init_t</p>
+
+<p>Note: semanage permissive -a named_t</p>
+
+<p>can be used to make the process type named_t permissive.
+Permissive process types are not denied access by SELinux.
+AVC messages will still be generated.</p>
+
+<p>BOOLEANS SELinux policy is customizable based on least
+access required. named policy is extremely flexible and has
+several booleans that allow you to manipulate the policy and
+run named with the tightest access possible.</p>
+
+<p>If you want to allow BIND to write the master zone
+files. Generally this is used for dynamic DNS or zone
+transfers, you must turn on the named_write_master_zones
+boolean.</p>
+
+<p>setsebool -P named_write_master_zones 1</p>
+
+<p>If you want to allow BIND to bind apache port, you must
+turn on the named_bind_http_port boolean.</p>
+
+<p>setsebool -P named_bind_http_port 1</p>
+
+<p>If you want to allow BIND to bind apache port, you must
+turn on the named_bind_http_port boolean.</p>
+
+<p>setsebool -P named_bind_http_port 1</p>
+
+<p>If you want to allow Git daemon session to bind tcp
+sockets to all unreserved ports, you must turn on the
+git_session_bind_all_unre- served_ports boolean.</p>
+
+<p>setsebool -P git_session_bind_all_unreserved_ports 1</p>
+
+<p>If you want to allow system to run with NIS, you must
+turn on the allow_ypbind boolean.</p>
+
+<p>setsebool -P allow_ypbind 1</p>
+
+<p>If you want to allow Apache to use
+mod_auth_ntlm_winbind, you must turn on the
+allow_httpd_mod_auth_ntlm_winbind boolean.</p>
+
+<p>setsebool -P allow_httpd_mod_auth_ntlm_winbind 1</p>
+
+<p>If you want to allow tor daemon to bind tcp sockets to
+all unreserved ports, you must turn on the
+tor_bind_all_unreserved_ports boolean.</p>
+
+<p>setsebool -P tor_bind_all_unreserved_ports 1</p>
+
+<p>If you want to allow BIND to write the master zone
+files. Generally this is used for dynamic DNS or zone
+transfers, you must turn on the named_write_master_zones
+boolean.</p>
+
+<p>setsebool -P named_write_master_zones 1</p>
+
+<p>If you want to allow BIND to bind apache port, you must
+turn on the named_bind_http_port boolean.</p>
+
+<p>setsebool -P named_bind_http_port 1</p>
+
+<p>FILE CONTEXTS SELinux requires files to have an extended
+attribute to define the file type.</p>
+
+<p>You can see the context of a file using the -Z option to
+ls</p>
+
+<p>Policy governs the access confined processes have to
+these files. SELinux named policy is very flexible allowing
+users to setup their named processes in as secure a method
+as possible.</p>
+
+<p>The following file types are defined for named:</p>
+
+<p>named_cache_t</p>
+
+<p>- Set files with the named_cache_t type, if you want to
+store the files under the /var/cache directory.</p>
+
+<p>named_checkconf_exec_t</p>
+
+<p>- Set files with the named_checkconf_exec_t type, if you
+want to tran- sition an executable to the named_checkconf_t
+domain.</p>
+
+<p>named_conf_t</p>
+
+<p>- Set files with the named_conf_t type, if you want to
+treat the files as named configuration data, usually stored
+under the /etc directory.</p>
+
+<p>named_exec_t</p>
+
+<p>- Set files with the named_exec_t type, if you want to
+transition an executable to the named_t domain.</p>
+
+<p>named_initrc_exec_t</p>
+
+<p>- Set files with the named_initrc_exec_t type, if you
+want to transi- tion an executable to the named_initrc_t
+domain.</p>
+
+<p>named_keytab_t</p>
+
+<p>- Set files with the named_keytab_t type, if you want to
+treat the files as kerberos keytab files.</p>
+
+<p>named_log_t</p>
+
+<p>- Set files with the named_log_t type, if you want to
+treat the data as named log data, usually stored under the
+/var/log directory.</p>
+
+<p>named_tmp_t</p>
+
+<p>- Set files with the named_tmp_t type, if you want to
+store named tem- porary files in the /tmp directories.</p>
+
+<p>named_var_run_t</p>
+
+<p>- Set files with the named_var_run_t type, if you want
+to store the named files under the /run directory.</p>
+
+<p>named_zone_t</p>
+
+<p>- Set files with the named_zone_t type, if you want to
+treat the files as named zone data.</p>
+
+<p>Note: File context can be temporarily modified with the
+chcon command. If you want to permanently change the file
+context you need to use the semanage fcontext command. This
+will modify the SELinux labeling database. You will need to
+use restorecon to apply the labels.</p>
+
+<p>MANAGED FILES The SELinux process type named_t can
+manage files labeled with the fol- lowing file types. The
+paths listed are the default paths for these file types.
+Note the processes UID still need to have DAC
+permissions.</p>
+
+<p>initrc_tmp_t</p>
+
+<p>mnt_t</p>
+
+<p>/mnt(/[^/]*) /mnt(/[^/]*)? /rhev(/[^/]*)? /media(/[^/]*)
+/media(/[^/]*)? /etc/rhgb(/.*)? /media/.hal-.* /net /afs
+/misc /rhev</p>
+
+<p>named_cache_t</p>
+
+<p>/var/named/data(/.*)? /var/named/slaves(/.*)?
+/var/named/dynamic(/.*)? /var/named/chroot/var/tmp(/.*)?
+/var/named/chroot/var/named/data(/.*)?
+/var/named/chroot/var/named/slaves(/.*)?
+/var/named/chroot/var/named/dynamic(/.*)?</p>
+
+<p>named_log_t</p>
+
+<p>/var/log/named.* /var/named/chroot/var/log/named.*</p>
+
+<p>named_tmp_t</p>
+
+<p>/var/tmp/DNS_25</p>
+
+<p>named_var_run_t</p>
+
+<p>/var/run/bind(/.*)? /var/run/named(/.*)?
+/var/run/unbound(/.*)? /var/named/chroot/var/run/named.*
+/var/run/ndc</p>
+
+<p>root_t</p>
+
+<p>/ /initrd</p>
+
+<p>tmp_t</p>
+
+<p>/tmp /usr/tmp /var/tmp /var/tmp/vi.recover</p>
+
+<p>COMMANDS semanage fcontext can also be used to
+manipulate default file context mappings.</p>
+
+<p>semanage permissive can also be used to manipulate
+whether or not a process type is permissive.</p>
+
+<p>semanage module can also be used to
+enable/disable/install/remove pol- icy modules.</p>
+
+<p>semanage boolean can also be used to manipulate the
+booleans</p>
+
+<p>system-config-selinux is a GUI tool available to
+customize SELinux pol- icy settings.</p>
+
+<p>AUTHOR This manual page was auto-generated using
+sepolicy manpage by mgrepl.</p>
+
+<p>SEE ALSO selinux(8), named(8), semanage(8),
+restorecon(8), chcon(1), sepolicy(8) , setsebool(8),
+namespace_init_selinux(8)</p>
+
+<p>named 13-01-04 named_selinux(8)</p>
+<hr>
+</body>
+</html>

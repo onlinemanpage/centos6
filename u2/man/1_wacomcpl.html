@@ -1,0 +1,63 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 05:23:20 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>wacomcpl(1) wacomcpl(1)</p>
+
+<p>NAME wacomcpl - graphical utility to configure Wacom
+tablets</p>
+
+<p>SYNOPSIS wacomcpl [--use-hostname] [calibrate
+&lt;device&gt; [warning]]</p>
+
+<p>DESCRIPTION wacomcpl is a graphical utility to configure
+and calibrate Wacom tablet devices.</p>
+
+<p>OPTIONS --use-hostname If set, wacomcpl will append the
+hostname to the wacomcplrc file written out. See
+CONFIGURATION STORAGE below.</p>
+
+<p>calibrate device [warning] Bring up the calibration
+screen for the specified device. For any value of warning, a
+coordinate check is performed after calibration. If the
+coordinates appear to be out of scope, a warning messages is
+displayed.</p>
+
+<p>CONFIGURATION STORAGE Any changes performed by wacomcpl
+are written to the configuration file. The initrc script
+provided by this package loads this configura- tion file in
+the following order:</p>
+
+<p>If a .wacomcplrc.&lt;hostname&gt; file is present in the
+user s home direc- tory, this file is loaded. Otherwise,</p>
+
+<p>if a .wacomcplrc file is present in the users home
+directory, this file is loaded. Otherwise,</p>
+
+<p>if a /etc/wacomcpl.conf file is present, this file is
+loaded.</p>
+
+<p>FILES $HOME/.wacomcplrc</p>
+
+<p>$HOME/.wacomcplrc.&lt;hostname&gt;</p>
+
+<p>/etc/wacomcpl.conf</p>
+
+<p>/etc/X11/xinit/xinitrc.d/wacomcpl.sh</p>
+
+<p>SEE ALSO wacom(4), xsetwacom(7)</p>
+
+<p>COPYRIGHT Copyright 2011 Red Hat, Inc.</p>
+
+<p>wacomcpl(1)</p>
+<hr>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 05:17:50 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>REPORTER-UPLOAD(1) LIBREPORT MANUAL
+REPORTER-UPLOAD(1)</p>
+
+<p>NAME reporter-upload - Uploads compressed tarball of
+dump directory.</p>
+
+<p>SYNOPSIS reporter-upload [-c CONFFILE]... [ -d DIR ] [
+-u URL ]</p>
+
+<p>DESCRIPTION The tool is used to create a compressed
+tarball of the dump directory and upload it to a URL.
+Supported protocols include FTP, FTPS, HTTP, HTTPS, SCP,
+SFTP, TFTP and FILE.</p>
+
+<p>Configuration file Configuration file contains entries
+in a format &quot;Option = Value&quot;.</p>
+
+<p>The options are:</p>
+
+<p>URL The URL where tarball should be uploaded.</p>
+
+<p>Integration with ABRT events reporter-upload can be used
+as a reporter, to allow users to upload compressed tarballs
+of dump directiories to a configured URL. This usage can be
+configured in /etc/libreport/report_event.conf:</p>
+
+<p>EVENT=report_Upload reporter-upload</p>
+
+<p>It can be also used on the post-create event to upload
+it automatically.</p>
+
+<p>EVENT=post-create reporter-upload</p>
+
+<p>OPTIONS -d DIR Path to dump directory.</p>
+
+<p>-c CONFFILE Path to configration file. When used in ABRT
+event system, the file contains site-wide configuration.
+Users can change the values via environment variables.</p>
+
+<p>-u URL The URL where tarball should be uploaded.</p>
+
+<p>ENVIRONMENT VARIABLES Environment variables take
+precedence over values provided in the configuration
+file.</p>
+
+<p>Upload_URL The URL where should be the tarball
+uploaded.</p>
+
+<p>AUTHORS &middot; ABRT team</p>
+
+<p>LIBREPORT 2.0.5 10/26/2011 REPORTER-UPLOAD(1)</p>
+<hr>
+</body>
+</html>

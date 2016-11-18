@@ -1,0 +1,256 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 04:04:32 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>httpd_sys_scripSELinuxuPolicy documentation for
+htthttpd_sys_script_selinux(8)</p>
+
+<p>NAME httpd_sys_script_selinux - Security Enhanced Linux
+Policy for the httpd_sys_script processes</p>
+
+<p>DESCRIPTION Security-Enhanced Linux secures the
+httpd_sys_script processes via flexible mandatory access
+control.</p>
+
+<p>The httpd_sys_script processes execute with the
+httpd_sys_script_t SELinux type. You can check if you have
+these processes running by exe- cuting the ps command with
+the -Z qualifier.</p>
+
+<p>For example:</p>
+
+<p>ps -eZ | grep httpd_sys_script_t</p>
+
+<p>ENTRYPOINTS The httpd_sys_script_t SELinux type can be
+entered via the
+&quot;shell_exec_t,httpd_sys_script_exec_t,httpd_sys_con-
+tent_t,cifs_t,nfs_t,httpd_sys_script_exec_t,httpd_sys_content_t,httpd-
+content&quot; file types. The default entrypoint paths for
+the httpd_sys_script_t domain are the following:&quot;</p>
+
+<p>/bin/d?ash, /bin/zsh.*, /bin/ksh.*, /bin/yash,
+/bin/mksh, /bin/sash, /bin/tcsh, /bin/bash, /bin/fish,
+/bin/bash2, /usr/bin/fish, /sbin/nolo- gin, /usr/sbin/sesh,
+/usr/sbin/smrsh, /usr/bin/scponly, /usr/libexec/sesh,
+/usr/sbin/scponlyc, /usr/bin/git-shell,
+/usr/libexec/git-core/git-shell,
+/var/www/[^/]*/cgi-bin(/.*)?, /var/www/perl(/.*)?,
+/var/www/html/[^/]*/cgi-bin(/.*)?, /usr/lib/cgi- bin(/.*)?,
+/var/www/cgi-bin(/.*)?, /var/www/svn/hooks(/.*)?,
+/usr/share/wordpress/.*.php,
+/usr/share/wordpress/wp-includes/.*.php,
+/usr/share/mythtv/mythweather/scripts(/.*)?,
+/usr/share/mythweb/myth- web.pl,
+/usr/share/wordpress-mu/wp-config.php,
+/srv/([^/]*/)?www(/.*)?, /var/www(/.*)?, /etc/htdig(/.*)?,
+/srv/gallery2(/.*)?, /var/lib/trac(/.*)?,
+/var/lib/htdig(/.*)?, /var/www/icons(/.*)?,
+/usr/share/htdig(/.*)?, /usr/share/drupal.*,
+/var/www/svn/conf(/.*)?, /usr/share/icecast(/.*)?,
+/usr/share/mythweb(/.*)?, /var/lib/cacti/rra(/.*)?,
+/usr/share/ntop/html(/.*)?, /var/lib/graphite-web(/.*),
+/usr/share/mythtv/data(/.*)?,
+/usr/share/openca/htdocs(/.*)?, /usr/share/selinux-pol-
+icy[^/]*/html(/.*)?, /var/www/[^/]*/cgi-bin(/.*)?,
+/var/www/perl(/.*)?, /var/www/html/[^/]*/cgi-bin(/.*)?,
+/usr/lib/cgi-bin(/.*)?, /var/www/cgi-bin(/.*)?,
+/var/www/svn/hooks(/.*)?, /usr/share/word- press/.*.php,
+/usr/share/wordpress/wp-includes/.*.php,
+/usr/share/mythtv/mythweather/scripts(/.*)?,
+/usr/share/mythweb/myth- web.pl,
+/usr/share/wordpress-mu/wp-config.php,
+/srv/([^/]*/)?www(/.*)?, /var/www(/.*)?, /etc/htdig(/.*)?,
+/srv/gallery2(/.*)?, /var/lib/trac(/.*)?,
+/var/lib/htdig(/.*)?, /var/www/icons(/.*)?,
+/usr/share/htdig(/.*)?, /usr/share/drupal.*,
+/var/www/svn/conf(/.*)?, /usr/share/icecast(/.*)?,
+/usr/share/mythweb(/.*)?, /var/lib/cacti/rra(/.*)?,
+/usr/share/ntop/html(/.*)?, /var/lib/graphite-web(/.*),
+/usr/share/mythtv/data(/.*)?,
+/usr/share/openca/htdocs(/.*)?, /usr/share/selinux-pol-
+icy[^/]*/html(/.*)?</p>
+
+<p>PROCESS TYPES SELinux defines process types (domains)
+for each process running on the system</p>
+
+<p>You can see the context of a process using the -Z option
+to ps</p>
+
+<p>Policy governs the access confined processes have to
+files. SELinux httpd_sys_script policy is very flexible
+allowing users to setup their httpd_sys_script processes in
+as secure a method as possible.</p>
+
+<p>The following process types are defined for
+httpd_sys_script:</p>
+
+<p>httpd_sys_script_t</p>
+
+<p>Note: semanage permissive -a httpd_sys_script_t</p>
+
+<p>can be used to make the process type httpd_sys_script_t
+permissive. Permissive process types are not denied access
+by SELinux. AVC messages will still be generated.</p>
+
+<p>BOOLEANS SELinux policy is customizable based on least
+access required. httpd_sys_script policy is extremely
+flexible and has several booleans that allow you to
+manipulate the policy and run httpd_sys_script with the
+tightest access possible.</p>
+
+<p>If you want to allow apache scripts to write to public
+content. Direc- tories/Files must be labeled
+public_rw_content_t, you must turn on the
+allow_httpd_sys_script_anon_write boolean.</p>
+
+<p>setsebool -P allow_httpd_sys_script_anon_write 1</p>
+
+<p>SHARING FILES If you want to share files with multiple
+domains (Apache, FTP, rsync, Samba), you can set a file
+context of public_content_t and public_con- tent_rw_t. These
+context allow any of the above domains to read the content.
+If you want a particular domain to write to the public_con-
+tent_rw_t domain, you must set the appropriate boolean.</p>
+
+<p>Allow httpd_sys_script servers to read the
+/var/httpd_sys_script direc- tory by adding the
+public_content_t file type to the directory and by restoring
+the file type.</p>
+
+<p>semanage fcontext -a -t public_content_t
+&quot;/var/httpd_sys_script(/.*)?&quot; restorecon -F -R -v
+/var/httpd_sys_script</p>
+
+<p>Allow httpd_sys_script servers to read and write
+/var/tmp/incoming by adding the public_content_rw_t type to
+the directory and by restoring the file type. This also
+requires the allow_httpd_sys_scriptd_anon_write boolean to
+be set.</p>
+
+<p>semanage fcontext -a -t public_content_rw_t
+&quot;/var/httpd_sys_script/incoming(/.*)?&quot; restorecon
+-F -R -v /var/httpd_sys_script/incoming</p>
+
+<p>If you want to allow apache scripts to write to public
+content. Direc- tories/Files must be labeled
+public_rw_content_t., you must turn on the
+allow_httpd_sys_script_anon_write boolean.</p>
+
+<p>setsebool -P allow_httpd_sys_script_anon_write 1</p>
+
+<p>FILE CONTEXTS SELinux requires files to have an extended
+attribute to define the file type.</p>
+
+<p>You can see the context of a file using the -Z option to
+ls</p>
+
+<p>Policy governs the access confined processes have to
+these files. SELinux httpd_sys_script policy is very
+flexible allowing users to setup their httpd_sys_script
+processes in as secure a method as possi- ble.</p>
+
+<p>The following file types are defined for
+httpd_sys_script:</p>
+
+<p>httpd_sys_script_exec_t</p>
+
+<p>- Set files with the httpd_sys_script_exec_t type, if
+you want to tran- sition an executable to the
+httpd_sys_script_t domain.</p>
+
+<p>Note: File context can be temporarily modified with the
+chcon command. If you want to permanently change the file
+context you need to use the semanage fcontext command. This
+will modify the SELinux labeling database. You will need to
+use restorecon to apply the labels.</p>
+
+<p>MANAGED FILES The SELinux process type
+httpd_sys_script_t can manage files labeled with the
+following file types. The paths listed are the default paths
+for these file types. Note the processes UID still need to
+have DAC permissions.</p>
+
+<p>httpd_sys_rw_content_t</p>
+
+<p>/etc/drupal.* /var/lib/svn(/.*)? /var/www/svn(/.*)?
+/etc/dokuwiki(/.*)? /var/lib/koji(/.*)? /etc/mock/koji(/.*)?
+/var/www/html/[^/]*/sites/default/files(/.*)?
+/var/www/html/[^/]*/sites/default/settings.php
+/var/lib/drupal.* /etc/zabbix/web(/.*)?
+/var/log/z-push(/.*)? /var/spool/gosa(/.*)?
+/var/spool/viewvc(/.*)? /var/www/moodledata(/.*)?
+/var/www/gallery/albums(/.*)?
+/usr/share/wordpress-mu/wp-content(/.*)?
+/usr/share/wordpress/wp-content/uploads(/.*)?
+/usr/share/wordpress/wp-content/upgrade(/.*)?
+/var/www/html/configuration.php</p>
+
+<p>httpd_tmp_t</p>
+
+<p>httpdcontent</p>
+
+<p>initrc_tmp_t</p>
+
+<p>mnt_t</p>
+
+<p>/mnt(/[^/]*) /mnt(/[^/]*)? /rhev(/[^/]*)? /media(/[^/]*)
+/media(/[^/]*)? /etc/rhgb(/.*)? /media/.hal-.* /net /afs
+/misc /rhev</p>
+
+<p>tmp_t</p>
+
+<p>/tmp /usr/tmp /var/tmp /var/tmp/vi.recover</p>
+
+<p>COMMANDS semanage fcontext can also be used to
+manipulate default file context mappings.</p>
+
+<p>semanage permissive can also be used to manipulate
+whether or not a process type is permissive.</p>
+
+<p>semanage module can also be used to
+enable/disable/install/remove pol- icy modules.</p>
+
+<p>semanage boolean can also be used to manipulate the
+booleans</p>
+
+<p>system-config-selinux is a GUI tool available to
+customize SELinux pol- icy settings.</p>
+
+<p>AUTHOR This manual page was auto-generated using
+sepolicy manpage by mgrepl.</p>
+
+<p>SEE ALSO selinux(8), httpd_sys_script(8), semanage(8),
+restorecon(8), chcon(1), sepolicy(8) , setsebool(8),
+httpd_selinux(8), httpd_selinux(8),
+httpd_apcupsd_cgi_script_selinux(8),
+httpd_awstats_script_selinux(8),
+httpd_bugzilla_script_selinux(8),
+httpd_cobbler_script_selinux(8),
+httpd_cvs_script_selinux(8),
+httpd_dirsrvadmin_script_selinux(8),
+httpd_dspam_script_selinux(8), httpd_git_script_selinux(8),
+httpd_helper_selinux(8), httpd_mediawiki_script_selinux(8),
+httpd_munin_script_selinux(8),
+httpd_nagios_script_selinux(8),
+httpd_nutups_cgi_script_selinux(8),
+httpd_openshift_script_selinux(8), httpd_php_selinux(8),
+httpd_prewikka_script_selinux(8), httpd_rotatel-
+ogs_selinux(8), httpd_smokeping_cgi_script_selinux(8),
+httpd_squid_script_selinux(8), httpd_suexec_selinux(8),
+httpd_uncon- fined_script_selinux(8),
+httpd_user_script_selinux(8), httpd_w3c_val-
+idator_script_selinux(8)</p>
+
+<p>httpd_sys_script 13-01-04
+httpd_sys_script_selinux(8)</p>
+<hr>
+</body>
+</html>

@@ -1,0 +1,388 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 04:07:54 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>LVCONVERT(8) LVCONVERT(8)</p>
+
+<p>NAME lvconvert - convert a logical volume from linear to
+mirror or snapshot</p>
+
+<p>SYNOPSIS lvconvert -m|--mirrors Mirrors [--mirrorlog
+{disk|core|mirrored}] [--corelog] [-R|--regionsize
+MirrorLogRegionSize] [--type SegmentType] [-A|--alloc
+AllocationPolicy] [-b|--background] [-f|--force]
+[-i|--interval Seconds] [-h|-?|--help] [--stripes Stripes
+[-I|--stripe- size StripeSize]] [--noudevsync]
+[-v|--verbose] [-y|--yes] [--version] LogicalVolume[Path]
+[PhysicalVolume[Path][:PE[-PE]]...]</p>
+
+<p>lvconvert --splitmirrors Images [--name
+SplitLogicalVolumeName] [--trackchanges]
+MirrorLogicalVolume[Path] [SplittablePhysicalVol-
+ume[Path][:PE[-PE]]...]</p>
+
+<p>lvconvert -s|--snapshot [-c|--chunksize
+ChunkSize[bBsSkK]] [-h|-?|--help] [--noudevsync]
+[-v|--verbose] [-Z|--zero {y|n}] [--ver- sion]
+OriginalLogicalVolume[Path] SnapshotLogicalVolume[Path]</p>
+
+<p>lvconvert --merge [-b|--background] [-i|--interval
+Seconds] [-h|-?|--help] [-v|--verbose] [--version]
+LogicalVolume[Path]...</p>
+
+<p>lvconvert --repair [-h|-?|--help] [--stripes Stripes
+[-I|--stripesize StripeSize]] [-v|--verbose] [--version]
+LogicalVolume[Path] [Physi- calVolume[Path]...]</p>
+
+<p>lvconvert --replace PhysicalVolume [-h|-?|--help]
+[-v|--verbose] [--version] LogicalVolume[Path]
+[PhysicalVolume[Path]...]</p>
+
+<p>lvconvert --thinpool ThinPoolLogicalVolume{Name|Path}
+[-c|--chunksize ChunkSize[bBsSkKmMgG]] [--discards
+{ignore|nopassdown|passdown}] [[--poolmetadata
+ThinPoolMetadataLogicalVolume{Name|Path}] | [--pool-
+metadatasize ThinPoolMetadataSize[bBsSkKmMgG]]
+[-r|--readahead {ReadA- headSectors|auto|none}] [--stripes
+Stripes [-I|--stripesize Stripe- Size]]] [-Z|--zero {y|n}]
+[-T|--thin ExternalOriginLogicalVol- ume{Name|Path}
+[--originname NewExternalOriginVolumeName]] [Physi-
+calVolume[Path][:PE[-PE]]...] [-h|-?|--help] [-v|--verbose]
+[--ver- sion]</p>
+
+<p>DESCRIPTION lvconvert is used to change the segment type
+(i.e. linear, mirror, etc) or characteristics of a logical
+volume. For example, it can add or remove the redundant
+images of a logical volume, change the log type of a mirror,
+or designate a logical volume as a snapshot repository. If
+the conversion requires allocation of physical extents (for
+example, when converting from linear to mirror) and you
+specify one or more PhysicalVolumes (optionally with ranges
+of physical extents), alloca- tion of physical extents will
+be restricted to these physical extents. If the conversion
+frees physical extents (for example, when converting from a
+mirror to a linear, or reducing mirror legs) and you specify
+one or more PhysicalVolumes, the freed extents come first
+from the speci- fied PhysicalVolumes.</p>
+
+<p>OPTIONS See lvm(8) for common options. Exactly one of
+--merge, --mirrors, --repair, --replace, --snapshot,
+--splitmirrors or --thinpool arguments is required.</p>
+
+<p>-b, --background Run the daemon in the background.</p>
+
+<p>-m, --mirrors Mirrors Specifies the degree of the mirror
+you wish to create. For example, &quot;-m 1&quot; would
+convert the original logical volume to a mirror volume with
+2-sides; that is, a linear volume plus one copy.</p>
+
+<p>--mirrorlog {disk|core|mirrored} Specifies the type of
+log to use. The default is disk, which is persistent and
+requires a small amount of storage space, usually on a
+separate device from the data being mirrored. Core may be
+useful for short-lived mirrors: It means the mirror is
+regener- ated by copying the data from the first device
+again every time the device is activated - perhaps, for
+example, after every reboot. Using mirrored will create a
+persistent log that is itself mirrored.</p>
+
+<p>--corelog The optional argument --corelog is the same as
+specifying --mir- rorlog core.</p>
+
+<p>-R, --regionsize MirrorLogRegionSize A mirror is divided
+into regions of this size (in MB), and the mirror log uses
+this granularity to track which regions are in sync.</p>
+
+<p>--type SegmentType Used to convert a logical volume to
+another segment type or to explicitly state the desired
+RAID1 segment type (mirror or raid1) when converting a
+linear logical volume to a mirror with the -m argument.</p>
+
+<p>-i, --interval Seconds Report progress as a percentage
+at regular intervals.</p>
+
+<p>--noudevsync Disables udev synchronisation. The process
+will not wait for notification from udev. It will continue
+irrespective of any possible udev processing in the
+background. You should only use this if udev is not running
+or has rules that ignore the devices LVM2 creates.</p>
+
+<p>--splitmirrors Images The number of redundant Images of
+a mirror to be split off and used to form a new logical
+volume. A name must be supplied for the newly-split-off
+logical volume using the --name argument, unless the
+--trackchanges argument is given.</p>
+
+<p>-n, --name Name The name to apply to a logical volume
+which has been split off from a mirror logical volume.</p>
+
+<p>--trackchanges Used with --splitmirrors on a raid1
+device, this tracks changes so that the read-only detached
+image can be merged efficiently back into the mirror later.
+Only the regions of the detatched device where the data
+changed get resynchronized.</p>
+
+<p>Please note that this feature is only supported with the
+new md- based mirror implementation and not with the
+original device- mapper mirror implementation.</p>
+
+<p>-s, --snapshot Creates a snapshot from existing logical
+volume using another existing logical volume as its
+origin.</p>
+
+<p>-c, --chunksize ChunkSize[bBsSkKmMgG] Gives the size of
+chunk for snapshot and thin pool logical vol- umes. Default
+unit is in kilobytes. For snapshots the value must be power
+of 2 between 4KiB and 512KiB and the default value is 4. For
+thin pools the value must be between 64KiB and 1GiB and the
+default value starts with 64 and scales up to fit the pool
+meta- data size within 128MiB, if the pool metadata size is
+not speci- fied. The value must be a multiple of 64KiB.
+(Early kernel support until thin target version 1.4 required
+the value to be a power of 2. Discards weren t supported for
+non-power of 2 val- ues until thin target version 1.5.)
+Default unit is in kilo- bytes.</p>
+
+<p>--discards {ignore|nopassdown|passdown} Specifies
+whether or not discards will be processed by the thin layer
+in the kernel and passed down to the Physical Volume.
+Default is passdown.</p>
+
+<p>-Z, --zero {y|n} Controls zeroing of the first KB of
+data in the snapshot. If the volume is read-only the
+snapshot will not be zeroed. For thin pool volumes it
+controls zeroing of provisioned blocks. Note: Provisioning
+of large zeroed chunks impacts performance.</p>
+
+<p>--merge Merges a snapshot into its origin volume or
+merges a raid1 image that has been split from its mirror
+with --trackchanges back into its mirror.</p>
+
+<p>To check if your kernel supports the snapshot merge
+feature, look for snapshot-merge in the output of dmsetup
+targets. If both the origin and snapshot volume are not open
+the merge will start immediately. Otherwise, the merge will
+start the first time either the origin or snapshot are
+activated and both are closed. Merging a snapshot into an
+origin that cannot be closed, for example a root filesystem,
+is deferred until the next time the origin volume is
+activated. When merging starts, the resulting logical volume
+will have the origins name, minor number and UUID. While the
+merge is in progress, reads or writes to the origin appear
+as they were directed to the snap- shot being merged. When
+the merge finishes, the merged snapshot is removed. Multiple
+snapshots may be specified on the command- line or a @tag
+may be used to specify multiple snapshots be merged to their
+respective origin.</p>
+
+<p>--originname NewExternalOriginVolumeName The new name
+for original logical volume, which becomes external origin
+volume. Without this option a default names of
+&quot;lvol#&quot; will be generated where # is the LVM
+internal number of the logical volume. This volume will be
+read-only and cannot be further modified as long, as it is
+being used as external origin.</p>
+
+<p>--poolmetadata ThinPoolMetadataLogicalVolume{Name|Path}
+Specifies thin pool metadata logical volume. The size should
+be in between 2MiB and 16GiB. Thin pool is specified with
+the option --thinpool. When the specified thin pool already
+exists, the thin pools metadata volume will be swapped with
+the given LV. Properties of the thin pool like chunk size,
+discards or zero are preserved by default in this case. It
+can be useful for thin pool metadata repair or its offline
+resize, since the content of metadata becomes accessible for
+thin provisioning tools thin_dump(8) and
+thin_restore(8).</p>
+
+<p>--poolmetadatasize ThinPoolMetadataSize[bBsSkKmMgG] Sets
+the size of thin pools metadata logical volume, if the pool
+metadata volume is undefined. Thin pool is specified with
+the option --thinpool. Supported value is in the range
+between 2MiB and 16GiB. The default value is estimated with
+this for- mula (Pool_LV_size / Pool_LV_chunk_size * 64b).
+Default unit is megabytes.</p>
+
+<p>-r, --readahead {ReadAheadSectors|auto|none} Sets read
+ahead sector count of thin pool metadata logical vol- ume.
+The default value is &quot;auto&quot; which allows the
+kernel to choose a suitable value automatically.
+&quot;None&quot; is equivalent to specifying zero.</p>
+
+<p>--repair Repair a mirror after suffering a disk failure.
+The mirror will be brought back into a consistent state. By
+default, the origi- nal number of mirrors will be restored
+if possible. Specify -y on the command line to skip the
+prompts. Use -f if you do not want any replacement.
+Additionally, you may use --use-policies to use the device
+replacement policy specified in lvm.conf(5), viz.
+activation/mirror_log_fault_policy or activation/mir-
+ror_device_fault_policy.</p>
+
+<p>--replace PhysicalVolume Remove the specified device
+(PhysicalVolume) and replace it with one that is available
+in the volume group or from the specific list provided. This
+option is only available to RAID segment types (e.g.
+&quot;raid1&quot;, &quot;raid5&quot;, etc).</p>
+
+<p>--stripes Stripes Gives the number of stripes. This is
+equal to the number of physical volumes to scatter the
+logical volume. This does not apply to existing allocated
+space, only newly allocated space can be striped.</p>
+
+<p>-I, --stripesize StripeSize Gives the number of
+kilobytes for the granularity of the stripes. StripeSize
+must be 2^n (n = 2 to 9) for metadata in LVM1 format. For
+metadata in LVM2 format, the stripe size may be a larger
+power of 2 but must not exceed the physical extent size.</p>
+
+<p>-T, --thin ExternalOriginLogicalVolume{Name|Path}
+Converts the logical volume into a thin logical volume of
+the thin pool specified with --thinpool. The original
+logical volume ExternalOriginLogicalVolume is renamed into a
+new read-only log- ical volume. The non-default name for
+this volume use --origin- name. The volume cannot be further
+modified as long as it is used as an external origin volume
+for unprovisioned areas of any thin logical volume.</p>
+
+<p>--thinpool ThinPoolLogicalVolume{Name|Path} Changes
+logical volume into a thin pool volume. The volume will
+store the pools data. Thin pool metadata logical volume can
+be specified with the option --poolmetadata or allocated
+with --poolmetadatasize.</p>
+
+<p>Examples Converts the linear logical volume
+&quot;vg00/lvol1&quot; to a two-way mirror logical
+volume:</p>
+
+<p>lvconvert -m1 vg00/lvol1</p>
+
+<p>Converts the linear logical volume
+&quot;vg00/lvol1&quot; to a two-way RAID1 log- ical
+volume:</p>
+
+<p>lvconvert --type raid1 -m1 vg00/lvol1</p>
+
+<p>Converts a mirror with a disk log to a mirror with an
+in-memory log:</p>
+
+<p>lvconvert --mirrorlog core vg00/lvol1</p>
+
+<p>Converts a mirror with an in-memory log to a mirror with
+a disk log:</p>
+
+<p>lvconvert --mirrorlog disk vg00/lvol1</p>
+
+<p>Converts a mirror logical volume to a linear logical
+volume:</p>
+
+<p>lvconvert -m0 vg00/lvol1</p>
+
+<p>Converts a mirror logical volume to a RAID1 logical
+volume with the same number of images:</p>
+
+<p>lvconvert --type raid1 vg00/mirror_lv</p>
+
+<p>Converts logical volume &quot;vg00/lvol2&quot; to
+snapshot of original volume &quot;vg00/lvol1&quot;:</p>
+
+<p>lvconvert -s vg00/lvol1 vg00/lvol2</p>
+
+<p>Converts linear logical volume &quot;vg00/lvol1&quot; to
+a two-way mirror, using physical extents /dev/sda:0-15 and
+/dev/sdb:0-15 for allocation of new extents:</p>
+
+<p>lvconvert -m1 vg00/lvol1 /dev/sda:0-15 /dev/sdb:0-15</p>
+
+<p>Converts mirror logical volume
+&quot;vg00/lvmirror1&quot; to linear, freeing physical
+extents from /dev/sda:</p>
+
+<p>lvconvert -m0 vg00/lvmirror1 /dev/sda</p>
+
+<p>Merges &quot;vg00/lvol1_snap&quot; into its origin:</p>
+
+<p>lvconvert --merge vg00/lvol1_snap</p>
+
+<p>If &quot;vg00/lvol1&quot;, &quot;vg00/lvol2&quot; and
+&quot;vg00/lvol3&quot; are all tagged with
+&quot;some_tag&quot; each snapshot logical volume will be
+merged serially, e.g.: &quot;vg00/lvol1&quot;, then
+&quot;vg00/lvol2&quot;, then &quot;vg00/lvol3&quot;. If
+--background were used it would start all snapshot logical
+volume merges in paral- lel.</p>
+
+<p>lvconvert --merge @some_tag</p>
+
+<p>Extracts one image from the mirror, making it a new
+logical volume named &quot;lv_split&quot;. The mirror the
+image is extracted from is reduced accordingly. If it was a
+2-way mirror (created with -m 1 ), then the resulting
+original volume will be linear.</p>
+
+<p>lvconvert --splitmirrors 1 --name lv_split
+vg00/lvmirror1</p>
+
+<p>A mirrored logical volume created with --type raid1 can
+use the --trackchanges argument when splitting off an image.
+Detach one image from the mirrored logical volume lv_raid1
+as a separate read-only device and track the changes made to
+the mirror while it is detached. The split-off device has a
+name of the form lv_raid1_rimage_N, where N is a number, and
+it cannot be renamed.</p>
+
+<p>lvconvert --splitmirrors 1 --trackchanges
+vg00/lv_raid1</p>
+
+<p>Merge an image that was detached temporarily from its
+mirror with the --trackchanges argument back into its
+original mirror and bring its contents back up-to-date.</p>
+
+<p>lvconvert --merge vg00/lv_raid1_rimage_1</p>
+
+<p>Replaces the physical volume &quot;/dev/sdb1&quot; in
+the RAID1 logical volume &quot;my_raid1&quot; with the
+specified physical volume &quot;/dev/sdf1&quot;. Had the
+argument &quot;/dev/sdf1&quot; been left out, lvconvert
+would attempt to find a suitable device from those available
+in the volume group.</p>
+
+<p>lvconvert --replace /dev/sdb1 vg00/my_raid1
+/dev/sdf1</p>
+
+<p>Convert the logical volume &quot;vg00/lvpool&quot; into
+a thin pool with chunk size 128KiB and convert
+&quot;vg00/lv1&quot; into a thin volume using this pool.
+Original &quot;vg00/lv1&quot; is used as an external
+read-only origin, where all writes to such volume are stored
+in the &quot;vg00/lvpool&quot;.</p>
+
+<p>lvconvert --thinpool vg00/lvpool -c 128 -T lv1</p>
+
+<p>Convert the logical volume &quot;vg00/origin&quot; into
+a thin volume from the thin pool &quot;vg00/lvpool&quot;.
+This thin volume will use &quot;vg00/origin&quot; as an
+external origin volume for unprovisioned areas in this
+volume. For the read-only external origin use the new name
+&quot;vg00/external&quot;.</p>
+
+<p>lvconvert --thinpool vg00/lvpool --originname external
+-T vg00/origin</p>
+
+<p>SEE ALSO lvm(8), lvm.conf(5), lvdisplay(8), lvextend(8),
+lvreduce(8), lvre- move(8), lvrename(8), lvscan(8),
+vgcreate(8), thin_dump(8), thin_restore(8)</p>
+
+<p>Red Hat, Inc LVM TOOLS 2.02.100(2)-RHEL6 (2013-10-23)
+LVCONVERT(8)</p>
+<hr>
+</body>
+</html>

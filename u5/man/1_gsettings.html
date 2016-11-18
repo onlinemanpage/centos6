@@ -1,0 +1,64 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 04:03:35 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>GSETTINGS(1) User Commands GSETTINGS(1)</p>
+
+<p>NAME gsettings - GSettings configuration tool</p>
+
+<p>SYNOPSIS gsettings get [option...] {schema} {key}</p>
+
+<p>gsettings monitor [option...] {schema} {key}</p>
+
+<p>gsettings writable [option...] {schema} {key}</p>
+
+<p>gsettings set [option...] {schema} {key} {value}</p>
+
+<p>gsettings help</p>
+
+<p>DESCRIPTION gsettings offers a simple commandline
+interface to GSettings. It lets you get, set or monitor an
+individual key for changes.</p>
+
+<p>The schema and key arguments are required to specify the
+schema id and the name of the key to operate on.</p>
+
+<p>When setting a key, you also need specify a value The
+format for the value is that of a serialized GVariant, so
+e.g. a string must include explicit quotes:
+&quot;&rsquo;foo&rsquo;&quot;. This format is also used when
+printing out values.</p>
+
+<p>Commands get Get the value of key. The value is printed
+out as a serialised GVariant.</p>
+
+<p>monitor Monitor key for changes and print the changed
+values. Monitoring will continue until the process is
+terminated.</p>
+
+<p>writable Find out whether key is writable.</p>
+
+<p>set Set the value of key to value. The value is
+specified as a serialised GVariant.</p>
+
+<p>help Print help and exit</p>
+
+<p>Options -h, --help Print help for the command and
+exit</p>
+
+<p>-p path, --path=path The path for the schema. This
+option is only needed if the schema does not have a fixed
+path.</p>
+
+<p>User Commands 11/14/2010 GSETTINGS(1)</p>
+<hr>
+</body>
+</html>

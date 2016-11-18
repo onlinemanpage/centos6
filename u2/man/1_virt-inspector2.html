@@ -1,0 +1,274 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 05:23:12 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>virt-inspector2(1) Virtualization Support
+virt-inspector2(1)</p>
+
+<p>NAME virt-inspector2 - Display operating system version
+and other information about a virtual machine</p>
+
+<p>SYNOPSIS virt-inspector2 [--options] -d domname</p>
+
+<p>virt-inspector2 [--options] -a disk.img [-a disk.img
+...]</p>
+
+<p>Old-style:</p>
+
+<p>virt-inspector2 domname</p>
+
+<p>virt-inspector2 disk.img [disk.img ...]</p>
+
+<p>DESCRIPTION virt-inspector2 examines a virtual machine
+or disk image and tries to determine the version of the
+operating system and other information about the virtual
+machine.</p>
+
+<p>Virt-inspector2 produces XML output for feeding into
+other programs.</p>
+
+<p>In the normal usage, use &quot;virt-inspector2 -d
+domname&quot; where &quot;domname&quot; is the libvirt
+domain (see: &quot;virsh list --all&quot;).</p>
+
+<p>You can also run virt-inspector2 directly on disk images
+from a single virtual machine. Use &quot;virt-inspector2 -a
+disk.img&quot;. In rare cases a domain has several block
+devices, in which case you should list several -a options
+one after another, with the first corresponding to the
+guests &quot;/dev/sda&quot;, the second to the guests
+&quot;/dev/sdb&quot; and so on.</p>
+
+<p>Virt-inspector2 can only inspect and report upon one
+domain at a time. To inspect several virtual machines, you
+have to run virt-inspector2 several times (for example, from
+a shell script for-loop).</p>
+
+<p>Because virt-inspector2 needs direct access to guest
+images, it wont normally work over remote libvirt
+connections.</p>
+
+<p>OPTIONS --help Display brief help.</p>
+
+<p>-a file --add file Add file which should be a disk image
+from a virtual machine. If the virtual machine has multiple
+block devices, you must supply all of them with separate -a
+options.</p>
+
+<p>The format of the disk image is auto-detected. To
+override this and force a particular format use the
+--format=.. option.</p>
+
+<p>-c URI --connect URI If using libvirt, connect to the
+given URI. If omitted, then we connect to the default
+libvirt hypervisor.</p>
+
+<p>Libvirt is only used if you specify a
+&quot;domname&quot; on the command line. If you specify
+guest block devices directly (-a), then libvirt is not used
+at all.</p>
+
+<p>-d guest --domain guest Add all the disks from the named
+libvirt guest.</p>
+
+<p>--echo-keys When prompting for keys and passphrases,
+virt-inspector2 normally turns echoing off so you cannot see
+what you are typing. If you are not worried about Tempest
+attacks and there is no one else in the room you can specify
+this flag to see what you are typing.</p>
+
+<p>--format=raw|qcow2|.. --format Specify the format of
+disk images given on the command line. If this is omitted
+then the format is autodetected from the content of the disk
+image.</p>
+
+<p>If disk images are requested from libvirt, then this
+program asks libvirt for this information. In this case, the
+value of the format parameter is ignored.</p>
+
+<p>If working with untrusted raw-format guest disk images,
+you should ensure the format is always specified.</p>
+
+<p>--keys-from-stdin Read key or passphrase parameters from
+stdin. The default is to try to read passphrases from the
+user by opening &quot;/dev/tty&quot;.</p>
+
+<p>-v --verbose Enable verbose messages for debugging.</p>
+
+<p>-V --version Display version number and exit.</p>
+
+<p>-x Enable tracing of libguestfs API calls.</p>
+
+<p>OLD-STYLE COMMAND LINE ARGUMENTS Previous versions of
+virt-inspector2 allowed you to write either:</p>
+
+<p>virt-inspector2 disk.img [disk.img ...]</p>
+
+<p>or</p>
+
+<p>virt-inspector2 guestname</p>
+
+<p>whereas in this version you should use -a or -d
+respectively to avoid the confusing case where a disk image
+might have the same name as a guest.</p>
+
+<p>For compatibility the old style is still supported.</p>
+
+<p>XML FORMAT The virt-inspector2 XML is described
+precisely in a RELAX NG schema which is supplied with
+libguestfs. This section is just an overview.</p>
+
+<p>The top-level element is &lt;operatingsystems&gt;, and
+it contains one or more &lt;operatingsystem&gt; elements.
+You would only see more than one &lt;operatingsystem&gt;
+element if the virtual machine is multi-boot, which is
+vanishingly rare in real world VMs.</p>
+
+<p>&lt;operatingsystem&gt; In the &lt;operatingsystem&gt;
+tag are various optional fields that describe the operating
+system, its architecture, the descriptive &quot;product
+name&quot; string, the type of OS and so on, as in this
+example:</p>
+
+<p>&lt;operatingsystems&gt; &lt;operatingsystem&gt;
+&lt;root&gt;/dev/sda2&lt;/root&gt;
+&lt;name&gt;windows&lt;/name&gt;
+&lt;arch&gt;i386&lt;/arch&gt;
+&lt;distro&gt;windows&lt;/distro&gt;
+&lt;product_name&gt;Windows 7
+Enterprise&lt;/product_name&gt;
+&lt;major_version&gt;6&lt;/major_version&gt;
+&lt;minor_version&gt;1&lt;/minor_version&gt;
+&lt;windows_systemroot&gt;/Windows&lt;/windows_systemroot&gt;</p>
+
+<p>These fields are derived from the libguestfs inspection
+API, and you can find more details in &quot;INSPECTION&quot;
+in guestfs(3).</p>
+
+<p>The &lt;root&gt; element is the root filesystem device,
+but from the point of view of libguestfs (block devices may
+have completely different names inside the VM itself).</p>
+
+<p>&lt;mountpoints&gt; Un*x-like guests typically have
+multiple filesystems which are mounted at various
+mountpoints, and these are described in the
+&lt;mountpoints&gt; element which looks like this:</p>
+
+<p>&lt;operatingsystems&gt; &lt;operatingsystem&gt; ...
+&lt;mountpoints&gt; &lt;mountpoint
+dev=&quot;/dev/vg_f13x64/lv_root&quot;&gt;/&lt;/mountpoint&gt;
+&lt;mountpoint
+dev=&quot;/dev/sda1&quot;&gt;/boot&lt;/mountpoint&gt;
+&lt;/mountpoints&gt;</p>
+
+<p>As with &lt;root&gt;, devices are from the point of view
+of libguestfs, and may have completely different names
+inside the guest. Only mountable filesystems appear in this
+list, not things like swap devices.</p>
+
+<p>&lt;filesystems&gt; &lt;filesystems&gt; is like
+&lt;mountpoints&gt; but covers all filesystems belonging to
+the guest, including swap and empty partitions. (In the rare
+case of a multi-boot guest, it covers filesystems belonging
+to this OS or shared by this OS and other OSes).</p>
+
+<p>You might see something like this:</p>
+
+<p>&lt;operatingsystems&gt; &lt;operatingsystem&gt; ...
+&lt;filesystems&gt; &lt;filesystem
+dev=&quot;/dev/vg_f13x64/lv_root&quot;&gt;
+&lt;type&gt;ext4&lt;/type&gt;
+&lt;label&gt;Fedora-13-x86_64&lt;/label&gt;
+&lt;uuid&gt;e6a4db1e-15c2-477b-ac2a-699181c396aa&lt;/uuid&gt;
+&lt;/filesystem&gt;</p>
+
+<p>The optional elements within &lt;filesystem&gt; are the
+filesystem type, the label, and the UUID.</p>
+
+<p>&lt;applications&gt; The related elements
+&lt;package_format&gt;, &lt;package_management&gt; and
+&lt;applications&gt; describe applications installed in the
+virtual machine.</p>
+
+<p>&lt;package_format&gt;, if present, describes the
+packaging system used. Typical values would be
+&quot;rpm&quot; and &quot;deb&quot;.</p>
+
+<p>&lt;package_management&gt;, if present, describes the
+package manager. Typical values include &quot;yum&quot;,
+&quot;up2date&quot; and &quot;apt&quot;</p>
+
+<p>&lt;applications&gt; lists the packages or applications
+installed.</p>
+
+<p>&lt;operatingsystems&gt; &lt;operatingsystem&gt; ...
+&lt;applications&gt; &lt;application&gt;
+&lt;name&gt;coreutils&lt;/name&gt;
+&lt;version&gt;8.5&lt;/version&gt;
+&lt;release&gt;1&lt;/release&gt; &lt;/application&gt;</p>
+
+<p>The version and release fields may not be available for
+some types guests. Other fields are possible, see
+&quot;guestfs_inspect_list_applications&quot; in
+guestfs(3).</p>
+
+<p>USING XPATH You can use the XPath query language, and/or
+the xpath tool, in order to select parts of the XML.</p>
+
+<p>For example:</p>
+
+<p>$ virt-inspector2 -d Guest | xpath //filesystems Found 1
+nodes: -- NODE -- &lt;filesystems&gt; &lt;filesystem
+dev=&quot;/dev/vg_f13x64/lv_root&quot;&gt;
+&lt;type&gt;ext4&lt;/type&gt; [etc]</p>
+
+<p>$ virt-inspector2 -d Guest | xpath
+&quot;string(//filesystem[@dev=&rsquo;/dev/sda1&rsquo;]/type)&quot;
+Query didn&rsquo;t return a nodeset. Value: ext4</p>
+
+<p>SHELL QUOTING Libvirt guest names can contain arbitrary
+characters, some of which have meaning to the shell such as
+&quot;#&quot; and space. You may need to quote or escape
+these characters on the command line. See the shell manual
+page sh(1) for details.</p>
+
+<p>SEE ALSO guestfs(3), guestfish(1),
+&lt;http://www.w3.org/TR/xpath/&gt;,
+&lt;http://libguestfs.org/&gt;.</p>
+
+<p>AUTHORS &middot; Richard W.M. Jones
+&lt;http://people.redhat.com/~rjones/&gt;</p>
+
+<p>&middot; Matthew Booth mbooth@redhat.com</p>
+
+<p>COPYRIGHT Copyright (C) 2010 Red Hat Inc.</p>
+
+<p>This program is free software; you can redistribute it
+and/or modify it under the terms of the GNU General Public
+License as published by the Free Software Foundation; either
+version 2 of the License, or (at your option) any later
+version.</p>
+
+<p>This program is distributed in the hope that it will be
+useful, but WITHOUT ANY WARRANTY; without even the implied
+warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+PURPOSE. See the GNU General Public License for more
+details.</p>
+
+<p>You should have received a copy of the GNU General
+Public License along with this program; if not, write to the
+Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA
+02139, USA.</p>
+
+<p>libguestfs-1.7.17 2011-08-12 virt-inspector2(1)</p>
+<hr>
+</body>
+</html>

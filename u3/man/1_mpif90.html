@@ -1,0 +1,121 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 04:27:50 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>mpif90(1) MPI mpif90(1)</p>
+
+<p>NAME mpif90 - Compiles and links MPI programs written in
+Fortran 90</p>
+
+<p>DESCRIPTION This command can be used to compile and link
+MPI programs written in Fortran. It provides the options and
+any special libraries that are needed to compile and link
+MPI programs.</p>
+
+<p>It is important to use this command, particularly when
+linking pro- grams, as it provides the necessary
+libraries.</p>
+
+<p>COMMAND LINE ARGUMENTS -show - Show the commands that
+would be used without runnning them -help - Give short help
+-f90=name - Use compiler name instead of the default choice.
+Use this only if the compiler is compatible with the MPICH
+library (see below) -config=name - Load a configuration file
+for a particular compiler. This allows a single mpif90
+command to be used with multiple compil- ers. -compile_info
+- Show the steps for compiling a program. This option can be
+used to see what options and include paths are used by
+mpif90. -link_info - Show the steps for linking a program.
+This optoin can be used to see what options and libraries
+are used by mpif90. -profile=name - Use the MPI profiling
+given by name. See below for details -mpe=name - Use an MPE
+profiling library. The behavior is similar to using
+-profile=mpe_name.conf .</p>
+
+<p>-echo - Show exactly what this program is doing. This
+option should normally not be used. others - are passed to
+the compiler or linker. For example, -c causes files to be
+compiled, -g selects compilation with debugging on most
+systems, and -o name causes linking with the output exe-
+cutable given the name name .</p>
+
+<p>ENVIRONMENT VARIABLES The environment variables
+MPICH_F90 may be used to select different Fortran compiler
+and linker. Note that since MPICH is built with a particular
+C and Fortran compiler, change the compilers used can cause
+problems. Use this only if you could intermix code compiled
+with the different compilers.</p>
+
+<p>COMPATIBLE COMPILERS The MPI library may be used with
+any compiler that uses the same lengths for basic data
+objects (such as long double ) and that uses compatible
+run-time libraries. On many systems, the various compilers
+are compatible and may be used interchangably. There are
+exceptions; if you use the MPICH_F90 environment variable or
+the -f90=name command- line argument to override the choice
+of compiler and encounter prob- lems, try reconfiguring
+MPICH2 with the new compiler and installing MPICH2 in a
+separate location. See the installation manual for more
+details.</p>
+
+<p>EXAMPLES To compile a single file foo.f , use mpif90 -c
+foo.f</p>
+
+<p>To link the output and make an executable, use mpif90 -o
+foo foo.o</p>
+
+<p>Combining compilation and linking in a single command
+mpif90 -o foo foo.f</p>
+
+<p>is a convenient way to build simple programs.</p>
+
+<p>SELECTING A PROFILING LIBRARY The -profile=name argument
+allows you to specify an MPI profiling library to be used.
+name can have two forms:</p>
+
+<p>A library in the same directory as the MPI library The
+name of a profile configuration file</p>
+
+<p>If name is a library, then this library is included
+before the MPI library. This allows the simple use of
+libraries that make use of the MPI profiling interface and
+that are installed in the same directory as the MPI
+library.</p>
+
+<p>If name.conf is the name of a file in the sysconfdir
+directory, then this is read and may define the following
+variables: PROFILE_PRELIB - Libraries (and paths) to include
+before the MPI library PROFILE_POSTLIB - Libraries to
+include after the MPI library PROFILE_INCPATHS - C
+preprocessor arguments for any include files For example, to
+add /usr/local/myprof/include to the include path and the
+library libmyprof.a in /usr/local/myprof/lib to the link
+step, you could create the file myprof.conf with the
+lines</p>
+
+<p>PROFILE_PRELIB=&quot;-L/usr/local/myprof/lib
+-lmyprof&quot;
+PROFILE_INCPATHS=&quot;-I/usr/local/myprof/include&quot;</p>
+
+<p>and place it in the sysconfdir directory (this directory
+is set at configure time when MPICH is built). Then using
+the command- line argument -profile=myprof will cause these
+definitions to be added to the relevant compile
+commands.</p>
+
+<p>SEE ALSO mpicc, mpicxx, mpif90, mpiexec</p>
+
+<p>LOCATION mpif90.txt</p>
+
+<p>11/2/2007 mpif90(1)</p>
+<hr>
+</body>
+</html>

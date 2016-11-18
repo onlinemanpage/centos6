@@ -1,0 +1,218 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 04:46:17 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>samba_selinux(8) samba SELinux Policy documentation
+samba_selinux(8)</p>
+
+<p>NAME samba_selinux - Security Enhanced Linux Policy for
+the samba processes</p>
+
+<p>DESCRIPTION SELinux Linux secures samba ( SMB and CIFS
+client/server programs for UNIX and name Service Switch
+daemon for resolving names from Windows NT servers. )
+processes via flexible mandatory access control.</p>
+
+<p>BOOLEANS SELinux policy is customizable based on least
+access required. samba policy is extremely flexible and has
+several booleans that allow you to manipulate the policy and
+run samba with the tightest access possible.</p>
+
+<p>If you want to allow samba to act as the domain
+controller, add users, groups and change passwords, you must
+turn on the samba_domain_con- troller boolean.</p>
+
+<p>setsebool -P samba_domain_controller 1</p>
+
+<p>If you want to allow samba to share any file/directory
+read only, you must turn on the samba_export_all_ro
+boolean.</p>
+
+<p>setsebool -P samba_export_all_ro 1</p>
+
+<p>If you want to support SAMBA home directorie, you must
+turn on the use_samba_home_dirs boolean.</p>
+
+<p>setsebool -P use_samba_home_dirs 1</p>
+
+<p>If you want to allow samba to create new home
+directories (e.g. via PAM, you must turn on the
+samba_create_home_dirs boolean.</p>
+
+<p>setsebool -P samba_create_home_dirs 1</p>
+
+<p>If you want to allow samba to share users home
+directories, you must turn on the samba_enable_home_dirs
+boolean.</p>
+
+<p>setsebool -P samba_enable_home_dirs 1</p>
+
+<p>If you want to allow samba to export ntfs/fusefs
+volumes, you must turn on the samba_share_fusefs
+boolean.</p>
+
+<p>setsebool -P samba_share_fusefs 1</p>
+
+<p>If you want to allow samba to export NFS volumes, you
+must turn on the samba_share_nfs boolean.</p>
+
+<p>setsebool -P samba_share_nfs 1</p>
+
+<p>If you want to allow samba to run unconfined script, you
+must turn on the samba_run_unconfined boolean.</p>
+
+<p>setsebool -P samba_run_unconfined 1</p>
+
+<p>If you want to allow confined virtual guests to manage
+cifs file, you must turn on the sanlock_use_samba
+boolean.</p>
+
+<p>setsebool -P sanlock_use_samba 1</p>
+
+<p>If you want to allow samba to share any file/directory
+read/write, you must turn on the samba_export_all_rw
+boolean.</p>
+
+<p>setsebool -P samba_export_all_rw 1</p>
+
+<p>If you want to allow virt to manage cifs file, you must
+turn on the virt_use_samba boolean.</p>
+
+<p>setsebool -P virt_use_samba 1</p>
+
+<p>FILE CONTEXTS SELinux requires files to have an extended
+attribute to define the file type.</p>
+
+<p>You can see the context of a file using the -Z option to
+ls</p>
+
+<p>Policy governs the access confined processes have to
+these files. SELinux samba policy is very flexible allowing
+users to setup their samba processes in as secure a method
+as possible.</p>
+
+<p>The following file types are defined for samba:</p>
+
+<p>samba_etc_t</p>
+
+<p>- Set files with the samba_etc_t type, if you want to
+store samba files in the /etc directories.</p>
+
+<p>samba_initrc_exec_t</p>
+
+<p>- Set files with the samba_initrc_exec_t type, if you
+want to transi- tion an executable to the samba_initrc_t
+domain.</p>
+
+<p>Paths: /etc/rc.d/init.d/smb, /etc/rc.d/init.d/nmb,
+/etc/rc.d/init.d/win- bind</p>
+
+<p>samba_log_t</p>
+
+<p>- Set files with the samba_log_t type, if you want to
+treat the data as samba log data, usually stored under the
+/var/log directory.</p>
+
+<p>samba_net_exec_t</p>
+
+<p>- Set files with the samba_net_exec_t type, if you want
+to transition an executable to the samba_net_t domain.</p>
+
+<p>samba_net_tmp_t</p>
+
+<p>- Set files with the samba_net_tmp_t type, if you want
+to store samba net temporary files in the /tmp
+directories.</p>
+
+<p>samba_secrets_t</p>
+
+<p>- Set files with the samba_secrets_t type, if you want
+to treat the files as samba secrets data.</p>
+
+<p>Paths: /etc/samba/secrets.tdb, /etc/samba/passdb.tdb,
+/etc/samba/MACHINE.SID, /etc/samba/smbpasswd</p>
+
+<p>samba_share_t</p>
+
+<p>- Set files with the samba_share_t type, if you want to
+treat the files as samba share data.</p>
+
+<p>samba_unconfined_script_exec_t</p>
+
+<p>- Set files with the samba_unconfined_script_exec_t
+type, if you want to transition an executable to the
+samba_unconfined_script_t domain.</p>
+
+<p>samba_var_t</p>
+
+<p>- Set files with the samba_var_t type, if you want to
+store the s files under the /var directory.</p>
+
+<p>Paths: /var/cache/samba(/.*)?, /var/lib/samba(/.*)?,
+/var/spool/samba(/.*)?</p>
+
+<p>sambagui_exec_t</p>
+
+<p>- Set files with the sambagui_exec_t type, if you want
+to transition an executable to the sambagui_t domain.</p>
+
+<p>Note: File context can be temporarily modified with the
+chcon command. If you want to permanently change the file
+context you need to use the semanage fcontext command. This
+will modify the SELinux labeling database. You will need to
+use restorecon to apply the labels.</p>
+
+<p>PROCESS TYPES SELinux defines process types (domains)
+for each process running on the system</p>
+
+<p>You can see the context of a process using the -Z option
+to ps</p>
+
+<p>Policy governs the access confined processes have to
+files. SELinux samba policy is very flexible allowing users
+to setup their samba pro- cesses in as secure a method as
+possible.</p>
+
+<p>The following process types are defined for samba:</p>
+
+<p>samba_net_t, samba_unconfined_net_t,
+samba_unconfined_script_t, sam- bagui_t</p>
+
+<p>Note: semanage permissive -a PROCESS_TYPE can be used to
+make a process type permissive. Permissive process types are
+not denied access by SELinux. AVC messages will still be
+generated.</p>
+
+<p>COMMANDS semanage fcontext can also be used to
+manipulate default file context mappings.</p>
+
+<p>semanage permissive can also be used to manipulate
+whether or not a process type is permissive.</p>
+
+<p>semanage module can also be used to
+enable/disable/install/remove pol- icy modules.</p>
+
+<p>semanage boolean can also be used to manipulate the
+booleans</p>
+
+<p>system-config-selinux is a GUI tool available to
+customize SELinux pol- icy settings.</p>
+
+<p>AUTHOR This manual page was autogenerated by
+genman.py.</p>
+
+<p>SEE ALSO selinux(8), samba(8), semanage(8),
+restorecon(8), chcon(1) , setse- bool(8)</p>
+
+<p>dwalsh@redhat.com samba samba_selinux(8)</p>
+<hr>
+</body>
+</html>

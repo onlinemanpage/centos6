@@ -1,0 +1,317 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 04:41:08 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>virtd_selinux(8) SELinux Policy documentation for virtd
+virtd_selinux(8)</p>
+
+<p>NAME virtd_selinux - Security Enhanced Linux Policy for
+the virtd processes</p>
+
+<p>DESCRIPTION Security-Enhanced Linux secures the virtd
+processes via flexible manda- tory access control.</p>
+
+<p>The virtd processes execute with the virtd_t SELinux
+type. You can check if you have these processes running by
+executing the ps command with the -Z qualifier.</p>
+
+<p>For example:</p>
+
+<p>ps -eZ | grep virtd_t</p>
+
+<p>ENTRYPOINTS The virtd_t SELinux type can be entered via
+the &quot;mtrr_device_t,unla-
+beled_t,proc_type,sysctl_type,filesystem_type,file_type,virtd_exec_t&quot;
+file types. The default entrypoint paths for the virtd_t
+domain are the following:&quot;</p>
+
+<p>/dev/cpu/mtrr, all files on the system,
+/usr/sbin/libvirtd, /usr/bin/imgfac.py,
+/usr/share/vdsm/vdsm, /usr/bin/imagefactory,
+/usr/bin/nova-compute, /usr/sbin/condor_vm-gahp,
+/usr/bin/vios-proxy- host, /usr/bin/vios-proxy-guest</p>
+
+<p>PROCESS TYPES SELinux defines process types (domains)
+for each process running on the system</p>
+
+<p>You can see the context of a process using the -Z option
+to ps</p>
+
+<p>Policy governs the access confined processes have to
+files. SELinux virtd policy is very flexible allowing users
+to setup their virtd pro- cesses in as secure a method as
+possible.</p>
+
+<p>The following process types are defined for virtd:</p>
+
+<p>virt_qmf_t, virt_qemu_ga_t, virt_bridgehelper_t,
+virtd_t</p>
+
+<p>Note: semanage permissive -a virtd_t</p>
+
+<p>can be used to make the process type virtd_t permissive.
+Permissive process types are not denied access by SELinux.
+AVC messages will still be generated.</p>
+
+<p>BOOLEANS SELinux policy is customizable based on least
+access required. virtd policy is extremely flexible and has
+several booleans that allow you to manipulate the policy and
+run virtd with the tightest access possible.</p>
+
+<p>If you want to allow virt to manage device
+configuration, (pci), you must turn on the virt_use_sysfs
+boolean.</p>
+
+<p>setsebool -P virt_use_sysfs 1</p>
+
+<p>If you want to allow virt to manage nfs files, you must
+turn on the virt_use_nfs boolean.</p>
+
+<p>setsebool -P virt_use_nfs 1</p>
+
+<p>If you want to allow virt to manage cifs files, you must
+turn on the virt_use_samba boolean.</p>
+
+<p>setsebool -P virt_use_samba 1</p>
+
+<p>If you want to allow virt to use usb devices, you must
+turn on the virt_use_usb boolean.</p>
+
+<p>setsebool -P virt_use_usb 1</p>
+
+<p>If you want to allow virt to use serial/parallell
+communication ports, you must turn on the virt_use_comm
+boolean.</p>
+
+<p>setsebool -P virt_use_comm 1</p>
+
+<p>If you want to allow virtual machine to interact with
+the xserver, you must turn on the virt_use_xserver
+boolean.</p>
+
+<p>setsebool -P virt_use_xserver 1</p>
+
+<p>If you want to allow virt to read fuse files, you must
+turn on the virt_use_fusefs boolean.</p>
+
+<p>setsebool -P virt_use_fusefs 1</p>
+
+<p>If you want to allow confined virtual guests to use
+executable memory and executable stack, you must turn on the
+virt_use_execmem boolean.</p>
+
+<p>setsebool -P virt_use_execmem 1</p>
+
+<p>If you want to allow confined virtual guests to interact
+with the san- lock, you must turn on the virt_use_sanlock
+boolean.</p>
+
+<p>setsebool -P virt_use_sanlock 1</p>
+
+<p>If you want to allow virt to manage device
+configuration, (pci), you must turn on the virt_use_sysfs
+boolean.</p>
+
+<p>setsebool -P virt_use_sysfs 1</p>
+
+<p>If you want to allow virt to manage nfs files, you must
+turn on the virt_use_nfs boolean.</p>
+
+<p>setsebool -P virt_use_nfs 1</p>
+
+<p>If you want to allow virt to manage cifs files, you must
+turn on the virt_use_samba boolean.</p>
+
+<p>setsebool -P virt_use_samba 1</p>
+
+<p>If you want to allow virt to use usb devices, you must
+turn on the virt_use_usb boolean.</p>
+
+<p>setsebool -P virt_use_usb 1</p>
+
+<p>If you want to allow virt to use serial/parallell
+communication ports, you must turn on the virt_use_comm
+boolean.</p>
+
+<p>setsebool -P virt_use_comm 1</p>
+
+<p>If you want to allow virtual machine to interact with
+the xserver, you must turn on the virt_use_xserver
+boolean.</p>
+
+<p>setsebool -P virt_use_xserver 1</p>
+
+<p>If you want to allow virt to read fuse files, you must
+turn on the virt_use_fusefs boolean.</p>
+
+<p>setsebool -P virt_use_fusefs 1</p>
+
+<p>If you want to allow confined virtual guests to use
+executable memory and executable stack, you must turn on the
+virt_use_execmem boolean.</p>
+
+<p>setsebool -P virt_use_execmem 1</p>
+
+<p>If you want to allow confined virtual guests to interact
+with the san- lock, you must turn on the virt_use_sanlock
+boolean.</p>
+
+<p>setsebool -P virt_use_sanlock 1</p>
+
+<p>If you want to allow virt to manage device
+configuration, (pci), you must turn on the virt_use_sysfs
+boolean.</p>
+
+<p>setsebool -P virt_use_sysfs 1</p>
+
+<p>If you want to allow virt to manage nfs files, you must
+turn on the virt_use_nfs boolean.</p>
+
+<p>setsebool -P virt_use_nfs 1</p>
+
+<p>If you want to allow virt to manage cifs files, you must
+turn on the virt_use_samba boolean.</p>
+
+<p>setsebool -P virt_use_samba 1</p>
+
+<p>If you want to allow virt to use usb devices, you must
+turn on the virt_use_usb boolean.</p>
+
+<p>setsebool -P virt_use_usb 1</p>
+
+<p>If you want to allow virt to use serial/parallell
+communication ports, you must turn on the virt_use_comm
+boolean.</p>
+
+<p>setsebool -P virt_use_comm 1</p>
+
+<p>If you want to allow virtual machine to interact with
+the xserver, you must turn on the virt_use_xserver
+boolean.</p>
+
+<p>setsebool -P virt_use_xserver 1</p>
+
+<p>If you want to allow virt to read fuse files, you must
+turn on the virt_use_fusefs boolean.</p>
+
+<p>setsebool -P virt_use_fusefs 1</p>
+
+<p>If you want to allow confined virtual guests to use
+executable memory and executable stack, you must turn on the
+virt_use_execmem boolean.</p>
+
+<p>setsebool -P virt_use_execmem 1</p>
+
+<p>If you want to allow confined virtual guests to interact
+with the san- lock, you must turn on the virt_use_sanlock
+boolean.</p>
+
+<p>setsebool -P virt_use_sanlock 1</p>
+
+<p>FILE CONTEXTS SELinux requires files to have an extended
+attribute to define the file type.</p>
+
+<p>You can see the context of a file using the -Z option to
+ls</p>
+
+<p>Policy governs the access confined processes have to
+these files. SELinux virtd policy is very flexible allowing
+users to setup their virtd processes in as secure a method
+as possible.</p>
+
+<p>The following file types are defined for virtd:</p>
+
+<p>virtd_exec_t</p>
+
+<p>- Set files with the virtd_exec_t type, if you want to
+transition an executable to the virtd_t domain.</p>
+
+<p>virtd_initrc_exec_t</p>
+
+<p>- Set files with the virtd_initrc_exec_t type, if you
+want to transi- tion an executable to the virtd_initrc_t
+domain.</p>
+
+<p>virtd_keytab_t</p>
+
+<p>- Set files with the virtd_keytab_t type, if you want to
+treat the files as kerberos keytab files.</p>
+
+<p>Note: File context can be temporarily modified with the
+chcon command. If you want to permanently change the file
+context you need to use the semanage fcontext command. This
+will modify the SELinux labeling database. You will need to
+use restorecon to apply the labels.</p>
+
+<p>PORT TYPES SELinux defines port types to represent TCP
+and UDP ports.</p>
+
+<p>You can see the types associated with a port by using
+the following command:</p>
+
+<p>semanage port -l</p>
+
+<p>Policy governs the access confined processes have to
+these ports. SELinux virtd policy is very flexible allowing
+users to setup their virtd processes in as secure a method
+as possible.</p>
+
+<p>The following port types are defined for virtd:</p>
+
+<p>virt_migration_port_t</p>
+
+<p>Default Defined Ports: tcp 49152-49216</p>
+
+<p>virt_port_t</p>
+
+<p>Default Defined Ports: tcp 16509,16514 udp
+16509,16514</p>
+
+<p>MANAGED FILES The SELinux process type virtd_t can
+manage files labeled with the fol- lowing file types. The
+paths listed are the default paths for these file types.
+Note the processes UID still need to have DAC
+permissions.</p>
+
+<p>file_type</p>
+
+<p>all files on the system</p>
+
+<p>COMMANDS semanage fcontext can also be used to
+manipulate default file context mappings.</p>
+
+<p>semanage permissive can also be used to manipulate
+whether or not a process type is permissive.</p>
+
+<p>semanage module can also be used to
+enable/disable/install/remove pol- icy modules.</p>
+
+<p>semanage port can also be used to manipulate the port
+definitions</p>
+
+<p>semanage boolean can also be used to manipulate the
+booleans</p>
+
+<p>system-config-selinux is a GUI tool available to
+customize SELinux pol- icy settings.</p>
+
+<p>AUTHOR This manual page was auto-generated using
+sepolicy manpage by mgrepl.</p>
+
+<p>SEE ALSO selinux(8), virtd(8), semanage(8),
+restorecon(8), chcon(1), sepolicy(8) , setsebool(8),
+virt_bridgehelper_selinux(8), virt_qemu_ga_selinux(8),
+virt_qmf_selinux(8)</p>
+
+<p>virtd 13-01-04 virtd_selinux(8)</p>
+<hr>
+</body>
+</html>

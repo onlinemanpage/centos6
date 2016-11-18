@@ -1,0 +1,291 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 05:14:50 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>STAPFUNCS(3stap) STAPFUNCS(3stap)</p>
+
+<p>NAME stapfuncs - systemtap functions</p>
+
+<p>DESCRIPTION The following sections enumerate a few of
+public functions provided by standard tapsets installed,
+show in the stappaths (7) manual page. Most are individually
+documented in the 3stap manual section, with the function::
+prefix.</p>
+
+<p>Each function is described with a signature, and its
+behavior/restric- tions. The signature line includes the
+name of the function, the type of its return value (if any),
+and the names and types of all parame- ters. The syntax is
+the same as printed with the stap option -p2. Examples:</p>
+
+<p>example1:long (v:string, k:long) In function
+&quot;example1&quot;, do something with the given string and
+integer. Return some integer.</p>
+
+<p>example2:unknown () In function &quot;example2&quot;, do
+something. There is no explicit return value and take no
+parameters.</p>
+
+<p>TARGET_SET target_set_pid:long (tid:long) Return whether
+the given process-id is within the &quot;target set&quot;,
+that is whether it is a descendent of the top-level target()
+process.</p>
+
+<p>target_set_report:unknown () Print a report about the
+target set, and their ancestry.</p>
+
+<p>ERRNO errno_str:string (e:long) Return the symbolic
+string associated with the given error code, like
+&quot;ENOENT&quot; for the number 2, or &quot;E#3333&quot;
+for an out-of-range value like 3333.</p>
+
+<p>REGISTERS register:long (name:string) Return the value
+of the named CPU register, as it was saved when the current
+probe point was hit. If the register is 32 bits, it is
+sign-extended to 64 bits.</p>
+
+<p>For the i386 architecture, the following names are
+recognized. (name1/name2 indicates that name1 and name2 are
+alternative names for the same register.) eax/ax, ebp/bp,
+ebx/bx, ecx/cx, edi/di, edx/dx, eflags/flags, eip/ip,
+esi/si, esp/sp, orig_eax/orig_ax, xcs/cs, xds/ds, xes/es,
+xfs/fs, xss/ss.</p>
+
+<p>For the x86_64 architecture, the following names are
+recognized: 64-bit registers: r8, r9, r10, r11, r12, r13,
+r14, r15, rax/ax, rbp/bp, rbx/bx, rcx/cx, rdi/di, rdx/dx,
+rip/ip, rsi/si, rsp/sp; 32-bit registers: eax, ebp, ebx,
+ecx, edx, edi, edx, eip, esi, esp, flags/eflags, orig_eax;
+segment registers: xcs/cs, xss/ss.</p>
+
+<p>For powerpc, the following names are recognized: r0, r1,
+... r31, nip, msr, orig_gpr3, ctr, link, xer, ccr, softe,
+trap, dar, dsisr, result.</p>
+
+<p>For s390x, the following names are recognized: r0, r1,
+... r15, args, psw.mask, psw.addr, orig_gpr2, ilc, trap.</p>
+
+<p>u_register:long (name:string) Same as register(name),
+except that if the register is 32 bits, it is zero-extended
+to 64 bits.</p>
+
+<p>NUMBERED FUNCTION ARGUMENTS The functions in this
+section provide the values of a probed functions arguments.
+They can be called when you have hit a probe point at the
+entry to a function. Arguments are referred to by number,
+starting at 1. Ordinarily, you can access arguments by name
+as well, but you may find these functions useful if the code
+you are probing was built with- out debugging
+information.</p>
+
+<p>On 32-bit architectures and when probing 32-bit
+applications on 64-bit architectures a 64-bit argument
+occupies two &quot;arg slots.&quot; For example, if you are
+probing the following function</p>
+
+<p>void f(int a, long long b, char *c)</p>
+
+<p>you would refer to a, b, and c as int_arg(1),
+longlong_arg(2), and pointer_arg(3), respectively, on a
+64-bit architecture; but on a 32-bit architecture, you would
+refer to c as pointer_arg(4) (since b occupies slots 2 and
+3).</p>
+
+<p>If the function you are probing doesn t follow the
+default rules for argument passing, you need to call one of
+the following functions (which see) in your handler before
+calling any *_arg function: asmlink- age(), fastcall(), or
+regparm(). (This isnt necessary when referring to arguments
+only by name.)</p>
+
+<p>int_arg:long (n:long) Return the value of argument n as
+a signed int (i.e., a 32-bit integer sign-extended to 64
+bits).</p>
+
+<p>uint_arg:long (n:long) Return the value of argument n as
+an unsigned int (i.e., a 32-bit integer zero-extended to 64
+bits).</p>
+
+<p>long_arg:long (n:long) Return the value of argument n as
+a signed long. On architec- tures where a long is 32 bits,
+the value is sign-extended to 64 bits.</p>
+
+<p>ulong_arg:long (n:long) Return the value of argument n
+as an unsigned long. On archi- tectures where a long is 32
+bits, the value is zero-extended to 64 bits.</p>
+
+<p>longlong_arg:long (n:long) Return the value of argument
+n as a 64-bit value.</p>
+
+<p>ulonglong_arg:long (n:long) Same as longlong_arg(n).</p>
+
+<p>pointer_arg:long (n:long) Same as ulong_arg(n). Use with
+any type of pointer.</p>
+
+<p>s32_arg:long (n:long) Same as int_arg(n).</p>
+
+<p>u32_arg:long (n:long) Same as uint_arg(n).</p>
+
+<p>s64_arg:long (n:long) Same as longlong_arg(n).</p>
+
+<p>u64_arg:long (n:long) Same as [u]longlong_arg(n).</p>
+
+<p>asmlinkage:unknown () The probed kernel function is
+declared asmlinkage in the source.</p>
+
+<p>fastcall:unknown () The probed kernel function is
+declared fastcall in the source.</p>
+
+<p>regparm:unknown (n:long) The probed function was built
+with the gcc -mregparm=n option. (The i386 kernel is built
+with -mregparm=3, so systemtap consid- ers regparm(3) the
+default for kernel functions on that archi- tecture.)</p>
+
+<p>For some architectures, the *_arg functions may reject
+unusually high values of n.</p>
+
+<p>QUEUE_STATS The queue_stats tapset provides functions
+that, given notifications of elementary queuing events
+(wait, run, done), tracks averages such as queue length,
+service and wait times, utilization. The following three
+functions should be called from appropriate probes, in
+sequence.</p>
+
+<p>qs_wait:unknown (qname:string) Record that a new request
+was enqueued for the given queue name.</p>
+
+<p>qs_run:unknown (qname:string) Record that a previously
+enqueued request was removed from the given wait queue and
+is now being serviced.</p>
+
+<p>qs_done:unknown (qname:string) Record that a request
+originally from the given queue has com- pleted being
+serviced.</p>
+
+<p>Functions with the prefix qsq_ are for querying the
+statistics averaged since the first queue operation (or when
+qsq_start was called). Since statistics are often
+fractional, a scale parameter is multiplies the result to a
+more useful scale. For some fractions, a scale of 100 will
+usefully return percentage numbers.</p>
+
+<p>qsq_start:unknown (qname:string) Reset the statistics
+counters for the given queue, and start tracking anew from
+this moment.</p>
+
+<p>qsq_print:unknown (qname:string) Print a line containing
+a selection of the given queues statis- tics.</p>
+
+<p>qsq_utilization:long (qname:string, scale:long) Return
+the fraction of elapsed time when the resource was uti-
+lized.</p>
+
+<p>qsq_blocked:long (qname:string, scale:long) Return the
+fraction of elapsed time when the wait queue was used.</p>
+
+<p>qsq_wait_queue_length:long (qname:string, scale:long)
+Return the average length of the wait queue.</p>
+
+<p>qsq_service_time:long (qname:string, scale:long) Return
+the average time required to service a request.</p>
+
+<p>qsq_wait_time:long (qname:string, scale:long) Return the
+average time a request took from being enqueued to
+completed.</p>
+
+<p>qsq_throughput:long (qname:string, scale:long) Return
+the average rate of requests per scale units of time.</p>
+
+<p>INDENT The indent tapset provides functions to generate
+indented lines for nested kinds of trace messages. Each line
+contains a relative times- tamp, and the process name /
+pid.</p>
+
+<p>thread_indent:string (delta:long) Return a string with
+an appropriate indentation for this thread. Call it with a
+small positive or matching negative delta. If this is the
+outermost, initial level of indentation, reset the relative
+timestamp base to zero.</p>
+
+<p>thread_timestamp:long () Return an absolute timestamp
+value for use by the indentation function. The default
+function uses gettimeofday_us</p>
+
+<p>SYSTEM system (cmd:string) Runs a command on the system.
+The command will run in the back- ground when the current
+probe completes.</p>
+
+<p>INET These functions convert between network
+(big-endian) and host byte order, like their namesake C
+functions.</p>
+
+<p>ntohll:long (x:long) Convert from network to host byte
+order, 64-bit.</p>
+
+<p>ntohl:long (x:long) Convert from network to host byte
+order, 32-bit.</p>
+
+<p>ntohs:long (x:long) Convert from network to host byte
+order, 16-bit.</p>
+
+<p>htonll:long (x:long) Convert from host to network byte
+order, 64-bit.</p>
+
+<p>htonl:long (x:long) Convert from host to network byte
+order, 32-bit.</p>
+
+<p>htons:long (x:long) Convert from host to network byte
+order, 16-bit.</p>
+
+<p>SIGNAL get_sa_flags:long (act:long) Returns the numeric
+value of sa_flags.</p>
+
+<p>get_sa_handler:long (act:long) Returns the numeric value
+of sa_handler.</p>
+
+<p>sigset_mask_str:string (mask:long) Returns the string
+representation of the sigset sa_mask.</p>
+
+<p>is_sig_blocked:long (task:long, sig:long) Returns 1 if
+the signal is currently blocked, or 0 if it is not.</p>
+
+<p>sa_flags_str:string (sa_flags:long) Returns the string
+representation of sa_flags.</p>
+
+<p>sa_handler_str(handler) Returns the string
+representation of sa_handler. If it is not SIG_DFL, SIG_IGN
+or SIG_ERR, it will return the address of the handler.</p>
+
+<p>signal_str(num) Returns the string representation of the
+given signal number.</p>
+
+<p>DEVICE MAJOR:long(dev:long) Extracts the major device
+number from a kernel device number (kdev_t).</p>
+
+<p>MINOR:long(dev:long) Extracts the minor device number
+from a kernel device number (kdev_t).</p>
+
+<p>MKDEV:long(major:long, minor:long) Creates a value that
+can be compared to a kernel device number (kdev_t).</p>
+
+<p>usrdev2kerndev:long(dev:long) Converts a user-space
+device number into the format used in the kernel.</p>
+
+<p>FILES More files and their corresponding paths can be
+found in the stappaths (7) manual page.</p>
+
+<p>SEE ALSO stap(1), function::*(3stap), tapset::*(3stap),
+stappaths(7)</p>
+
+<p>STAPFUNCS(3stap)</p>
+<hr>
+</body>
+</html>

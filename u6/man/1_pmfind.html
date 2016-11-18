@@ -1,0 +1,58 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 04:16:19 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>PMFIND(1) PMFIND(1)</p>
+
+<p>NAME pmfind - find PCP services on the network</p>
+
+<p>SYNOPSIS pmfind [-q] [-m mechanism] [-s service]</p>
+
+<p>DESCRIPTION pmfind searches for instances of the
+specified PCP service being adver- tised on the network and
+prints a list of URLs corresponding to the services
+discovered.</p>
+
+<p>By default pmfind will search for servers advertising
+the pmcd(1) ser- vice, however an alternate PCP service to
+discover can be specified using the -s option.</p>
+
+<p>The -m option sets the mechanism that pmfind uses when
+performing ser- vice discovery. By default, or if the
+keyword &quot;all&quot; is specified, every available
+mechanism will be used (iteratively). Currently,
+&quot;avahi&quot; is the only supported discovery
+mechanism.</p>
+
+<p>The -q option suppresses all output on the standard
+output stream.</p>
+
+<p>PCP ENVIRONMENT Environment variables with the prefix
+PCP_ are used to parameterize the file and directory names
+used by PCP. On each installation, the file /etc/pcp.conf
+contains the local values for these variables. The $PCP_CONF
+variable may be used to specify an alternative configuration
+file, as described in pcp.conf(5).</p>
+
+<p>DIAGNOSTICS The value of the exit status from the
+command is zero when services were successfully located, one
+if no services were found, and two if an error occurred.</p>
+
+<p>In the event of an error, a message will be generated on
+standard error that is intended to be self-explanatory.</p>
+
+<p>SEE ALSO PCPIntro(1), pmcd(1), PMAPI(3),
+pmDiscoverServices(3), pcp.conf(5) and pcp.env(5).</p>
+
+<p>Performance Co-Pilot PCP PMFIND(1)</p>
+<hr>
+</body>
+</html>

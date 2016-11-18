@@ -1,0 +1,76 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 04:36:20 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>WARNING::DEBUGINFO(7stap) WARNING::DEBUGINFO(7stap)</p>
+
+<p>NAME warning::debuginfo - systemtap missing-debuginfo
+warnings</p>
+
+<p>DESCRIPTION For many symbolic probing operations,
+systemtap needs DWARF debuginfo for the relevant binaries.
+This often includes resolving func- tion/statement probes,
+or $context variables in related handlers. DWARF debuginfo
+may be found in the original binaries built during com-
+pilation, or may have been split into separate files. The
+SYSTEM- TAP_DEBUGINFO_PATH environment variable affects
+where systemtap looks for these files.</p>
+
+<p>If your operating system came from a distributor, check
+with them if debuginfo packages or variants are available.
+If your distributor does not have debuginfo-equipped
+binaries at all, you may need to rebuild it.</p>
+
+<p>kernel debuginfo For scripts that target the kernel,
+systemtap may search for the vmlinux file created during its
+original build. This is dis- tinct from the boot-loader s
+compressed/stripped vmlinuz file, and much larger. If you
+have a hand-built kernel, make sure it was built with the
+CONFIG_DEBUG_INFO=y option.</p>
+
+<p>process debuginfo For scripts that target user-space,
+systemtap may search for debuginfo. If you have hand-built
+binaries, use CFLAGS=-g -O2 to compile them.</p>
+
+<p>unnecessary debuginfo In some cases, a script may be
+altered to avoid requiring debug- info. For example, as
+script that uses probe syscall.* probes could try instead
+probe nd_syscall.* (for non-DWARF syscall): these work
+similarly, and use more intricate (fragile) tapset functions
+to extract system call arguments. Another option is use of
+compiled-in instrumentation such as kernel tracepoints or
+user-space &lt;sys/sdt.h&gt; markers in libraries or
+executables, which do not require debuginfo. If debuginfo
+was required for resolving a complicated
+$var-&gt;foo-&gt;bar expression, it may be possible to use
+@cast(var,&quot;foo&quot;,&quot;foo.h&quot;)-&gt;foo-&gt;bar
+to synthesize debuginfo for that type from a header
+file.</p>
+
+<p>AUTOMATION On some platforms, systemtap may advise what
+commands to run, in order to download needed debuginfo.
+Another possibility is to invoke system- tap with the
+--download-debuginfo flag. The stap-prep script included
+with systemtap may be able to download the appropriate
+kernel debug- info. Another possibility is to install and
+use a stap-server remote- compilation instance on a machine
+on your network, where debuginfo and compilation resources
+can be centralized. Try the stap --use-server option, in
+case such a server is already running.</p>
+
+<p>SEE ALSO stap(1), stappaths(7), stap-server(8),
+strip(1), error::report- ing(7stap)
+error::contextvars(7stap)</p>
+
+<p>WARNING::DEBUGINFO(7stap)</p>
+<hr>
+</body>
+</html>

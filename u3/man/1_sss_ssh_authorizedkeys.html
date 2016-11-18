@@ -1,0 +1,61 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 04:48:37 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>SSS_SSH_AUTHORIZEDKE(1) SSSD Manual pages
+SSS_SSH_AUTHORIZEDKE(1)</p>
+
+<p>NAME sss_ssh_authorizedkeys - get OpenSSH authorized
+keys</p>
+
+<p>SYNOPSIS sss_ssh_authorizedkeys [options] USER</p>
+
+<p>DESCRIPTION sss_ssh_authorizedkeys acquires SSH public
+keys for user USER and outputs them in OpenSSH
+authorized_keys format (see the AUTHORIZED_KEYS FILE FORMAT
+section of sshd(8) for more information).</p>
+
+<p>sshd(8) can be configured to use sss_ssh_authorizedkeys
+for public key user authentication if it is compiled with
+support for either AuthorizedKeysCommand or PubkeyAgent
+sshd_config(5) options.</p>
+
+<p>If AuthorizedKeysCommand is supported, sshd(8) can be
+configured to use it by putting the following directive in
+sshd_config(5):</p>
+
+<p>AuthorizedKeysCommand
+/usr/bin/sss_ssh_authorizedkeys</p>
+
+<p>If PubkeyAgent is supported, sshd(8) can be configured
+to use it by using the following directive for sshd(8)
+configuration:</p>
+
+<p>PubKeyAgent /usr/bin/sss_ssh_authorizedkeys %u</p>
+
+<p>This is an experimental feature, please use
+http://fedorahosted.org/sssd to report any issues.</p>
+
+<p>OPTIONS -d,--domain DOMAIN Search for user public keys
+in SSSD domain DOMAIN.</p>
+
+<p>-h,--help Display help message and exit.</p>
+
+<p>SEE ALSO sshd(8), sshd_config(5),
+sss_ssh_knownhostsproxy(1).</p>
+
+<p>AUTHORS The SSSD upstream -
+http://fedorahosted.org/sssd</p>
+
+<p>SSSD 05/29/2012 SSS_SSH_AUTHORIZEDKE(1)</p>
+<hr>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 04:41:07 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>VIRT-WHO(8) VIRT-WHO(8)</p>
+
+<p>NAME virt-who - Agent for reporting virtual guest IDs to
+Subscription Asset Manager.</p>
+
+<p>SYNOPSIS virt-who [-d] [-i INTERVAL] [-b] [-o] [--lib-
+virt|--vdsm|--esx|--rhevm|--hyperv]</p>
+
+<p>OPTIONS -h, --help show this help message and exit</p>
+
+<p>-d, --debug Enable debugging output</p>
+
+<p>-b, --background Run in the background and monitor
+virtual guests</p>
+
+<p>-o, --one-shot Send the list of guest IDs and exit
+immediately</p>
+
+<p>-i INTERVAL, --interval=INTERVAL Acquire and send list
+of virtual guest each N seconds</p>
+
+<p>--libvirt Use libvirt to list virtual guests
+[default]</p>
+
+<p>--vdsm Use vdsm to list virtual guests</p>
+
+<p>--esx Register ESX machines using vCenter</p>
+
+<p>--rhevm Register guests using RHEV-M</p>
+
+<p>--hyperv Register guests using Hyper-V</p>
+
+<p>vCenter/ESX options Use this options with --esx</p>
+
+<p>--esx-owner=OWNER Organization who has purchased
+subscriptions of the products</p>
+
+<p>--esx-env=ENV Environment where the vCenter server
+belongs to</p>
+
+<p>--esx-server=SERVER URL of the vCenter server to connect
+to</p>
+
+<p>--esx-username=USERNAME Username for connecting to
+vCenter</p>
+
+<p>--esx-password=PASSWORD Password for connecting to
+vCenter</p>
+
+<p>RHEV-M options Use this options with --rhevm</p>
+
+<p>--rhevm-owner=OWNER Organization who has purchased
+subscriptions of the products</p>
+
+<p>--rhevm-env=ENV Environment where the RHEV-M belongs
+to</p>
+
+<p>--rhevm-server=SERVER URL of the RHEV-M server to
+connect to</p>
+
+<p>--rhevm-username=USERNAME Username for connecting to
+RHEV-M</p>
+
+<p>--rhevm-password=PASSWORD Password for connecting to
+RHEV-M</p>
+
+<p>Hyper-V options Use this options with --hyperv</p>
+
+<p>--hyperv-owner=OWNER Organization who has purchased
+subscriptions of the products</p>
+
+<p>--hyperv-env=ENV Environment where the Hyper-V belongs
+to</p>
+
+<p>--hyperv-server=SERVER URL of the Hyper-V server to
+connect to</p>
+
+<p>--hyperv-username=USERNAME Username for connecting to
+Hyper-V</p>
+
+<p>--hyperv-password=PASSWORD Password for connecting to
+Hyper-V</p>
+
+<p>ENVIRONMENT virt-who also reads environmental variables.
+They have the same name as command line arguments but
+upper-cased, with underscore instead of dash and prefixed
+with VIRTWHO_ (e.g. VIRTWHO_ONE_SHOT). Empty variables are
+considered as disabled, non-empty as enabled</p>
+
+<p>USAGE MODE virt-who has three modes how it can run:</p>
+
+<p>1. one-shot mode # virt-who -o</p>
+
+<p>In this mode virt-who just sends list of guest UUIDs to
+the server and exits.</p>
+
+<p>2. interval mode # virt-who</p>
+
+<p>This is default mode. virt-who will check and send list
+of guest UUIDs once per hour. This interval can be changed
+using &quot;-i INTERVAL&quot; option where INTERVAL is
+number of seconds how often it should check and send the
+list.</p>
+
+<p>3. background mode # virt-who -b</p>
+
+<p>This mode is similar to interval mode but it monitors
+events from libvirt and update list of guest UUIDs as soon
+as possible. It also does the interval check (interval can
+be altered by &quot;-i INTERVAL&quot; option).</p>
+
+<p>NOTE: virt-who dont print anything to terminal in this
+mode</p>
+
+<p>NOTE: monitoring for events requires libvirt backend,
+but this mode can be used with all backends.</p>
+
+<p>BACKEND virt-who can use couple of virtualization
+backends.</p>
+
+<p>1. libvirt # virt-who</p>
+
+<p># virt-who --libvirt</p>
+
+<p>Use libvirt as virtualization backend. This is
+default.</p>
+
+<p>NOTE: virt-who can monitor for events only in this
+mode.</p>
+
+<p>2. vdsm # virt-who --vdsm</p>
+
+<p>Use vdsm as virtualization backend.</p>
+
+<p>3. ESX # virt-who --esx --esx-owner=ESX_OWNER
+--esx-env=ESX_ENV --esx-server=ESX_SERVER
+--esx-username=ESX_USERNAME --esx-pass-
+word=ESX_PASSWORD</p>
+
+<p>Use ESX (vCenter) as virtualization backend and specify
+option required to connect to ESX server.</p>
+
+<p>4. RHEV-M</p>
+
+<p># virt-who --rhevm --rhevm-owner=RHEVM_OWNER --rhevm-
+env=RHEVM_ENV --rhevm-server=RHEVM_SERVER --rhevm-user-
+name=RHEVM_USERNAME --rhevm-password=RHEVM_PASSWORD</p>
+
+<p>Use RHEV-M as virtualization backend and specify option
+required to connect to RHEV-M server.</p>
+
+<p>5. Hyper-V</p>
+
+<p># virt-who --hyperv --hyperv-owner=HYPERV_OWNER
+--hyperv- env=HYPERV_ENV --hyperv-server=HYPERV_SERVER
+--hyperv-user- name=HYPERV_USERNAME
+--hyperv-password=HYPERV_PASSWORD</p>
+
+<p>Use Hyper-V as virtualization backend and specify option
+required to connect to Hyper-V server.</p>
+
+<p>LOGGING virt-who always writes error output to file
+/var/log/rhsm/rhsm.log. In all modes, excluding background
+(&quot;-b&quot;), it writes same output also to the standard
+error output.</p>
+
+<p>virt-who can be started with option &quot;-d&quot; in
+all modes and with all backends. This option will enable
+verbose output with more information.</p>
+
+<p>AUTHOR Radek Novacek &lt;rnovacek at redhat dot
+com&gt;</p>
+
+<p>virt-who September 2012 VIRT-WHO(8)</p>
+<hr>
+</body>
+</html>

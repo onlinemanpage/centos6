@@ -1,0 +1,499 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 04:05:35 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>initrc_selinux(8) SELinux Policy documentation for
+initrc initrc_selinux(8)</p>
+
+<p>NAME initrc_selinux - Security Enhanced Linux Policy for
+the initrc pro- cesses</p>
+
+<p>DESCRIPTION Security-Enhanced Linux secures the initrc
+processes via flexible mandatory access control.</p>
+
+<p>The initrc processes execute with the initrc_t SELinux
+type. You can check if you have these processes running by
+executing the ps command with the -Z qualifier.</p>
+
+<p>For example:</p>
+
+<p>ps -eZ | grep initrc_t</p>
+
+<p>ENTRYPOINTS The initrc_t SELinux type can be entered via
+the &quot;mtrr_device_t,ksm-
+tuned_initrc_exec_t,tuned_initrc_exec_t,fsdaemon_ini-
+trc_exec_t,nova_scheduler_initrc_exec_t,tgtd_initrc_exec_t,hddtemp_ini-
+trc_exec_t,rhsmcertd_initrc_exec_t,svnserve_initrc_exec_t,dovecot_ini-
+trc_exec_t,zebra_initrc_exec_t,lldpad_initrc_exec_t,munin_ini-
+trc_exec_t,soundd_initrc_exec_t,unlabeled_t,proc_type,uuidd_ini-
+trc_exec_t,postfix_initrc_exec_t,aisexec_initrc_exec_t,auditd_ini-
+trc_exec_t,ctdbd_initrc_exec_t,glusterd_initrc_exec_t,saslauthd_ini-
+trc_exec_t,postgresql_initrc_exec_t,kerberos_initrc_exec_t,apcupsd_ini-
+trc_exec_t,cupsd_initrc_exec_t,wdmd_initrc_exec_t,keystone_ini-
+trc_exec_t,nova_direct_initrc_exec_t,exim_initrc_exec_t,ftpd_ini-
+trc_exec_t,nagios_initrc_exec_t,cgred_initrc_exec_t,shorewall_ini-
+trc_exec_t,likewise_initrc_exec_t,cfengine_initrc_exec_t,ini-
+trc_exec_t,postgrey_initrc_exec_t,avahi_initrc_exec_t,gpsd_ini-
+trc_exec_t,privoxy_initrc_exec_t,psad_initrc_exec_t,pppd_ini-
+trc_exec_t,canna_initrc_exec_t,shell_exec_t,samba_ini-
+trc_exec_t,nova_ajax_initrc_exec_t,pacemaker_initrc_exec_t,rgman-
+ager_initrc_exec_t,amavis_initrc_exec_t,tor_initrc_exec_t,arpwatch_ini-
+trc_exec_t,radvd_initrc_exec_t,abrt_initrc_exec_t,ipsec_ini-
+trc_exec_t,puppet_initrc_exec_t,pads_initrc_exec_t,named_ini-
+trc_exec_t,squid_initrc_exec_t,cvs_initrc_exec_t,rwho_ini-
+trc_exec_t,nova_cert_initrc_exec_t,l2tpd_initrc_exec_t,portreserve_ini-
+trc_exec_t,afs_initrc_exec_t,spamd_initrc_exec_t,nis_ini-
+trc_exec_t,sysctl_type,icecast_initrc_exec_t,rpcd_ini-
+trc_exec_t,mpd_initrc_exec_t,nslcd_initrc_exec_t,slpd_ini-
+trc_exec_t,memcached_initrc_exec_t,qpidd_initrc_exec_t,smokeping_ini-
+trc_exec_t,bcfg2_initrc_exec_t,fail2ban_initrc_exec_t,sssd_ini-
+trc_exec_t,zabbix_initrc_exec_t,sshd_initrc_exec_t,dspam_ini-
+trc_exec_t,setrans_initrc_exec_t,cmirrord_initrc_exec_t,iptables_ini-
+trc_exec_t,NetworkManager_initrc_exec_t,rpcbind_initrc_exec_t,jab-
+berd_initrc_exec_t,vhostmd_initrc_exec_t,filesystem_type,certmas-
+ter_initrc_exec_t,mysqld_initrc_exec_t,crond_initrc_exec_t,aster-
+isk_initrc_exec_t,corosync_initrc_exec_t,ypbind_ini-
+trc_exec_t,clvmd_initrc_exec_t,dhcpc_helper_exec_t,prelude_ini-
+trc_exec_t,nova_objectstore_initrc_exec_t,file_type,dnsmasq_ini-
+trc_exec_t,slapd_initrc_exec_t,clamd_initrc_exec_t,syslogd_ini-
+trc_exec_t,ulogd_initrc_exec_t,sendmail_initrc_exec_t,nova_network_ini-
+trc_exec_t,openvpn_initrc_exec_t,quantum_initrc_exec_t,cobblerd_ini-
+trc_exec_t,bitlbee_initrc_exec_t,sanlock_initrc_exec_t,cgconfig_ini-
+trc_exec_t,mongod_initrc_exec_t,automount_initrc_exec_t,roundup_ini-
+trc_exec_t,certmonger_initrc_exec_t,snort_initrc_exec_t,snmpd_ini-
+trc_exec_t,glance_api_initrc_exec_t,ntop_initrc_exec_t,ntpd_ini-
+trc_exec_t,aiccu_initrc_exec_t,nscd_initrc_exec_t,mysqlmanagerd_ini-
+trc_exec_t,nova_api_initrc_exec_t,bluetooth_initrc_exec_t,chronyd_ini-
+trc_exec_t,kerneloops_initrc_exec_t,boinc_initrc_exec_t,nfsd_ini-
+trc_exec_t,matahari_initrc_exec_t,denyhosts_initrc_exec_t,var-
+nishlog_initrc_exec_t,nova_console_initrc_exec_t,dictd_ini-
+trc_exec_t,ricci_initrc_exec_t,innd_initrc_exec_t,pingd_ini-
+trc_exec_t,nova_compute_initrc_exec_t,iwhd_initrc_exec_t,nova_vol-
+ume_initrc_exec_t,radiusd_initrc_exec_t,dhcpd_initrc_exec_t,lircd_ini-
+trc_exec_t,cyrus_initrc_exec_t,varnishd_initrc_exec_t,virtd_ini-
+trc_exec_t,piranha_pulse_initrc_exec_t,rhnsd_initrc_exec_t,glance_reg-
+istry_initrc_exec_t,nova_vncproxy_initrc_exec_t,puppetmaster_ini-
+trc_exec_t,httpd_initrc_exec_t,kdump_initrc_exec_t,bin_t&quot;
+file types. The default entrypoint paths for the initrc_t
+domain are the follow- ing:&quot;</p>
+
+<p>/dev/cpu/mtrr, /etc/rc.d/init.d/ksmtuned,
+/etc/rc.d/init.d/tuned, /etc/rc.d/init.d/smartd,
+/etc/rc.d/etc/init.d/openstack-nova-scheduler,
+/etc/rc.d/init.d/tgtd, /etc/rc.d/init.d/hddtemp,
+/etc/rc.d/init.d/rhsm- certd, /etc/rc.d/init.d/svnserve,
+/etc/rc.d/init.d/dovecot, /etc/rc.d/init.d/bgpd,
+/etc/rc.d/init.d/ripd, /etc/rc.d/init.d/ospfd,
+/etc/rc.d/init.d/zebra, /etc/rc.d/init.d/ospf6d,
+/etc/rc.d/init.d/rip- ngd, /etc/rc.d/init.d/lldpad,
+/etc/rc.d/init.d/munin-node, /etc/rc.d/init.d/nasd,
+/etc/rc.d/init.d/uuidd, /etc/rc.d/init.d/post- fix,
+/etc/rc.d/init.d/openais, /etc/rc.d/init.d/auditd,
+/etc/rc.d/init.d/ctdb, /usr/sbin/glusterd,
+/etc/rc.d/init.d/glusterd, /etc/rc.d/init.d/saslauthd,
+/etc/rc.d/init.d/(se)?postgresql, /etc/rc.d/init.d/kprop,
+/etc/rc.d/init.d/kadmin, /etc/rc.d/init.d/krb524d,
+/etc/rc.d/init.d/krb5kdc, /etc/rc.d/init.d/apcupsd,
+/etc/rc.d/init.d/cups, /etc/rc.d/init.d/wdmd,
+/etc/rc.d/init.d/keystone,
+/etc/rc.d/etc/init.d/openstack-nova-direct- api,
+/etc/rc.d/init.d/exim, /etc/rc.d/init.d/vsftpd,
+/etc/rc.d/init.d/proftpd, /etc/rc.d/init.d/nrpe,
+/etc/rc.d/init.d/nagios, /etc/rc.d/init.d/cgred,
+/etc/rc.d/init.d/shorewall, /etc/rc.d/init.d/shorewall-lite,
+/etc/rc.d/init.d/lwiod, /etc/rc.d/init.d/lwsmd,
+/etc/rc.d/init.d/lsassd, /etc/rc.d/init.d/lwregd,
+/etc/rc.d/init.d/dcerpcd, /etc/rc.d/init.d/srvsvcd,
+/etc/rc.d/init.d/eventlogd, /etc/rc.d/init.d/netlogond,
+/etc/rc.d/init.d/cf-execd, /etc/rc.d/init.d/cf-serverd,
+/etc/rc.d/init.d/cf-monitord, /etc/init.d/.*,
+/etc/rc.d/rc.[^/]+, /etc/rc.d/init.d/.*,
+/usr/libexec/dcc/stop-.*, /usr/libexec/dcc/start-.*,
+/etc/rc.d/rc, /etc/X11/prefdm, /usr/sbin/startx,
+/usr/bin/sepg_ctl, /usr/sbin/apachectl,
+/usr/sbin/ldap-agent, /usr/sbin/start-dirsrv,
+/usr/sbin/open_init_pty, /usr/sbin/restart-dirsrv,
+/etc/sysconfig/network-scripts/ifup-ipsec,
+/usr/share/system-config-services/system-config-services-mechanism.py,
+/etc/rc.d/init.d/postgrey, /etc/rc.d/init.d/avahi.*,
+/etc/rc.d/init.d/gpsd, /etc/rc.d/init.d/privoxy,
+/etc/rc.d/init.d/psad, /etc/ppp/(auth|ip(v6|x)?)-(up|down),
+/etc/rc.d/init.d/ppp, /etc/rc.d/init.d/canna, /bin/d?ash,
+/bin/zsh.*, /bin/ksh.*, /bin/yash, /bin/mksh, /bin/sash,
+/bin/tcsh, /bin/bash, /bin/fish, /bin/bash2, /usr/bin/fish,
+/sbin/nologin, /usr/sbin/sesh, /usr/sbin/smrsh,
+/usr/bin/scponly, /usr/libexec/sesh, /usr/sbin/scponlyc,
+/usr/bin/git- shell, /usr/libexec/git-core/git-shell,
+/etc/rc.d/init.d/nmb, /etc/rc.d/init.d/smb,
+/etc/rc.d/init.d/winbind, /etc/rc.d/init.d/pace- maker,
+/etc/rc.d/init.d/cpglockd, /etc/rc.d/init.d/rgmanager,
+/etc/rc.d/init.d/heartbeat, /etc/rc.d/init.d/amavis,
+/etc/rc.d/init.d/amavisd-snmp, /etc/rc.d/init.d/tor,
+/etc/rc.d/init.d/arpwatch, /etc/rc.d/init.d/radvd,
+/etc/rc.d/init.d/abrt, /etc/rc.d/init.d/ipsec,
+/etc/rc.d/init.d/racoon, /etc/rc.d/init.d/puppet,
+/etc/rc.d/init.d/pads, /etc/rc.d/init.d/named,
+/etc/rc.d/init.d/unbound, /etc/rc.d/init.d/squid,
+/etc/rc.d/init.d/rwhod,
+/etc/rc.d/etc/init.d/openstack-nova-cert,
+/etc/rc.d/init.d/xl2tpd, /etc/rc.d/init.d/prol2tpd,
+/etc/rc.d/init.d/openl2tpd, /etc/rc.d/init.d/portreserve,
+/etc/rc.d/init.d/afs, /etc/rc.d/init.d/openafs-client,
+/etc/rc.d/init.d/mimedefang.*, /etc/rc.d/init.d/spamd,
+/etc/rc.d/init.d/pyzord, /etc/rc.d/init.d/spamassassin,
+/etc/rc.d/init.d/ypserv, /etc/rc.d/init.d/ypxfrd,
+/etc/rc.d/init.d/yppasswdd, /etc/rc.d/init.d/icecast,
+/etc/rc.d/init.d/nfslock, /etc/rc.d/init.d/rpcidmapd,
+/etc/rc.d/init.d/mpd, /etc/rc.d/init.d/nslcd,
+/etc/rc.d/init.d/slpd, /etc/rc.d/init.d/memcached,
+/etc/rc.d/init.d/qpidd, /etc/rc.d/init.d/smokeping,
+/etc/rc.d/init.d/bcfg2, /etc/rc.d/init.d/fail2ban,
+/etc/rc.d/init.d/sssd, /etc/rc.d/init.d/zab- bix,
+/etc/rc.d/init.d/sshd, /etc/rc.d/init.d/dspam,
+/etc/rc.d/init.d/mcstrans, /etc/rc.d/init.d/cmirrord,
+/etc/rc.d/init.d/ip6?tables,
+/usr/libexec/nm-dispatcher.action,
+/etc/NetworkManager/dispatcher.d(/.*),
+/etc/rc.d/init.d/wicd, /etc/rc.d/init.d/rpcbind,
+/etc/rc.d/init.d/jabber, /etc/rc.d/init.d/vhostmd,
+/etc/rc.d/init.d/certmaster, /etc/rc.d/init.d/mysqld,
+/etc/rc.d/init.d/atd, /etc/rc.d/init.d/aster- isk,
+/etc/rc.d/init.d/corosync, /etc/rc.d/init.d/ypbind,
+/etc/firestarter/firestarter.sh,
+/etc/rc.d/init.d/prelude-lml,
+/etc/rc.d/init.d/prelude-manager,
+/etc/rc.d/init.d/prelude-correlator,
+/etc/rc.d/etc/init.d/openstack-nova-objectstore, all files
+on the sys- tem, /etc/rc.d/init.d/dnsmasq,
+/etc/rc.d/init.d/slapd, /etc/rc.d/init.d/clamd-wrapper,
+/etc/rc.d/init.d/rsyslog, /etc/rc.d/init.d/ulogd,
+/etc/rc.d/init.d/sendmail,
+/etc/rc.d/etc/init.d/openstack-nova-network,
+/etc/rc.d/init.d/openvpn, /etc/rc.d/init.d/quantum-server,
+/etc/rc.d/init.d/cobblerd, /etc/rc.d/init.d/bitlbee,
+/etc/rc.d/init.d/sanlock, /etc/rc.d/init.d/cgconfig,
+/etc/rc.d/init.d/mongod, /etc/rc.d/init.d/autofs,
+/etc/rc.d/init.d/roundup, /etc/rc.d/init.d/certmonger,
+/etc/rc.d/init.d/snortd, /etc/rc.d/init.d/snmpd,
+/etc/rc.d/init.d/snmptrapd,
+/etc/rc.d/init.d/openstack-glance-api,
+/etc/rc.d/init.d/ntpd, /etc/rc.d/init.d/aiccu,
+/etc/rc.d/init.d/nscd, /etc/rc.d/init.d/mysql- manager,
+/etc/rc.d/etc/init.d/openstack-nova-api,
+/etc/rc.d/etc/init.d/openstack-nova-metadata-api,
+/etc/rc.d/init.d/dund, /etc/rc.d/init.d/pand,
+/etc/rc.d/init.d/blue- tooth, /etc/rc.d/init.d/chronyd,
+/etc/rc.d/init.d/kerneloops, /etc/rc.d/init.d/boinc-client,
+/etc/rc.d/init.d/nfs, /etc/rc.d/init.d/matahari-net,
+/etc/rc.d/init.d/matahari-rpc,
+/etc/rc.d/init.d/matahari-host,
+/etc/rc.d/init.d/matahari-broker,
+/etc/rc.d/init.d/matahari-network,
+/etc/rc.d/init.d/matahari-service,
+/etc/rc.d/init.d/matahari-sysconfig,
+/etc/rc.d/init.d/matahari-syscon- fig-console,
+/etc/rc.d/init.d/denyhosts, /etc/rc.d/init.d/varnishlog,
+/etc/rc.d/init.d/varnishncsa,
+/etc/rc.d/etc/init.d/openstack-nova-con- sole,
+/etc/rc.d/etc/init.d/openstack-nova-consoleauth,
+/etc/rc.d/init.d/dictd, /etc/rc.d/init.d/ricci,
+/etc/rc.d/init.d/innd, /etc/rc.d/init.d/whatsup-pingd,
+/etc/rc.d/init.d/iwhd,
+/etc/rc.d/etc/init.d/openstack-nova-volume,
+/etc/rc.d/init.d/radiusd, /etc/rc.d/init.d/dhcpd(6)?,
+/etc/rc.d/init.d/lirc, /etc/rc.d/init.d/cyrus-imapd,
+/etc/rc.d/init.d/varnish, /etc/rc.d/init.d/libvirtd,
+/etc/rc.d/init.d/pulse, /etc/rc.d/init.d/rhnsd,
+/etc/rc.d/init.d/openstack-glance-registry,
+/etc/rc.d/etc/init.d/openstack-nova-xvpvncproxy,
+/etc/rc.d/init.d/pup- petmaster, /etc/init.d/cherokee,
+/etc/rc.d/init.d/httpd, /etc/rc.d/init.d/lighttpd,
+/etc/rc.d/init.d/kdump, /bin/.*, /opt/(.*/)?bin(/.*)?,
+/usr/(.*/)?Bin(/.*)?, /usr/(.*/)?bin(/.*)?,
+/usr/(.*/)?sbin(/.*)?, /opt/(.*/)?sbin(/.*)?,
+/opt/(.*/)?libexec(/.*)?, /sbin/.*, /usr/lib(64)?/dpkg/.+,
+/usr/lib(64)?/rpm/rpmd, /usr/lib(64)?/rpm/rpmk,
+/usr/lib(64)?/rpm/rpmv, /usr/lib(64)?/rpm/rpmq,
+/usr/lib(64)?/ipsec/.*, /usr/lib(.*/)?bin(/.*)?,
+/usr/lib(64)?/cups(/.*)?, /usr/lib(.*/)?sbin(/.*)?,
+/usr/lib(64)?/xfce4(/.*)?, /usr/lib(64)?/sftp-server,
+/usr/lib(64)?/xen/bin(/.*)?, /usr/lib(64)?/courier(/.*)?,
+/usr/lib(64)?/apt/methods.+, /usr/lib(64)?/pm-utils(/.*)?,
+/usr/lib(64)?/news/bin(/.*)?, /usr/lib(64)?/cyrus-imapd/.*,
+/usr/lib(64)?/debug/bin(/.*)?,
+/usr/lib(64)?/debug/sbin(/.*)?,
+/usr/lib(64)?/misc/sftp-server,
+/usr/lib(64)?/portage/bin(/.*)?,
+/usr/lib(64)?/mailman/bin(/.*)?,
+/usr/lib(64)?/emacsen-common/.*,
+/usr/lib(64)?/mailman/mail(/.*)?,
+/usr/lib(64)?/debug/usr/bin(/.*)?,
+/usr/lib(64)?/nspluginwrapper/np.*,
+/usr/lib(64)?/nagios/plugins(/.*)?,
+/usr/lib(64)?/[^/]*/run-mozilla.sh,
+/usr/lib(64)?/debug/usr/sbin(/.*)?,
+/usr/lib(64)?/vte/gnome-pty-helper,
+/usr/lib(64)?/gimp/.*/plug- ins(/.*)?,
+/usr/lib(64)?/netsaint/plugins(/.*)?,
+/usr/lib(64)?/debug/usr/libexec(/.*)?,
+/usr/lib(64)?/chromium- browser/chrome,
+/usr/lib(64)?/ConsoleKit/scripts(/.*)?,
+/usr/lib(64)?/pgsql/test/regress/.*.sh,
+/usr/lib(64)?/[^/]*fire- fox[^/]*/firefox,
+/usr/lib(64)?/[^/]*/mozilla-xremote-client,
+/usr/lib(64)?/ConsoleKit/run-session.d(/.*)?,
+/usr/lib(64)?/[^/]*thun- derbird[^/]*/thunderbird,
+/usr/lib(64)?/thunderbird.*/mozilla-xremote- client,
+/usr/lib(64)?/[^/]*thunderbird[^/]*/thunderbird-bin,
+/usr/lib(64)?/[^/]*thunderbird[^/]*/open-browser.sh,
+/etc/gdm/[^/]+, /etc/gdm/[^/]+/.*, /etc/cron.daily(/.*)?,
+/etc/cron.hourly(/.*)?, /etc/cron.weekly(/.*)?,
+/etc/cron.monthly(/.*)?, /usr/lib/.*/pro- gram(/.*)?,
+/lib/udev/[^/]*, /etc/avahi/.*.action,
+/usr/lib/qt.*/bin(/.*)?, /usr/lib64/.*/program(/.*)?,
+/usr/lib/yp/.+, /lib64/udev/[^/]*, /var/ftp/bin(/.*)?,
+/usr/libexec(/.*)?, /etc/kde/env(/.*)?,
+/etc/profile.d(/.*)?, /etc/hotplug/.*rc, /etc/hot-
+plug/.*agent, /usr/lib64/yp/.+, /var/qmail/bin(/.*)?,
+/usr/lib/fence(/.*)?, /etc/X11/xinit(/.*)?,
+/etc/netplug.d(/.*)?, /usr/local/lib(64)?/ipsec/.*,
+/usr/X11R6/lib(64)?/X11/xkb/xkbcomp, /etc/ppp/ip-up..*,
+/etc/cipe/ip-up.*, /etc/pm/power.d(/.*)?,
+/etc/pm/sleep.d(/.*)?, /var/mailman/bin(/.*)?,
+/etc/xen/scripts(/.*)?, /etc/ppp/ipv6-up..*,
+/etc/ppp/ip-down..*, /etc/cipe/ip-down.*,
+/usr/share/hplip/[^/]*, /etc/vmware-tools(/.*)?,
+/etc/kde/shut- down(/.*)?, /etc/acpi/actions(/.*)?,
+/etc/pki/tls/misc(/.*)?, /usr/local/Printer(/.*)?,
+/usr/local/Brother(/.*)?, /opt/google/chrome(/.*)?,
+/usr/lib/bluetooth(/.*)?,
+/usr/lib/ruby/gems(/.*)?/helper-scripts(/.*)?,
+/usr/share/debconf/.+, /etc/ppp/ipv6-down..*,
+/usr/share/cluster/.*.sh, /usr/share/sec- tool/.*.py,
+/usr/share/ssl/misc(/.*)?, /usr/share/e16/misc(/.*)?,
+/usr/lib/ccache/bin(/.*)?, /etc/racoon/scripts(/.*)?,
+/usr/lib/ruby/gems/.*/agents(/.*)?,
+/usr/local/Brother/(.*/)?inf/setup.*,
+/usr/local/Brother/(.*/)?inf/brprintconf.*,
+/usr/share/mc/extfs/.*, /etc/mcelog/triggers(/.*)?,
+/etc/dhcp/dhclient.d(/.*)?, /emul/ia32-linux/bin(/.*)?,
+/usr/lib64/bluetooth(/.*)?,
+/emul/ia32-linux/usr(/.*)?/bin(/.*)?,
+/emul/ia32-linux/usr(/.*)?/Bin(/.*)?,
+/emul/ia32-linux/usr(/.*)?/sbin(/.*)?,
+/usr/lib/wicd/monitor.py, /usr/share/createrepo(/.*)?,
+/emul/ia32-linux/sbin(/.*)?, /usr/share/hal/scripts(/.*)?,
+/usr/lib/vmware-tools/(s)?bin64(/.*)?,
+/usr/lib/vmware-tools/(s)?bin32(/.*)?,
+/etc/gdm/XKeepsCrashing[^/]*, /usr/lib/oracle/xe/apps(/.*)?,
+/usr/share/smolt/client(/.*)?,
+/usr/share/Modules/init(/.*)?,
+/usr/share/apr-0/build/[^/]+.sh,
+/usr/share/shorewall-perl(/.*)?,
+/usr/share/shorewall-lite(/.*)?,
+/usr/share/turboprint/lib(/.*)?,
+/usr/share/vhostmd/scripts(/.*)?,
+/usr/share/shorewall6-lite(/.*)?,
+/usr/share/shorewall-shell(/.*)?,
+/etc/ConsoleKit/run-seat.d(/.*)?,
+/usr/share/sandbox/sandboxX.sh,
+/usr/share/denyhosts/plugins(/.*)?,
+/usr/share/denyhosts/scripts(/.*)?,
+/emul/ia32-linux/usr/libexec(/.*)?, /usr/share/Pack-
+ageKit/helpers(/.*)?, /etc/ConsoleKit/run-session.d(/.*)?,
+/etc/hot- plug.d/default/default.*,
+/usr/share/cluster/checkquorum.*,
+/usr/local/linuxprinter/filters(/.*)?,
+/opt/gutenprint/cups/lib/fil- ter(/.*)?,
+/usr/share/system-config-network(/netconfig)?/[^/]+.py,
+/etc/sysconfig/network-scripts/net.*,
+/etc/sysconfig/network- scripts/ifup.*,
+/etc/sysconfig/network-scripts/init.*, /etc/syscon-
+fig/network-scripts/ifdown.*, /opt/OpenPrinting-Guten-
+print/cups/lib/filter(/.*)?,
+/usr/share/gedit-2/plugins/external- tools/tools(/.*)?,
+/bin, /sbin, /dev/MAKEDEV, /var/qmail/rc, /var/qmail/bin,
+/etc/mail/make, /bin/mountpoint, /lib/udev/scsi_id,
+/sbin/mkfs.cramfs, /etc/xen/qemu-ifup, /etc/sysconfig/init,
+/etc/apcupsd/commok, /etc/sysconfig/crond,
+/etc/X11/xdm/Xsetup_0, /etc/init.d/functions,
+/etc/apcupsd/changeme, /etc/apcupsd/onbattery,
+/etc/sysconfig/libvirtd, /etc/apcupsd/offbattery,
+/etc/apcupsd/apccontrol, /etc/X11/xdm/GiveConsole,
+/etc/X11/xdm/Take- Console, /etc/apcupsd/commfailure,
+/etc/sysconfig/netconsole, /etc/rc.d/init.d/functions,
+/etc/apcupsd/masterconnect, /etc/apcupsd/mastertimeout,
+/usr/share/pydict/pydict.py, /usr/share/clamav/clamd-gen,
+/sbin/insmod_ksymoops_clean, /etc/mgetty+sendfax/new_fax,
+/etc/sysconfig/readonly-root,
+/usr/share/cvs/contrib/rcs2log,
+/usr/share/hwbrowser/hwbrowser,
+/usr/share/shorewall/getparams,
+/usr/share/cluster/SAPDatabase,
+/usr/share/cluster/SAPInstance,
+/usr/share/apr-0/build/libtool,
+/etc/hotplug/hotplug.functions,
+/usr/share/texmf/web2c/mktexdir,
+/usr/share/texmf/web2c/mktexnam,
+/usr/share/texmf/web2c/mktexupd,
+/usr/share/shorewall/configpath,
+/etc/mcelog/cache-error-trigger,
+/usr/share/shorewall/compiler.pl,
+/usr/share/dayplanner/dayplanner,
+/usr/libexec/openssh/sftp-server,
+/usr/share/texmf/texconfig/tcfmgr,
+/usr/share/clamav/freshclam-sleep,
+/usr/share/cluster/ocf-shellfuncs,
+/usr/share/cluster/svclib_nfslock,
+/usr/share/pwlib/make/ptlib-config,
+/usr/share/fedora-usermgmt/wrapper,
+/usr/share/printconf/util/print.py,
+/etc/pki/tls/certs/make-dummy-cert,
+/usr/share/rhn/rhn_applet/applet.py,
+/usr/share/authconfig/authcon- fig.py,
+/usr/share/spamassassin/sa-update.cron,
+/usr/share/selinux/devel/policygentool,
+/usr/share/gnucash/finance- quote-check,
+/usr/share/cluster/fence_scsi_check.pl,
+/usr/share/switchdesk/switchdesk-gui.py,
+/usr/share/authconfig/authcon- fig-tui.py,
+/usr/share/authconfig/authconfig-gtk.py, /usr/share/gnu-
+cash/finance-quote-helper,
+/usr/share/gitolite/hooks/common/update,
+/usr/share/system-config-services/gui.py, /lib/secu-
+rity/pam_krb5/pam_krb5_storetmp,
+/usr/share/system-config-net- boot/pxeos.py,
+/usr/share/system-config-printer/applet.py,
+/usr/share/system-config-nfs/nfs-export.py,
+/usr/share/system-config- selinux/polgen.py,
+/lib64/security/pam_krb5/pam_krb5_storetmp,
+/usr/share/PackageKit/pk-upgrade-distro.sh,
+/usr/share/system-config- netboot/pxeboot.py,
+/usr/share/rhn/rhn_applet/needed-packages.py,
+/usr/share/system-logviewer/system-logviewer.py,
+/usr/share/system-con- fig-network/neat-control.py,
+/usr/share/system-config-services/service- conf.py,
+/usr/share/hal/device-manager/hal-device-manager,
+/usr/share/system-config-lvm/system-config-lvm.py,
+/usr/share/system- config-nfs/system-config-nfs.py,
+/usr/share/system-config-httpd/system- config-httpd,
+/usr/share/system-config-mouse/system-config-mouse,
+/usr/share/system-config-users/system-config-users,
+/usr/share/system- config-date/system-config-date.py,
+/usr/share/gitolite/hooks/gitolite- admin/post-update,
+/usr/share/system-config-samba/system-config- samba.py,
+/usr/share/system-config-display/system-config-display,
+/usr/share/system-config-keyboard/system-config-keyboard,
+/usr/share/system-config-language/system-config-language,
+/usr/share/system-config-services/system-config-services,
+/usr/share/system-config-netboot/system-config-netboot.py,
+/usr/share/system-config-selinux/system-config-selinux.py,
+/usr/share/system-config-soundcard/system-config-soundcard,
+/usr/share/system-config-rootpassword/system-config-rootpassword,
+/usr/share/system-config-securitylevel/system-config-securitylevel.py</p>
+
+<p>PROCESS TYPES SELinux defines process types (domains)
+for each process running on the system</p>
+
+<p>You can see the context of a process using the -Z option
+to ps</p>
+
+<p>Policy governs the access confined processes have to
+files. SELinux initrc policy is very flexible allowing users
+to setup their initrc processes in as secure a method as
+possible.</p>
+
+<p>The following process types are defined for initrc:</p>
+
+<p>initrc_t</p>
+
+<p>Note: semanage permissive -a initrc_t</p>
+
+<p>can be used to make the process type initrc_t
+permissive. Permissive process types are not denied access
+by SELinux. AVC messages will still be generated.</p>
+
+<p>FILE CONTEXTS SELinux requires files to have an extended
+attribute to define the file type.</p>
+
+<p>You can see the context of a file using the -Z option to
+ls</p>
+
+<p>Policy governs the access confined processes have to
+these files. SELinux initrc policy is very flexible allowing
+users to setup their initrc processes in as secure a method
+as possible.</p>
+
+<p>The following file types are defined for initrc:</p>
+
+<p>initrc_devpts_t</p>
+
+<p>- Set files with the initrc_devpts_t type, if you want
+to treat the files as initrc devpts data.</p>
+
+<p>initrc_exec_t</p>
+
+<p>- Set files with the initrc_exec_t type, if you want to
+transition an executable to the initrc_t domain.</p>
+
+<p>initrc_state_t</p>
+
+<p>- Set files with the initrc_state_t type, if you want to
+treat the files as initrc state data.</p>
+
+<p>initrc_tmp_t</p>
+
+<p>- Set files with the initrc_tmp_t type, if you want to
+store initrc temporary files in the /tmp directories.</p>
+
+<p>initrc_var_run_t</p>
+
+<p>- Set files with the initrc_var_run_t type, if you want
+to store the initrc files under the /run directory.</p>
+
+<p>Note: File context can be temporarily modified with the
+chcon command. If you want to permanently change the file
+context you need to use the semanage fcontext command. This
+will modify the SELinux labeling database. You will need to
+use restorecon to apply the labels.</p>
+
+<p>MANAGED FILES The SELinux process type initrc_t can
+manage files labeled with the following file types. The
+paths listed are the default paths for these file types.
+Note the processes UID still need to have DAC
+permissions.</p>
+
+<p>file_type</p>
+
+<p>all files on the system</p>
+
+<p>COMMANDS semanage fcontext can also be used to
+manipulate default file context mappings.</p>
+
+<p>semanage permissive can also be used to manipulate
+whether or not a process type is permissive.</p>
+
+<p>semanage module can also be used to
+enable/disable/install/remove pol- icy modules.</p>
+
+<p>system-config-selinux is a GUI tool available to
+customize SELinux pol- icy settings.</p>
+
+<p>AUTHOR This manual page was auto-generated using
+sepolicy manpage by mgrepl.</p>
+
+<p>SEE ALSO selinux(8), initrc(8), semanage(8),
+restorecon(8), chcon(1), sepol- icy(8) , init_selinux(8)</p>
+
+<p>initrc 13-01-04 initrc_selinux(8)</p>
+<hr>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 04:42:34 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>xm_selinux(8) SELinux Policy documentation for xm
+xm_selinux(8)</p>
+
+<p>NAME xm_selinux - Security Enhanced Linux Policy for the
+xm processes</p>
+
+<p>DESCRIPTION Security-Enhanced Linux secures the xm
+processes via flexible mandatory access control.</p>
+
+<p>The xm processes execute with the xm_t SELinux type. You
+can check if you have these processes running by executing
+the ps command with the -Z qualifier.</p>
+
+<p>For example:</p>
+
+<p>ps -eZ | grep xm_t</p>
+
+<p>ENTRYPOINTS The xm_t SELinux type can be entered via the
+&quot;xm_exec_t&quot; file type. The default entrypoint
+paths for the xm_t domain are the following:&quot;</p>
+
+<p>/usr/sbin/xm, /usr/bin/virsh</p>
+
+<p>PROCESS TYPES SELinux defines process types (domains)
+for each process running on the system</p>
+
+<p>You can see the context of a process using the -Z option
+to ps</p>
+
+<p>Policy governs the access confined processes have to
+files. SELinux xm policy is very flexible allowing users to
+setup their xm processes in as secure a method as
+possible.</p>
+
+<p>The following process types are defined for xm:</p>
+
+<p>xm_t, xm_ssh_t</p>
+
+<p>Note: semanage permissive -a xm_t</p>
+
+<p>can be used to make the process type xm_t permissive.
+Permissive pro- cess types are not denied access by SELinux.
+AVC messages will still be generated.</p>
+
+<p>FILE CONTEXTS SELinux requires files to have an extended
+attribute to define the file type.</p>
+
+<p>You can see the context of a file using the -Z option to
+ls</p>
+
+<p>Policy governs the access confined processes have to
+these files. SELinux xm policy is very flexible allowing
+users to setup their xm processes in as secure a method as
+possible.</p>
+
+<p>The following file types are defined for xm:</p>
+
+<p>xm_exec_t</p>
+
+<p>- Set files with the xm_exec_t type, if you want to
+transition an exe- cutable to the xm_t domain.</p>
+
+<p>Note: File context can be temporarily modified with the
+chcon command. If you want to permanently change the file
+context you need to use the semanage fcontext command. This
+will modify the SELinux labeling database. You will need to
+use restorecon to apply the labels.</p>
+
+<p>MANAGED FILES The SELinux process type xm_t can manage
+files labeled with the follow- ing file types. The paths
+listed are the default paths for these file types. Note the
+processes UID still need to have DAC permissions.</p>
+
+<p>initrc_tmp_t</p>
+
+<p>mnt_t</p>
+
+<p>/mnt(/[^/]*) /mnt(/[^/]*)? /rhev(/[^/]*)? /media(/[^/]*)
+/media(/[^/]*)? /etc/rhgb(/.*)? /media/.hal-.* /net /afs
+/misc /rhev</p>
+
+<p>ssh_home_t</p>
+
+<p>/root/.ssh(/.*)? /var/lib/gitolite(3)?/.ssh(/.*)?
+/var/lib/openshift/[^/]+/.ssh(/.*)?
+/var/lib/amanda/.ssh(/.*)?
+/var/lib/stickshift/[^/]+/.ssh(/.*)? /root/.shosts
+/home/[^/]*/.ssh(/.*)? /home/[^/]*/.shosts</p>
+
+<p>tmp_t</p>
+
+<p>/tmp /usr/tmp /var/tmp /var/tmp/vi.recover</p>
+
+<p>vhostmd_tmpfs_t</p>
+
+<p>virt_etc_rw_t</p>
+
+<p>/etc/xen/.*/.* /etc/xen/[^/]* /etc/libvirt/.*/.*
+/etc/libvirt/[^/]*</p>
+
+<p>virt_etc_t</p>
+
+<p>/etc/xen/[^/]* /etc/libvirt/[^/]* /etc/xen
+/etc/libvirt</p>
+
+<p>virt_image_type</p>
+
+<p>all virtual image files</p>
+
+<p>xend_var_lib_t</p>
+
+<p>/var/lib/xen(/.*)? /var/lib/xend(/.*)?</p>
+
+<p>xenfs_t</p>
+
+<p>COMMANDS semanage fcontext can also be used to
+manipulate default file context mappings.</p>
+
+<p>semanage permissive can also be used to manipulate
+whether or not a process type is permissive.</p>
+
+<p>semanage module can also be used to
+enable/disable/install/remove pol- icy modules.</p>
+
+<p>system-config-selinux is a GUI tool available to
+customize SELinux pol- icy settings.</p>
+
+<p>AUTHOR This manual page was auto-generated using
+sepolicy manpage by mgrepl.</p>
+
+<p>SEE ALSO selinux(8), xm(8), semanage(8), restorecon(8),
+chcon(1), sepolicy(8)</p>
+
+<p>xm 13-01-04 xm_selinux(8)</p>
+<hr>
+</body>
+</html>

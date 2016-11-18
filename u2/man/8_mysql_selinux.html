@@ -1,0 +1,75 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 05:08:17 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>mysql_selinux(8) MySQL SELinux Policy documentation
+mysql_selinux(8)</p>
+
+<p>NAME mysql_selinux - Security-Enhanced Linux Policy for
+the MySQL daemon</p>
+
+<p>DESCRIPTION Security-Enhanced Linux (SELinux) secures
+the MySQL server via flexible mandatory access control.</p>
+
+<p>FILE_CONTEXTS SELinux requires files to have an extended
+attribute to define the file type. Policy governs the access
+daemons have to these files. SELinux mysql policy is very
+flexible allowing users to setup their database services in
+as secure a method as possible.</p>
+
+<p>The following file contexts types are defined for mysql:
+mysqld_db_t - Set database files with mysqld_db_t if you
+want mysqld to treat the files as a database.</p>
+
+<p>For example, if you wanted to store your mysqld database
+in /database, you would need to setup SELinux labelling for
+this directory tree by executing:</p>
+
+<p># semanage fcontext -a -t myqld_db_t /database(/.*)? #
+restorecon -R -v /database</p>
+
+<p>PORTS MySQL listens on the 3306/tcp and 3306/udp port by
+default. If you need MySQL to be able to listen on a
+different port, you need to define that port as being a
+mysql_port_t;</p>
+
+<p>For example if you wanted mysqld to be able to listen on
+tcp port 3307, you would execute the following:</p>
+
+<p># semanage port -a -t mysql_port_t -p tcp 3307</p>
+
+<p>BOOLEANS MySQL is only allowed to connect to ports
+3306/tcp and 3306/udp port by default. If you need MySQL to
+be able to connect to other ports, you can either set the
+port as a mysql_port_t as defined above or set the
+mysql_connect_any boolean to &quot;on&quot;:</p>
+
+<p>setsebool -P mysql_connect_any on</p>
+
+<p>If you want to allow processes running in a user domain
+to connect to MySQL, you can set the
+allow_user_mysql_connect boolean to &quot;on&quot;:</p>
+
+<p>setsebool -P allow_user_mysql_connect on</p>
+
+<p>Note that you can also use the system-config-selinux
+utility that allows you to customize SELinux policy settings
+in the graphical user interface.</p>
+
+<p>AUTHOR This manual page was written by Miroslav Grepl
+&lt;mgrepl@redhat.com&gt;.</p>
+
+<p>SEE ALSO selinux(8), mysql(1), setsebool(8)</p>
+
+<p>mgrepl@redhat.com 8 Aug 2011 mysql_selinux(8)</p>
+<hr>
+</body>
+</html>

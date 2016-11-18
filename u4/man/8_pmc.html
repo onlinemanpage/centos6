@@ -1,0 +1,69 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 04:16:32 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>PMC(8) PMC(8)</p>
+
+<p>NAME pmc - PTP management client</p>
+
+<p>SYNOPSIS pmc [ -2 | -4 | -6 | -u ] [ -b boundary-hops ]
+[ -d domain-number ] [ -i interface ] [ -t
+transport-specific-field ]</p>
+
+<p>DESCRIPTION pmc is a program which implements a PTP
+management client according to IEEE standard 1588. The
+program reads from the standard input actions specified by
+name and management ID, sends them over the selected
+transport and prints any received replies. There are three
+actions sup- ported: GET retrieves the specified
+information, SET updates the speci- fied information and CMD
+(or COMMAND) initiates the specified event.</p>
+
+<p>Command help can be used to get a list of supported
+actions and manage- ment IDs.</p>
+
+<p>OPTIONS -2 Select the IEEE 802.3 network transport.</p>
+
+<p>-4 Select the UDP IPv4 network transport. This is the
+default transport.</p>
+
+<p>-6 Select the UDP IPv6 network transport.</p>
+
+<p>-u Select the Unix Domain Socket transport.</p>
+
+<p>-b boundary-hops Specify the boundary hops value in sent
+messages. The default is 1.</p>
+
+<p>-d domain-number Specify the domain number in sent
+messages. The default is 0.</p>
+
+<p>-i interface Specify the network interface. The default
+is /tmp/pmc for the Unix Domain Socket transport and eth0
+for the other transports.</p>
+
+<p>-t transport-specific-field Specify the transport
+specific field in sent messages as a hex- adecimal number.
+The default is 0x0.</p>
+
+<p>-h Display a help message.</p>
+
+<p>MANAGEMENT IDS CURRENT_DATA_SET</p>
+
+<p>TIME_STATUS_NP</p>
+
+<p>NULL_MANAGEMENT</p>
+
+<p>SEE ALSO ptp4l(8)</p>
+
+<p>linuxptp November 2012 PMC(8)</p>
+<hr>
+</body>
+</html>

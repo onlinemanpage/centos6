@@ -1,0 +1,82 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 04:16:11 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>PHC2SYS(8) PHC2SYS(8)</p>
+
+<p>NAME phc2sys - synchronize two clocks</p>
+
+<p>SYNOPSIS phc2sys { -d pps-device [ -s phc-device | -i
+interface ] | -s phc- device | -i interface } [ -c
+phc-device ] [ -P kp ] [ -I ki ] [ -R update-rate ] [ -N
+clock-readings ] [ -O offset ]</p>
+
+<p>DESCRIPTION phc2sys is a program which synchronizes two
+clocks in the system. Typi- cally, it is used to synchronize
+the system clock to a PTP hardware clock (PHC), which itself
+is synchronized by the ptp4l(8) program.</p>
+
+<p>Two synchronization modes are supported, one uses a
+pulse per second (PPS) signal provided by the source clock
+and the other mode reads time from the source clock
+directly. The PPS mode is usually preferred, because reading
+the PHC is slow and introduces an unknown error in the
+readings, but not all PHCs provide the PPS signal.</p>
+
+<p>OPTIONS -d pps-device Specify the PPS device of the
+master clock (e.g. /dev/pps0). With this option the PPS
+synchronization mode is used instead of the direct mode. As
+the PPS signal does not specify time and only marks start of
+a second, the slave clock should be already close to the
+correct time before phc2sys is started or the -s option
+should be used too.</p>
+
+<p>-s phc-device Specify the master clock by device (e.g.
+/dev/ptp0) or name (e.g. CLOCK_REALTIME for the system
+clock). When this option is used together with the -d
+option, the master clock is read only on start to fix an
+offset over 0.5 seconds which cannot be fixed with PPS
+alone.</p>
+
+<p>-i interface Similar to the -s option, but specified by
+the interface which provides the master clock.</p>
+
+<p>-c phc-device Specify the slave clock by device (e.g.
+/dev/ptp1) or name. The default is CLOCK_REALTIME (the
+system clock).</p>
+
+<p>-P kp Specify the proportional constant of the PI
+controller. The default is 0.7.</p>
+
+<p>-I ki Specify the integral constant of the PI
+controller. The default is 0.3.</p>
+
+<p>-R update-rate Specify the slave clock update rate when
+running in the direct synchronization mode. The default is 1
+per second.</p>
+
+<p>-N phc-num Specify the number of master clock readings
+per one slave clock update. Only the fastest reading is used
+to update the slave clock, this is useful to minimize the
+error caused by random delays in scheduling and bus
+utilization. The default is 5.</p>
+
+<p>-O offset Specify the offset between the slave and
+master times in sec- onds. The default is 0 seconds.</p>
+
+<p>-h Display a help message.</p>
+
+<p>SEE ALSO ptp4l(8)</p>
+
+<p>linuxptp November 2012 PHC2SYS(8)</p>
+<hr>
+</body>
+</html>

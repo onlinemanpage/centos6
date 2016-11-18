@@ -1,0 +1,91 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 04:12:03 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>OCF_HEARTBEAT_SFEX(7) OCF resource agents
+OCF_HEARTBEAT_SFEX(7)</p>
+
+<p>NAME ocf_heartbeat_sfex - Manages exclusive access to
+shared storage using Shared Disk File EXclusiveness
+(SF-EX)</p>
+
+<p>SYNOPSIS sfex [start | stop | monitor | meta-data |
+validate-all]</p>
+
+<p>DESCRIPTION Resource script for SF-EX. It manages a
+shared storage medium exclusively .</p>
+
+<p>SUPPORTED PARAMETERS device Block device path that
+stores exclusive control data. (required, string, no
+default)</p>
+
+<p>index Location in block device where exclusive control
+data is stored. 1 or more is specified. Default is 1.
+(optional, integer, default 1)</p>
+
+<p>collision_timeout Waiting time when a collision of lock
+acquisition is detected. Default is 1 second. (optional,
+integer, default 1)</p>
+
+<p>monitor_interval Monitor interval(sec). Default is 10
+seconds (optional, integer, default 10)</p>
+
+<p>lock_timeout Valid term of lock(sec). Default is 100
+seconds. The lock_timeout is calculated by the following
+formula. .sp lock_timeout = monitor_interval + &quot;The
+expiration time of the lock&quot; .sp We suggest 90 seconds
+as a default value of the &quot;The expiration time of the
+lock&quot;, but you should change it in consideration of
+access delay to the shared disk and the switch time of the
+multipath driver. .sp The lock timeout have an impact on
+start action timeout because start action timeout value is
+calculated by the following formula. .sp start timeout =
+collision_timeout + lock_timeout + &quot;safety margin&quot;
+.sp The &quot;safety margin&quot; is decided within the
+range of about 10-20 seconds(It depends on your system
+requirement). (optional, integer, default 100)</p>
+
+<p>SUPPORTED ACTIONS This resource agent supports the
+following actions (operations):</p>
+
+<p>start Starts the resource. Suggested minimum timeout:
+120s.</p>
+
+<p>stop Stops the resource. Suggested minimum timeout:
+20s.</p>
+
+<p>monitor Performs a detailed status check. Suggested
+minimum timeout: 10s. Suggested interval: 10s.</p>
+
+<p>meta-data Retrieves resource agent metadata (internal
+use only). Suggested minimum timeout: 5s.</p>
+
+<p>validate-all Performs a validation of the resource
+configuration. Suggested minimum timeout: 5s.</p>
+
+<p>EXAMPLE The following is an example configuration for a
+sfex resource using the crm(8) shell:</p>
+
+<p>primitive p_sfex ocf:heartbeat:sfex params device=string
+op monitor depth=&quot;0&quot; timeout=&quot;10s&quot;
+interval=&quot;10s&quot;</p>
+
+<p>SEE ALSO
+http://www.linux-ha.org/wiki/sfex_(resource_agent)</p>
+
+<p>AUTHOR Linux-HA contributors (see the resource agent
+source for information about individual authors)</p>
+
+<p>resource-agents 3.9.2 01/23/2013
+OCF_HEARTBEAT_SFEX(7)</p>
+<hr>
+</body>
+</html>

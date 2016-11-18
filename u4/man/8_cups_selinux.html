@@ -1,0 +1,203 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 03:55:39 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>cups_selinux(8) cups SELinux Policy documentation
+cups_selinux(8)</p>
+
+<p>NAME cups_selinux - Security Enhanced Linux Policy for
+the cups processes</p>
+
+<p>DESCRIPTION SELinux Linux secures cups (Common UNIX
+printing system) processes via flexible mandatory access
+control.</p>
+
+<p>FILE CONTEXTS SELinux requires files to have an extended
+attribute to define the file type.</p>
+
+<p>You can see the context of a file using the -Z option to
+ls</p>
+
+<p>Policy governs the access confined processes have to
+these files. SELinux cups policy is very flexible allowing
+users to setup their cups processes in as secure a method as
+possible.</p>
+
+<p>The following file types are defined for cups:</p>
+
+<p>cups_pdf_exec_t</p>
+
+<p>- Set files with the cups_pdf_exec_t type, if you want
+to transition an executable to the cups_pdf_t domain.</p>
+
+<p>Paths: /usr/lib/cups/backend/cups-pdf,
+/usr/lib64/cups/backend/cups-pdf</p>
+
+<p>cups_pdf_tmp_t</p>
+
+<p>- Set files with the cups_pdf_tmp_t type, if you want to
+store cups pdf temporary files in the /tmp directories.</p>
+
+<p>cupsd_config_exec_t</p>
+
+<p>- Set files with the cupsd_config_exec_t type, if you
+want to transi- tion an executable to the cupsd_config_t
+domain.</p>
+
+<p>Paths: /usr/sbin/printconf-backend,
+/usr/sbin/hal_lpadmin,
+/usr/libexec/cups-pk-helper-mechanism,
+/usr/libexec/hal_lpadmin, /lib/udev/udev-configure-printer,
+/usr/bin/cups-config-daemon</p>
+
+<p>cupsd_config_var_run_t</p>
+
+<p>- Set files with the cupsd_config_var_run_t type, if you
+want to store the cupsd config files under the /run
+directory.</p>
+
+<p>cupsd_etc_t</p>
+
+<p>- Set files with the cupsd_etc_t type, if you want to
+store cupsd files in the /etc directories.</p>
+
+<p>Paths: /usr/share/cups(/.*)?, /etc/cups(/.*)?</p>
+
+<p>cupsd_exec_t</p>
+
+<p>- Set files with the cupsd_exec_t type, if you want to
+transition an executable to the cupsd_t domain.</p>
+
+<p>cupsd_initrc_exec_t</p>
+
+<p>- Set files with the cupsd_initrc_exec_t type, if you
+want to transi- tion an executable to the cupsd_initrc_t
+domain.</p>
+
+<p>cupsd_interface_t</p>
+
+<p>- Set files with the cupsd_interface_t type, if you want
+to treat the files as cupsd interface data.</p>
+
+<p>cupsd_lock_t</p>
+
+<p>- Set files with the cupsd_lock_t type, if you want to
+treat the files as cupsd lock data, stored under the
+/var/lock directory</p>
+
+<p>cupsd_log_t</p>
+
+<p>- Set files with the cupsd_log_t type, if you want to
+treat the data as cupsd log data, usually stored under the
+/var/log directory.</p>
+
+<p>Paths: /var/log/cups(/.*)?,
+/usr/local/Brother/fax/.*.log, /var/log/tur- boprint.*</p>
+
+<p>cupsd_lpd_exec_t</p>
+
+<p>- Set files with the cupsd_lpd_exec_t type, if you want
+to transition an executable to the cupsd_lpd_t domain.</p>
+
+<p>Paths: /usr/lib/cups/daemon/cups-lpd,
+/usr/lib64/cups/daemon/cups-lpd</p>
+
+<p>cupsd_lpd_tmp_t</p>
+
+<p>- Set files with the cupsd_lpd_tmp_t type, if you want
+to store cupsd lpd temporary files in the /tmp
+directories.</p>
+
+<p>cupsd_lpd_var_run_t</p>
+
+<p>- Set files with the cupsd_lpd_var_run_t type, if you
+want to store the cupsd lpd files under the /run
+directory.</p>
+
+<p>cupsd_rw_etc_t</p>
+
+<p>- Set files with the cupsd_rw_etc_t type, if you want to
+store cupsd rw files in the /etc directories.</p>
+
+<p>Paths: /etc/cups/lpoptions.*, /etc/cups/subscriptions.*,
+/usr/local/Brother/(.*/)?inf(/.*)?, /etc/cups/ppd(/.*)?,
+/opt/gutenprint/ppds(/.*)?, /etc/printcap.*,
+/etc/alchemist/names- pace/printconf(/.*)?,
+/usr/local/Printer/(.*/)?inf(/.*)?, /var/lib/cups/certs,
+/usr/local/linuxprinter/ppd(/.*)?, /etc/cups/ppds.dat,
+/etc/cups/certs, /etc/cups/certs/.*,
+/etc/cups/printers.conf.*, /var/lib/cups/certs/.*,
+/var/cache/foomatic(/.*)?, /etc/cups/classes.conf.*,
+/var/cache/alchemist/printconf.*, /etc/cups/cupsd.conf.*,
+/var/cache/cups(/.*)?,
+/usr/share/foomatic/db/oldprinterids</p>
+
+<p>cupsd_tmp_t</p>
+
+<p>- Set files with the cupsd_tmp_t type, if you want to
+store cupsd tem- porary files in the /tmp directories.</p>
+
+<p>cupsd_var_run_t</p>
+
+<p>- Set files with the cupsd_var_run_t type, if you want
+to store the cupsd files under the /run directory.</p>
+
+<p>Paths: /var/ccpd(/.*)?, /var/ekpd(/.*)?,
+/var/turboprint(/.*)?, /var/run/cups(/.*)?</p>
+
+<p>Note: File context can be temporarily modified with the
+chcon command. If you want to permanently change the file
+context you need to use the semanage fcontext command. This
+will modify the SELinux labeling database. You will need to
+use restorecon to apply the labels.</p>
+
+<p>PROCESS TYPES SELinux defines process types (domains)
+for each process running on the system</p>
+
+<p>You can see the context of a process using the -Z option
+to ps</p>
+
+<p>Policy governs the access confined processes have to
+files. SELinux cups policy is very flexible allowing users
+to setup their cups pro- cesses in as secure a method as
+possible.</p>
+
+<p>The following process types are defined for cups:</p>
+
+<p>cupsd_t, cupsd_config_t, cupsd_lpd_t, cups_pdf_t</p>
+
+<p>Note: semanage permissive -a PROCESS_TYPE can be used to
+make a process type permissive. Permissive process types are
+not denied access by SELinux. AVC messages will still be
+generated.</p>
+
+<p>COMMANDS semanage fcontext can also be used to
+manipulate default file context mappings.</p>
+
+<p>semanage permissive can also be used to manipulate
+whether or not a process type is permissive.</p>
+
+<p>semanage module can also be used to
+enable/disable/install/remove pol- icy modules.</p>
+
+<p>system-config-selinux is a GUI tool available to
+customize SELinux pol- icy settings.</p>
+
+<p>AUTHOR This manual page was autogenerated by
+genman.py.</p>
+
+<p>SEE ALSO selinux(8), cups(8), semanage(8),
+restorecon(8), chcon(1)</p>
+
+<p>dwalsh@redhat.com cups cups_selinux(8)</p>
+<hr>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 05:04:50 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>HWLOC-PS(1) hwloc HWLOC-PS(1)</p>
+
+<p>NAME hwloc-ps - List currently-running processes that
+are bound.</p>
+
+<p>SYNOPSIS hwloc-ps [options]</p>
+
+<p>OPTIONS -a list all processes, even those that are not
+bound to any spe- cific part of the machine.</p>
+
+<p>-p --physical report OS/physical indexes instead of
+logical indexes</p>
+
+<p>-l --logical report logical indexes instead of
+physical/OS indexes (default)</p>
+
+<p>-c --cpuset show process bindings as cpusets instead of
+objects.</p>
+
+<p>DESCRIPTION By default, hwloc-ps lists only those
+currently-running processes that are bound; it displays
+their their identifier, command-line and bind- ing. The
+binding may be reported as objects or cpusets. The output is
+a plain list. If you wish to annotate the hierarchical
+topology with processes so as to see how they are actual
+distributed on the machine, you might want to use lstopo
+--ps instead (which also only shows pro- cesses that are
+bound).</p>
+
+<p>The -a switch can be used to show all processes, if
+desired.</p>
+
+<p>SEE ALSO hwloc(7), lstopo(1), hwloc-calc(1),
+hwloc-distrib(1)</p>
+
+<p>1.1 Dec 16, 2010 HWLOC-PS(1)</p>
+<hr>
+</body>
+</html>

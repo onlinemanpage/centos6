@@ -1,0 +1,60 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 04:57:01 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>abrt_selinux(8) ABRT SELinux Policy documentation
+abrt_selinux(8)</p>
+
+<p>NAME abrt_selinux - Security-Enhanced Linux Policy for
+the ABRT daemon</p>
+
+<p>DESCRIPTION Security-Enhanced Linux (SELinux) secures
+the ABRT server via flexible mandatory access control.</p>
+
+<p>SHARING FILES If you want to share files with multiple
+domains (Apache, FTP, rsync, Samba, ABRT), you can set a
+file context of public_content_t and public_content_rw_t.
+These context allow any of the above domains to read the
+content. If you want a particular domain to write to the
+public_content_rw_t domain, you must set the appropriate
+boolean. DOMAIN_anon_write. So for ABRT you would
+execute:</p>
+
+<p>setsebool -P abrt_anon_write 1</p>
+
+<p>ABRT can be configured with the different
+&quot;DumpLocation&quot; option than is the default location
+in the &quot;/var/cache/abrt&quot; directory. In this case,
+either you will need to add a local policy to allow it or
+you will need to change a file context of this location.</p>
+
+<p>chcon -R -t abrt_var_cache_t PATHO_DUMPLOCATION</p>
+
+<p>BOOLEANS If you want to allow ABRT to run ABRT event
+scripts properly, you need to set the abrt_handle_event
+boolean on. Then an event script will run in the own SELinux
+domain.</p>
+
+<p>setsebool -P abrt_handle_event 1</p>
+
+<p>Note that you can also use the system-config-selinux
+utility that allows you to customize SELinux policy settings
+in the graphical user interface.</p>
+
+<p>AUTHOR This manual page was written by Miroslav Grepl
+&lt;mgrepl@redhat.com&gt;.</p>
+
+<p>SEE ALSO selinux(8), setsebool(8)</p>
+
+<p>mgrepl@redhat.com 24 Wed 2011 abrt_selinux(8)</p>
+<hr>
+</body>
+</html>

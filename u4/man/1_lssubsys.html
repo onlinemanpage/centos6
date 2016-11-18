@@ -1,0 +1,66 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 04:08:42 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>LSSUBSYS(1) libcgroup Manual LSSUBSYS(1)</p>
+
+<p>NAME lssubsys - list hierarchies containing given
+subsystem</p>
+
+<p>SYNOPSIS lssubsys [-m|--mount-points] [controller] [...]
+lssubsys [-m|--mount-points] [-i|--hierarchies] [-a|--all]
+lssubsys [-h|--help]</p>
+
+<p>DESCRIPTION The command list hierarchies containing the
+given subsystem(s) if no subsystem is defined then it
+displays all mounted hierarchies.</p>
+
+<p>controller defines subsystem whose hierarchy is shown.
+If this parameter is not used then the command list all
+mounted subsystems.</p>
+
+<p>-m, --mount-points Display mount points.</p>
+
+<p>-a, --all Display all subsystems (including not mounted
+ones).</p>
+
+<p>-i, --hierarchies Display attached hierarchy number, if
+the subsystem is in a hierarchy. If the option -m is used
+too, then the hierarchy number is shown only for not mounted
+hierarchies.</p>
+
+<p>-h, --help Display help and exit.</p>
+
+<p>EXAMPLE Command lssubsys -am lists all subsystems which
+are present on the sys- tem, mounted ones have attached the
+mount point: $ lssubsys -am ns cpuset cpu,devices cpuacct
+/cgroup/cpuacct memory /cgroup/memory freezer
+/cgroup/freezer net_cls /cgroup/net_cls</p>
+
+<p>Command lssubsys -ami lists all subsystems which are
+present on the system, mounted subsystems have attached the
+mount point, not mounted ones which are in some hierarchy
+have attached the hierarchy number: $ lssubsys -ami ns
+cpuset 5 cpu,devices 6 cpuacct /cgroup/cpuacct memory
+/cgroup/memory freezer /cgroup/freezer net_cls
+/cgroup/net_cls</p>
+
+<p>ENVIRONMENT VARIABLES CGROUP_LOGLEVEL controls verbosity
+of the tool. Allowed values are DEBUG, INFO, WARNING or
+ERROR.</p>
+
+<p>SEE ALSO lscgroup (1), cgcreate (1), cgdelete (1),
+cgconfig.conf (5)</p>
+
+<p>Linux 2009-11-05 LSSUBSYS(1)</p>
+<hr>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 04:23:28 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>innd_selinux(8) innd SELinux Policy documentation
+innd_selinux(8)</p>
+
+<p>NAME innd_selinux - Security Enhanced Linux Policy for
+the innd processes</p>
+
+<p>DESCRIPTION FILE CONTEXTS SELinux requires files to have
+an extended attribute to define the file type.</p>
+
+<p>You can see the context of a file using the -Z option to
+ls</p>
+
+<p>Policy governs the access confined processes have to
+these files. SELinux innd policy is very flexible allowing
+users to setup their innd processes in as secure a method as
+possible.</p>
+
+<p>The following file types are defined for innd:</p>
+
+<p>innd_etc_t</p>
+
+<p>- Set files with the innd_etc_t type, if you want to
+store innd files in the /etc directories.</p>
+
+<p>innd_exec_t</p>
+
+<p>- Set files with the innd_exec_t type, if you want to
+transition an executable to the innd_t domain.</p>
+
+<p>Paths: /usr/lib(64)?/news/bin/startinnfeed,
+/usr/bin/suck, /usr/lib(64)?/news/bin/expireover,
+/usr/lib(64)?/news/bin/nntpget, /usr/sbin/in.nnrpd,
+/usr/lib(64)?/news/bin/batcher, /usr/lib64/news/bin/innd,
+/usr/lib/news/bin/innd, /usr/lib(64)?/news/bin/overchan,
+/usr/lib(64)?/news/bin/newsre- queue,
+/usr/lib(64)?/news/bin/innxmit,
+/usr/lib(64)?/news/bin/archive,
+/usr/lib(64)?/news/bin/getlist,
+/usr/lib(64)?/news/bin/buffchan, /usr/bin/inews,
+/usr/sbin/innd.*, /usr/lib(64)?/news/bin/inndstart,
+/usr/lib(64)?/news/bin/inndf, /usr/lib(64)?/news/bin/shlock,
+/usr/bin/rpost, /etc/news/boot,
+/usr/lib(64)?/news/bin/makedbz,
+/usr/lib(64)?/news/bin/innfeed, /usr/lib64/news/bin/sm,
+/usr/lib(64)?/news/bin/convdate, /usr/bin/rnews,
+/usr/lib(64)?/news/bin/expire,
+/usr/lib(64)?/news/bin/actsync,
+/usr/lib(64)?/news/bin/ctlinnd,
+/usr/lib(64)?/news/bin/inews,
+/usr/lib(64)?/news/bin/filechan,
+/usr/lib(64)?/news/bin/grephistory, /usr/lib/news/bin/sm,
+/usr/lib(64)?/news/bin/ovdb_recover,
+/usr/lib(64)?/news/bin/cvt- batch,
+/usr/lib(64)?/news/bin/prunehistory,
+/usr/lib(64)?/news/bin/innxbatch,
+/usr/lib(64)?/news/bin/nnrpd,
+/usr/lib(64)?/news/bin/innconfval,
+/usr/lib(64)?/news/bin/makehis- tory,
+/usr/lib(64)?/news/bin/fastrm, /usr/lib(64)?/news/bin/rnews,
+/usr/lib(64)?/news/bin/shrinkfile</p>
+
+<p>innd_initrc_exec_t</p>
+
+<p>- Set files with the innd_initrc_exec_t type, if you
+want to transition an executable to the innd_initrc_t
+domain.</p>
+
+<p>innd_log_t</p>
+
+<p>- Set files with the innd_log_t type, if you want to
+treat the data as innd log data, usually stored under the
+/var/log directory.</p>
+
+<p>innd_var_lib_t</p>
+
+<p>- Set files with the innd_var_lib_t type, if you want to
+store the innd files under the /var/lib directory.</p>
+
+<p>innd_var_run_t</p>
+
+<p>- Set files with the innd_var_run_t type, if you want to
+store the innd files under the /run directory.</p>
+
+<p>Paths: /var/run/innd(/.*)?, /var/run/news(/.*)?</p>
+
+<p>Note: File context can be temporarily modified with the
+chcon command. If you want to permanently change the file
+context you need to use the semanage fcontext command. This
+will modify the SELinux labeling database. You will need to
+use restorecon to apply the labels.</p>
+
+<p>PORT TYPES SELinux defines port types to represent TCP
+and UDP ports.</p>
+
+<p>You can see the types associated with a port by using
+the following command:</p>
+
+<p>semanage port -l</p>
+
+<p>Policy governs the access confined processes have to
+these ports. SELinux innd policy is very flexible allowing
+users to setup their innd processes in as secure a method as
+possible.</p>
+
+<p>The following port types are defined for innd:</p>
+
+<p>innd_port_t</p>
+
+<p>Default Defined Ports: tcp 8021</p>
+
+<p>PROCESS TYPES SELinux defines process types (domains)
+for each process running on the system</p>
+
+<p>You can see the context of a process using the -Z option
+to ps</p>
+
+<p>Policy governs the access confined processes have to
+files. SELinux innd policy is very flexible allowing users
+to setup their innd pro- cesses in as secure a method as
+possible.</p>
+
+<p>The following process types are defined for innd:</p>
+
+<p>innd_t</p>
+
+<p>Note: semanage permissive -a PROCESS_TYPE can be used to
+make a process type permissive. Permissive process types are
+not denied access by SELinux. AVC messages will still be
+generated.</p>
+
+<p>COMMANDS semanage fcontext can also be used to
+manipulate default file context mappings.</p>
+
+<p>semanage permissive can also be used to manipulate
+whether or not a process type is permissive.</p>
+
+<p>semanage module can also be used to
+enable/disable/install/remove pol- icy modules.</p>
+
+<p>semanage port can also be used to manipulate the port
+definitions</p>
+
+<p>system-config-selinux is a GUI tool available to
+customize SELinux pol- icy settings.</p>
+
+<p>AUTHOR This manual page was autogenerated by
+genman.py.</p>
+
+<p>SEE ALSO selinux(8), innd(8), semanage(8),
+restorecon(8), chcon(1)</p>
+
+<p>dwalsh@redhat.com innd innd_selinux(8)</p>
+<hr>
+</body>
+</html>

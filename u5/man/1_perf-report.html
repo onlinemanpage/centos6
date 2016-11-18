@@ -1,0 +1,159 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 04:14:22 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>PERF-REPORT(1) perf Manual PERF-REPORT(1)</p>
+
+<p>NAME perf-report - Read perf.data (created by perf
+record) and display the profile</p>
+
+<p>SYNOPSIS perf report [-i &lt;file&gt; |
+--input=file]</p>
+
+<p>DESCRIPTION This command displays the performance
+counter profile information recorded via perf record.</p>
+
+<p>OPTIONS -i, --input= Input file name. (default:
+perf.data unless stdin is a fifo)</p>
+
+<p>-v, --verbose Be more verbose. (show symbol address,
+etc)</p>
+
+<p>-d, --dsos= Only consider symbols in these dsos. CSV
+that understands file://filename entries.</p>
+
+<p>-n, --show-nr-samples Show the number of samples for
+each symbol</p>
+
+<p>--showcpuutilization Show sample percentage for
+different cpu modes.</p>
+
+<p>-T, --threads Show per-thread event counters</p>
+
+<p>-c, --comms= Only consider symbols in these comms. CSV
+that understands file://filename entries.</p>
+
+<p>-S, --symbols= Only consider these symbols. CSV that
+understands file://filename entries.</p>
+
+<p>--symbol-filter= Only show symbols that match
+(partially) with this filter.</p>
+
+<p>-U, --hide-unresolved Only display entries resolved to a
+symbol.</p>
+
+<p>-s, --sort= Sort by key(s): pid, comm, dso, symbol,
+parent, srcline.</p>
+
+<p>-p, --parent=&lt;regex&gt; regex filter to identify
+parent, see: --sort parent</p>
+
+<p>-x, --exclude-other Only display entries with
+parent-match.</p>
+
+<p>-w, --column-widths=&lt;width[,width...]&gt; Force each
+column width to the provided list, for large terminal
+readability.</p>
+
+<p>-t, --field-separator= Use a special separator character
+and dont pad with spaces, replacing all occurrences of this
+separator in symbol names (and other output) with a .
+character, that thus its the only non valid separator.</p>
+
+<p>-D, --dump-raw-trace Dump raw trace in ASCII.</p>
+
+<p>-g [type,min[,limit],order], --call-graph Display call
+chains using type, min percent threshold, optional print
+limit and order. type can be either:</p>
+
+<p>&middot; flat: single column, linear exposure of call
+chains.</p>
+
+<p>&middot; graph: use a graph tree, displaying absolute
+overhead rates.</p>
+
+<p>&middot; fractal: like graph, but displays relative
+rates. Each branch of the tree is considered as a new
+profiled object.</p>
+
+<p>order can be either: - callee: callee based call graph.
+- caller: inverted caller based call graph.</p>
+
+<p>Default: fractal,0.5,callee.</p>
+
+<p>-G, --inverted alias for inverted caller based call
+graph.</p>
+
+<p>--pretty=&lt;key&gt; Pretty printing style. key: normal,
+raw</p>
+
+<p>--stdio Use the stdio interface.</p>
+
+<p>--tui Use the TUI interface, that is integrated with
+annotate and allows zooming into DSOs or threads, among
+other features. Use of --tui requires a tty, if one is not
+present, as when piping to other commands, the stdio
+interface is used.</p>
+
+<p>--gtk Use the GTK2 interface.</p>
+
+<p>-k, --vmlinux=&lt;file&gt; vmlinux pathname</p>
+
+<p>--kallsyms=&lt;file&gt; kallsyms pathname</p>
+
+<p>-m, --modules Load module symbols. WARNING: This should
+only be used with -k and a LIVE kernel.</p>
+
+<p>-f, --force Dont complain, do it.</p>
+
+<p>--symfs=&lt;directory&gt; Look for files with symbols
+relative to this directory.</p>
+
+<p>-C, --cpu Only report samples for the list of CPUs
+provided. Multiple CPUs can be provided as a comma-separated
+list with no space: 0,1. Ranges of CPUs are specified with
+-: 0-2. Default is to report samples on all CPUs.</p>
+
+<p>-M, --disassembler-style= Set disassembler style for
+objdump.</p>
+
+<p>--source Interleave source code with assembly code.
+Enabled by default, disable with --no-source.</p>
+
+<p>--asm-raw Show raw instruction encoding of assembly
+instructions.</p>
+
+<p>--show-total-period Show a column with the sum of
+periods.</p>
+
+<p>-I, --show-info Display extended information about the
+perf.data file. This adds information which may be very
+large and thus may clutter the display. It currently
+includes: cpu and numa topology of the host system.</p>
+
+<p>-b, --branch-stack Use the addresses of sampled taken
+branches instead of the instruction address to build the
+histograms. To generate meaningful output, the perf.data
+file must have been obtained using perf record -b or perf
+record --branch-filter xxx where xxx is a branch filter
+option. perf report is able to auto-detect whether a
+perf.data file contains branch stacks and it will
+automatically switch to the branch view mode, unless
+--no-branch-stack is used.</p>
+
+<p>--objdump=&lt;path&gt; Path to objdump binary.</p>
+
+<p>SEE ALSO perf-stat(1), perf-annotate(1)</p>
+
+<p>perf 11/10/2013 PERF-REPORT(1)</p>
+<hr>
+</body>
+</html>

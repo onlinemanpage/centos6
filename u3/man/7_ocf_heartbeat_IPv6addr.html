@@ -1,0 +1,73 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 04:29:29 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>OCF_HEARTBEAT_IPV6AD(7) OCF resource agents
+OCF_HEARTBEAT_IPV6AD(7)</p>
+
+<p>NAME ocf_heartbeat_IPv6addr - Manages IPv6 aliases</p>
+
+<p>SYNOPSIS IPv6addr [start | stop | status | monitor |
+meta-data | validate-all]</p>
+
+<p>DESCRIPTION This script manages IPv6 alias IPv6
+addresses,It can add an IP6 alias, or remove one.</p>
+
+<p>SUPPORTED PARAMETERS ipv6addr The IPv6 address this RA
+will manage (required, string, no default)</p>
+
+<p>cidr_netmask The netmask for the interface in CIDR
+format. (ie, 24). The value of this parameter overwrites the
+value of _prefix_ of ipv6addr parameter. (optional, string,
+no default)</p>
+
+<p>nic The base network interface on which the IPv6 address
+will be brought online. (optional, string, no default)</p>
+
+<p>SUPPORTED ACTIONS This resource agent supports the
+following actions (operations):</p>
+
+<p>start Starts the resource. Suggested minimum timeout:
+15.</p>
+
+<p>stop Stops the resource. Suggested minimum timeout:
+15.</p>
+
+<p>status Performs a status check. Suggested minimum
+timeout: 15. Suggested interval: 15.</p>
+
+<p>monitor Performs a detailed status check. Suggested
+minimum timeout: 15. Suggested interval: 15.</p>
+
+<p>validate-all Performs a validation of the resource
+configuration. Suggested minimum timeout: 5.</p>
+
+<p>meta-data Retrieves resource agent metadata (internal
+use only). Suggested minimum timeout: 5.</p>
+
+<p>EXAMPLE The following is an example configuration for a
+IPv6addr resource using the crm(8) shell:</p>
+
+<p>primitive p_IPv6addr ocf:heartbeat:IPv6addr params
+ipv6addr=string op monitor timeout=&quot;15&quot;
+interval=&quot;15&quot;</p>
+
+<p>SEE ALSO
+http://www.linux-ha.org/wiki/IPv6addr_(resource_agent)</p>
+
+<p>AUTHOR Linux-HA contributors (see the resource agent
+source for information about individual authors)</p>
+
+<p>resource-agents 3.9.2 04/30/2012
+OCF_HEARTBEAT_IPV6AD(7)</p>
+<hr>
+</body>
+</html>

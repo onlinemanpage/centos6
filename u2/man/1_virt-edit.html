@@ -1,0 +1,254 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 05:23:11 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>virt-edit(1) Virtualization Support virt-edit(1)</p>
+
+<p>NAME virt-edit - Edit a file in a virtual machine</p>
+
+<p>SYNOPSIS virt-edit [--options] domname file</p>
+
+<p>virt-edit [--options] disk.img [disk.img ...] file</p>
+
+<p>virt-edit [domname|disk.img] file -e
+&rsquo;expr&rsquo;</p>
+
+<p>WARNING You must not use &quot;virt-edit&quot; on live
+virtual machines. If you do this, you risk disk corruption
+in the VM. &quot;virt-edit&quot; tries to stop you from
+doing this, but doesnt catch all cases.</p>
+
+<p>DESCRIPTION &quot;virt-edit&quot; is a command line tool
+to edit &quot;file&quot; where &quot;file&quot; exists in
+the named virtual machine (or disk image).</p>
+
+<p>If you want to just view a file, use virt-cat(1).</p>
+
+<p>For more complex cases you should look at the
+guestfish(1) tool (see &quot;USING GUESTFISH&quot;
+below).</p>
+
+<p>&quot;virt-edit&quot; cannot be used to create a new
+file, nor to edit multiple files. guestfish(1) can do that
+and much more.</p>
+
+<p>EXAMPLES Edit the named files interactively:</p>
+
+<p>virt-edit mydomain /boot/grub/grub.conf</p>
+
+<p>virt-edit mydomain /etc/passwd</p>
+
+<p>You can also edit files non-interactively (see
+&quot;NON-INTERACTIVE EDITING&quot; below). To change the
+init default level to 5:</p>
+
+<p>virt-edit mydomain /etc/inittab -e
+&rsquo;s/^id:.*/id:5:initdefault:/&rsquo;</p>
+
+<p>OPTIONS --help Display brief help.</p>
+
+<p>--version Display version number and exit.</p>
+
+<p>--backup extension | -b extension Create a backup of the
+original file in the guest disk image. The backup has the
+original filename with &quot;extension&quot; added.</p>
+
+<p>Usually the first character of &quot;extension&quot;
+would be a dot &quot;.&quot; so you would write:</p>
+
+<p>virt-edit -b .orig [etc]</p>
+
+<p>By default, no backup file is made.</p>
+
+<p>--connect URI | -c URI If using libvirt, connect to the
+given URI. If omitted, then we connect to the default
+libvirt hypervisor.</p>
+
+<p>If you specify guest block devices directly, then
+libvirt is not used at all.</p>
+
+<p>--format raw Specify the format of disk images given on
+the command line. If this is omitted then the format is
+autodetected from the content of the disk image.</p>
+
+<p>If disk images are requested from libvirt, then this
+program asks libvirt for this information. In this case, the
+value of the format parameter is ignored.</p>
+
+<p>If working with untrusted raw-format guest disk images,
+you should ensure the format is always specified.</p>
+
+<p>--expr EXPR | -e EXPR Instead of launching the external
+editor, non-interactively apply the Perl expression
+&quot;EXPR&quot; to each line in the file. See &quot;NON-
+INTERACTIVE EDITING&quot; below.</p>
+
+<p>Be careful to properly quote the expression to prevent
+it from being altered by the shell.</p>
+
+<p>NON-INTERACTIVE EDITING &quot;virt-edit&quot; normally
+calls out to $EDITOR (or vi) so the system administrator can
+interactively edit the file.</p>
+
+<p>There are two ways also to use &quot;virt-edit&quot;
+from scripts in order to make automated edits to files.
+(Note that although you can use &quot;virt-edit&quot; like
+this, it s less error-prone to write scripts directly using
+the libguestfs API and Augeas for configuration file
+editing.)</p>
+
+<p>The first method is to temporarily set $EDITOR to any
+script or program you want to run. The script is invoked as
+&quot;$EDITOR tmpfile&quot; and it should update
+&quot;tmpfile&quot; in place however it likes.</p>
+
+<p>The second method is to use the &quot;-e&quot; parameter
+of &quot;virt-edit&quot; to run a short Perl snippet in the
+style of sed(1). For example to replace all instances of
+&quot;foo&quot; with &quot;bar&quot; in a file:</p>
+
+<p>virt-edit domname filename -e
+&rsquo;s/foo/bar/&rsquo;</p>
+
+<p>The full power of Perl regular expressions can be used
+(see perlre(1)). For example to delete roots password you
+could do:</p>
+
+<p>virt-edit domname /etc/passwd -e
+&rsquo;s/^root:.*?:/root::/&rsquo;</p>
+
+<p>What really happens is that the snippet is evaluated as
+a Perl expression for each line of the file. The line,
+including the final &quot;0, is passed in $_ and the
+expression should update $_ or leave it unchanged.</p>
+
+<p>To delete a line, set $_ to the empty string. For
+example, to delete the &quot;apache&quot; user account from
+the password file you can do:</p>
+
+<p>virt-edit mydomain /etc/passwd -e &rsquo;$_ =
+&quot;&quot; if /^apache:/&rsquo;</p>
+
+<p>To insert a line, prepend or append it to $_. However
+appending lines to the end of the file is rather difficult
+this way since there is no concept of &quot;last line of the
+file&quot; - your expression just doesnt get called again.
+You might want to use the first method (setting $EDITOR) if
+you want to do this.</p>
+
+<p>The variable $lineno contains the current line number.
+As is traditional, the first line in the file is number
+1.</p>
+
+<p>The return value from the expression is ignored, but the
+expression may call &quot;die&quot; in order to abort the
+whole program, leaving the original file untouched.</p>
+
+<p>Remember when matching the end of a line that $_ may
+contain the final 0, or if the file does not end &quot;0, or
+(for DOS files) &quot; with a newline then neither of these.
+Thus to match or substitute some text at the end of a line,
+use this regular expression:</p>
+
+<p>?0?$/ /some text(</p>
+
+<p>Alternately, use the perl &quot;chomp&quot; function,
+being careful not to chomp $_ itself (since that would
+remove all newlines from the file):</p>
+
+<p>my $m = $_; chomp $m; $m =~ /some text$/</p>
+
+<p>USING GUESTFISH guestfish(1) is a more powerful, lower
+level tool which you can use when &quot;virt-edit&quot;
+doesnt work.</p>
+
+<p>Using &quot;virt-edit&quot; is approximately equivalent
+to doing:</p>
+
+<p>guestfish --rw -i -d domname edit /file</p>
+
+<p>where &quot;domname&quot; is the name of the libvirt
+guest, and &quot;/file&quot; is the full path to the
+file.</p>
+
+<p>The command above uses libguestfs s guest inspection
+feature and so does not work on guests that libguestfs
+cannot inspect, or on things like arbitrary disk images that
+dont contain guests. To edit a file on a disk image
+directly, use:</p>
+
+<p>guestfish --rw -a disk.img -m /dev/sda1 edit /file</p>
+
+<p>where &quot;disk.img&quot; is the disk image,
+&quot;/dev/sda1&quot; is the filesystem within the disk
+image to edit, and &quot;/file&quot; is the full path to the
+file.</p>
+
+<p>&quot;virt-edit&quot; cannot create new files. Use the
+guestfish commands &quot;touch&quot;, &quot;write&quot; or
+&quot;upload&quot; instead:</p>
+
+<p>guestfish --rw -i -d domname touch /newfile</p>
+
+<p>guestfish --rw -i -d domname write /newfile &quot;new
+content&quot;</p>
+
+<p>guestfish --rw -i -d domname upload localfile
+/newfile</p>
+
+<p>&quot;virt-edit&quot; cannot edit multiple files, but
+guestfish can do it like this:</p>
+
+<p>guestfish --rw -i -d domname edit /file1 : edit
+/file2</p>
+
+<p>ENVIRONMENT VARIABLES &quot;EDITOR&quot; If set, this
+string is used as the editor. It may contain arguments, eg.
+&quot;emacs -nw&quot;</p>
+
+<p>If not set, &quot;vi&quot; is used.</p>
+
+<p>SHELL QUOTING Libvirt guest names can contain arbitrary
+characters, some of which have meaning to the shell such as
+&quot;#&quot; and space. You may need to quote or escape
+these characters on the command line. See the shell manual
+page sh(1) for details.</p>
+
+<p>SEE ALSO guestfs(3), guestfish(1), virt-cat(1),
+Sys::Guestfs(3), Sys::Guestfs::Lib(3), Sys::Virt(3),
+&lt;http://libguestfs.org/&gt;, perl(1), perlre(1).</p>
+
+<p>AUTHOR Richard W.M. Jones
+&lt;http://people.redhat.com/~rjones/&gt;</p>
+
+<p>COPYRIGHT Copyright (C) 2009-2011 Red Hat Inc.</p>
+
+<p>This program is free software; you can redistribute it
+and/or modify it under the terms of the GNU General Public
+License as published by the Free Software Foundation; either
+version 2 of the License, or (at your option) any later
+version.</p>
+
+<p>This program is distributed in the hope that it will be
+useful, but WITHOUT ANY WARRANTY; without even the implied
+warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+PURPOSE. See the GNU General Public License for more
+details.</p>
+
+<p>You should have received a copy of the GNU General
+Public License along with this program; if not, write to the
+Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA
+02139, USA.</p>
+
+<p>libguestfs-1.7.17 2011-08-12 virt-edit(1)</p>
+<hr>
+</body>
+</html>

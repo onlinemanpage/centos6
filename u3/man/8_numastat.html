@@ -1,0 +1,71 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 04:29:23 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>NUMACTL(8) Linux Administrator s Manual NUMACTL(8)</p>
+
+<p>NAME numastat - Print statistics about NUMA memory
+allocation</p>
+
+<p>SYNOPSIS numastat</p>
+
+<p>DESCRIPTION numastat displays NUMA allocations
+statistics from the kernel memory allocator. Each process
+has NUMA policies that specifies on which node pages are
+allocated. See set_mempolicy(2) or numactl(8) on details of
+the available policies. The numastat counters keep track on
+what nodes memory is finally allocated.</p>
+
+<p>The counters are separated for each node. Each count
+event is the allo- cation of a page of memory.</p>
+
+<p>numa_hit is the number of allocations where an
+allocation was intended for that node and succeeded
+there.</p>
+
+<p>numa_miss shows how often an allocation was intended for
+this node, but ended up on another node due to low
+memory.</p>
+
+<p>numa_foreign is the number of allocations that were
+intended for another node, but ended up on this node. Each
+numa_foreign event has a numa_miss on another node.</p>
+
+<p>interleave_hit is the number of interleave policy
+allocations that were intended for a specific node and
+succeeded there.</p>
+
+<p>local_node is incremented when a process running on the
+node allocated memory on the same node.</p>
+
+<p>other_node is incremented when a process running on
+another node allo- cated memory on that node.</p>
+
+<p>SEE ALSO numactl(8) set_mempolicy(2) numa(3)</p>
+
+<p>NOTES numastat output is only available on NUMA
+systems.</p>
+
+<p>numastat assumes the output terminal has a width of 80
+characters and tries to format the output accordingly.</p>
+
+<p>EXAMPLES watch -n1 numastat watch -n1
+--differences=accumulative numastat</p>
+
+<p>FILES /sys/devices/system/node/node*/numastat</p>
+
+<p>BUGS The output formatting on machines with a large
+number of nodes could be improved.</p>
+
+<p>SuSE Labs Nov 2004 NUMACTL(8)</p>
+<hr>
+</body>
+</html>

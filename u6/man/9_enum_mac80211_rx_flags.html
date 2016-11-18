@@ -1,0 +1,120 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 03:57:32 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>ENUM MAC80211_RX_FLA(9) The basic mac80211 driver inte
+ENUM MAC80211_RX_FLA(9)</p>
+
+<p>NAME enum_mac80211_rx_flags - receive flags</p>
+
+<p>SYNOPSIS enum mac80211_rx_flags { RX_FLAG_MMIC_ERROR,
+RX_FLAG_DECRYPTED, RX_FLAG_MMIC_STRIPPED,
+RX_FLAG_IV_STRIPPED, RX_FLAG_FAILED_FCS_CRC,
+RX_FLAG_FAILED_PLCP_CRC, RX_FLAG_MACTIME_START,
+RX_FLAG_SHORTPRE, RX_FLAG_HT, RX_FLAG_40MHZ,
+RX_FLAG_SHORT_GI, RX_FLAG_NO_SIGNAL_VAL, RX_FLAG_HT_GF,
+RX_FLAG_AMPDU_DETAILS, RX_FLAG_AMPDU_REPORT_ZEROLEN,
+RX_FLAG_AMPDU_IS_ZEROLEN, RX_FLAG_AMPDU_LAST_KNOWN,
+RX_FLAG_AMPDU_IS_LAST, RX_FLAG_AMPDU_DELIM_CRC_ERROR,
+RX_FLAG_AMPDU_DELIM_CRC_KNOWN, RX_FLAG_MACTIME_END,
+RX_FLAG_VHT, RX_FLAG_80MHZ, RX_FLAG_80P80MHZ, RX_FLAG_160MHZ
+};</p>
+
+<p>CONSTANTS RX_FLAG_MMIC_ERROR Michael MIC error was
+reported on this frame. Use together with
+RX_FLAG_MMIC_STRIPPED.</p>
+
+<p>RX_FLAG_DECRYPTED This frame was decrypted in
+hardware.</p>
+
+<p>RX_FLAG_MMIC_STRIPPED the Michael MIC is stripped off
+this frame, verification has been done by the hardware.</p>
+
+<p>RX_FLAG_IV_STRIPPED The IV/ICV are stripped from this
+frame. If this flag is set, the stack cannot do any replay
+detection hence the driver or hardware will have to do
+that.</p>
+
+<p>RX_FLAG_FAILED_FCS_CRC Set this flag if the FCS check
+failed on the frame.</p>
+
+<p>RX_FLAG_FAILED_PLCP_CRC Set this flag if the PCLP check
+failed on the frame.</p>
+
+<p>RX_FLAG_MACTIME_START The timestamp passed in the RX
+status (mactime field) is valid and contains the time the
+first symbol of the MPDU was received. This is useful in
+monitor mode and for proper IBSS merging.</p>
+
+<p>RX_FLAG_SHORTPRE Short preamble was used for this
+frame</p>
+
+<p>RX_FLAG_HT HT MCS was used and rate_idx is MCS index</p>
+
+<p>RX_FLAG_40MHZ HT40 (40 MHz) was used</p>
+
+<p>RX_FLAG_SHORT_GI Short guard interval was used</p>
+
+<p>RX_FLAG_NO_SIGNAL_VAL The signal strength value is not
+present. Valid only for data frames (mainly A-MPDU)</p>
+
+<p>RX_FLAG_HT_GF This frame was received in a HT-greenfield
+transmission, if the driver fills this value it should add
+IEEE80211_RADIOTAP_MCS_HAVE_FMT to hw.radiotap_mcs_details
+to advertise that fact</p>
+
+<p>RX_FLAG_AMPDU_DETAILS A-MPDU details are known, in
+particular the reference number (ampdu_reference) must be
+populated and be a distinct number for each A-MPDU</p>
+
+<p>RX_FLAG_AMPDU_REPORT_ZEROLEN driver reports 0-length
+subframes</p>
+
+<p>RX_FLAG_AMPDU_IS_ZEROLEN This is a zero-length subframe,
+for monitoring purposes only</p>
+
+<p>RX_FLAG_AMPDU_LAST_KNOWN last subframe is known, should
+be set on all subframes of a single A-MPDU</p>
+
+<p>RX_FLAG_AMPDU_IS_LAST this subframe is the last subframe
+of the A-MPDU</p>
+
+<p>RX_FLAG_AMPDU_DELIM_CRC_ERROR A delimiter CRC error has
+been detected on this subframe</p>
+
+<p>RX_FLAG_AMPDU_DELIM_CRC_KNOWN The delimiter CRC field is
+known (the CRC is stored in the ampdu_delimiter_crc
+field)</p>
+
+<p>RX_FLAG_MACTIME_END The timestamp passed in the RX
+status (mactime field) is valid and contains the time the
+last symbol of the MPDU (including FCS) was received.</p>
+
+<p>RX_FLAG_VHT VHT MCS was used and rate_index is MCS
+index</p>
+
+<p>RX_FLAG_80MHZ 80 MHz was used</p>
+
+<p>RX_FLAG_80P80MHZ 80+80 MHz was used</p>
+
+<p>RX_FLAG_160MHZ 160 MHz was used</p>
+
+<p>DESCRIPTION These flags are used with the flag member of
+struct ieee80211_rx_status.</p>
+
+<p>AUTHOR Johannes Berg &lt;johannes@sipsolutions.net&gt;
+Author.</p>
+
+<p>COPYRIGHT Kernel Hackers Manual 2.6. September 2014 ENUM
+MAC80211_RX_FLA(9)</p>
+<hr>
+</body>
+</html>

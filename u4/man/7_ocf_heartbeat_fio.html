@@ -1,0 +1,63 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 04:11:58 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>OCF_HEARTBEAT_FIO(7) OCF resource agents
+OCF_HEARTBEAT_FIO(7)</p>
+
+<p>NAME ocf_heartbeat_fio - fio IO load generator</p>
+
+<p>SYNOPSIS fio [start | stop | monitor | meta-data |
+validate-all]</p>
+
+<p>DESCRIPTION fio is a generic I/O load generator. This RA
+allows start/stop of fio instances to simulate load on a
+cluster without configuring complex services.</p>
+
+<p>SUPPORTED PARAMETERS args Arguments to the fio client.
+Minimally, this should be a (list of) job descriptions to
+run. (optional, string, no default)</p>
+
+<p>SUPPORTED ACTIONS This resource agent supports the
+following actions (operations):</p>
+
+<p>start Starts the resource. Suggested minimum timeout:
+60.</p>
+
+<p>stop Stops the resource. Suggested minimum timeout:
+60.</p>
+
+<p>monitor Performs a detailed status check. Suggested
+minimum timeout: 60. Suggested interval: 10.</p>
+
+<p>meta-data Retrieves resource agent metadata (internal
+use only). Suggested minimum timeout: 5.</p>
+
+<p>validate-all Performs a validation of the resource
+configuration. Suggested minimum timeout: 20.</p>
+
+<p>EXAMPLE The following is an example configuration for a
+fio resource using the crm(8) shell:</p>
+
+<p>primitive p_fio ocf:heartbeat:fio op monitor
+timeout=&quot;60&quot; interval=&quot;10&quot;</p>
+
+<p>SEE ALSO
+http://www.linux-ha.org/wiki/fio_(resource_agent)</p>
+
+<p>AUTHOR Linux-HA contributors (see the resource agent
+source for information about individual authors)</p>
+
+<p>resource-agents 3.9.2 01/23/2013
+OCF_HEARTBEAT_FIO(7)</p>
+<hr>
+</body>
+</html>

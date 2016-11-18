@@ -1,0 +1,63 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 04:14:24 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>PERF-TRACE(1) perf Manual PERF-TRACE(1)</p>
+
+<p>NAME perf-trace - strace inspired tool</p>
+
+<p>SYNOPSIS perf trace</p>
+
+<p>DESCRIPTION This command will show the events associated
+with the target, initially syscalls, but other system events
+like pagefaults, task lifetime events, scheduling events,
+etc.</p>
+
+<p>Initially this is a live mode only tool, but eventually
+will work with perf.data files like the other tools,
+allowing a detached record from analysis phases.</p>
+
+<p>OPTIONS --all-cpus System-wide collection from all
+CPUs.</p>
+
+<p>-p, --pid= Record events on existing process ID (comma
+separated list).</p>
+
+<p>--tid= Record events on existing thread ID (comma
+separated list).</p>
+
+<p>--uid= Record events in threads owned by uid. Name or
+number.</p>
+
+<p>--no-inherit Child tasks do not inherit counters.</p>
+
+<p>--mmap-pages= Number of mmap data pages. Must be a power
+of two.</p>
+
+<p>--cpu Collect samples only on the list of CPUs provided.
+Multiple CPUs can be provided as a comma-separated list with
+no space: 0,1. Ranges of CPUs are specified with -: 0-2. In
+per-thread mode with inheritance mode on (default), Events
+are captured only when the thread executes on the designated
+CPUs. Default is to monitor all CPUs.</p>
+
+<p>--duration: Show only events that had a duration greater
+than N.M ms.</p>
+
+<p>--sched: Accrue thread runtime and provide a summary at
+the end of the session.</p>
+
+<p>SEE ALSO perf-record(1), perf-script(1)</p>
+
+<p>perf 11/10/2013 PERF-TRACE(1)</p>
+<hr>
+</body>
+</html>

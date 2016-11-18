@@ -1,0 +1,41 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 04:22:16 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>SCSI_TARGET_REAP_REF(9) SCSI mid layer
+SCSI_TARGET_REAP_REF(9)</p>
+
+<p>NAME scsi_target_reap_ref_release - remove target from
+visibility</p>
+
+<p>SYNOPSIS void scsi_target_reap_ref_release(struct kref *
+kref);</p>
+
+<p>ARGUMENTS kref the reap_ref in the target being
+released</p>
+
+<p>DESCRIPTION Called on last put of reap_ref, which is the
+indication that no device under this target is visible
+anymore, so render the target invisible in sysfs. Note: we
+have to be in user context here because the target reaps
+should be done in places where the scsi device visibility is
+being removed.</p>
+
+<p>AUTHORS James Bottomley
+&lt;James.Bottomley@hansenpartnership.com&gt; Author.</p>
+
+<p>Rob Landley &lt;rob@landley.net&gt; Author.</p>
+
+<p>COPYRIGHT Kernel Hackers Manual 2.6. September 2014
+SCSI_TARGET_REAP_REF(9)</p>
+<hr>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 03:50:39 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>afs_vlserver_seliSELinux Policy documentation for
+afs_vafs_vlserver_selinux(8)</p>
+
+<p>NAME afs_vlserver_selinux - Security Enhanced Linux
+Policy for the afs_vlserver processes</p>
+
+<p>DESCRIPTION Security-Enhanced Linux secures the
+afs_vlserver processes via flexible mandatory access
+control.</p>
+
+<p>The afs_vlserver processes execute with the
+afs_vlserver_t SELinux type. You can check if you have these
+processes running by executing the ps command with the -Z
+qualifier.</p>
+
+<p>For example:</p>
+
+<p>ps -eZ | grep afs_vlserver_t</p>
+
+<p>ENTRYPOINTS The afs_vlserver_t SELinux type can be
+entered via the &quot;afs_vlserver_exec_t&quot; file type.
+The default entrypoint paths for the afs_vlserver_t domain
+are the following:&quot;</p>
+
+<p>/usr/afs/bin/vlserver</p>
+
+<p>PROCESS TYPES SELinux defines process types (domains)
+for each process running on the system</p>
+
+<p>You can see the context of a process using the -Z option
+to ps</p>
+
+<p>Policy governs the access confined processes have to
+files. SELinux afs_vlserver policy is very flexible allowing
+users to setup their afs_vlserver processes in as secure a
+method as possible.</p>
+
+<p>The following process types are defined for
+afs_vlserver:</p>
+
+<p>afs_vlserver_t</p>
+
+<p>Note: semanage permissive -a afs_vlserver_t</p>
+
+<p>can be used to make the process type afs_vlserver_t
+permissive. Permis- sive process types are not denied access
+by SELinux. AVC messages will still be generated.</p>
+
+<p>FILE CONTEXTS SELinux requires files to have an extended
+attribute to define the file type.</p>
+
+<p>You can see the context of a file using the -Z option to
+ls</p>
+
+<p>Policy governs the access confined processes have to
+these files. SELinux afs_vlserver policy is very flexible
+allowing users to setup their afs_vlserver processes in as
+secure a method as possible.</p>
+
+<p>The following file types are defined for
+afs_vlserver:</p>
+
+<p>afs_vlserver_exec_t</p>
+
+<p>- Set files with the afs_vlserver_exec_t type, if you
+want to transi- tion an executable to the afs_vlserver_t
+domain.</p>
+
+<p>Note: File context can be temporarily modified with the
+chcon command. If you want to permanently change the file
+context you need to use the semanage fcontext command. This
+will modify the SELinux labeling database. You will need to
+use restorecon to apply the labels.</p>
+
+<p>MANAGED FILES The SELinux process type afs_vlserver_t
+can manage files labeled with the following file types. The
+paths listed are the default paths for these file types.
+Note the processes UID still need to have DAC per-
+missions.</p>
+
+<p>afs_logfile_t</p>
+
+<p>/usr/afs/logs(/.*)?</p>
+
+<p>afs_vl_db_t</p>
+
+<p>/usr/afs/db/vl.*</p>
+
+<p>initrc_tmp_t</p>
+
+<p>mnt_t</p>
+
+<p>/mnt(/[^/]*) /mnt(/[^/]*)? /rhev(/[^/]*)? /media(/[^/]*)
+/media(/[^/]*)? /etc/rhgb(/.*)? /media/.hal-.* /net /afs
+/misc /rhev</p>
+
+<p>tmp_t</p>
+
+<p>/tmp /usr/tmp /var/tmp /var/tmp/vi.recover</p>
+
+<p>COMMANDS semanage fcontext can also be used to
+manipulate default file context mappings.</p>
+
+<p>semanage permissive can also be used to manipulate
+whether or not a process type is permissive.</p>
+
+<p>semanage module can also be used to
+enable/disable/install/remove pol- icy modules.</p>
+
+<p>system-config-selinux is a GUI tool available to
+customize SELinux pol- icy settings.</p>
+
+<p>AUTHOR This manual page was auto-generated using
+sepolicy manpage by mgrepl.</p>
+
+<p>SEE ALSO selinux(8), afs_vlserver(8), semanage(8),
+restorecon(8), chcon(1), sepolicy(8) , afs_selinux(8),
+afs_selinux(8), afs_bosserver_selinux(8),
+afs_fsserver_selinux(8), afs_kaserver_selinux(8),
+afs_ptserver_selinux(8)</p>
+
+<p>afs_vlserver 13-01-04 afs_vlserver_selinux(8)</p>
+<hr>
+</body>
+</html>

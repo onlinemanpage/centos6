@@ -1,0 +1,85 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 04:26:37 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>LSBLK(8) LSBLK(8)</p>
+
+<p>NAME lsblk - list block devices</p>
+
+<p>SYNOPSIS lsblk [options]</p>
+
+<p>lsblk [options] device...</p>
+
+<p>DESCRIPTION lsblk will list information about all or
+selected block devices. The lsblk command reads sysfs
+filesystem to gather information.</p>
+
+<p>The command prints all block devices (except RAM disks)
+in the tree- like format by default. See lsblk --help to get
+list of all available columns.</p>
+
+<p>OPTIONS -a, --all List all block devices.</p>
+
+<p>-b, --bytes Print the SIZE column in bytes rather than
+in human readable format.</p>
+
+<p>-d, --nodeps Don t print device holders or slaves. For
+example &quot;lsblk --nodeps /dev/sda&quot; prints
+information about the sda device only.</p>
+
+<p>-D, --discard Print information about the discard (TRIM,
+UNMAP) capabilities for each device.</p>
+
+<p>-e, --exclude list Exclude devices by comma delimited
+list of major device numbers. Note that RAM disks (major=1)
+are excluded by default.</p>
+
+<p>-f, --fs Output info about filesystems. This option is
+equivalent to -o NAME,FSTYPE,LABEL,MOUNTPOINT. The
+authoritative information about filesystems and raids are
+provided by blkid(8) command.</p>
+
+<p>-h, --help Print help and exit.</p>
+
+<p>-i, --ascii Use ascii characters for tree
+formatting.</p>
+
+<p>-m, --perms Output info about device owner, group and
+mode. This option is equivalent to -o
+NAME,SIZE,OWNER,GROUP,MODE.</p>
+
+<p>-l, --list Use the list output format.</p>
+
+<p>-n, --noheadings Do not print a header line.</p>
+
+<p>-o, --output list Define output columns. Use --help to
+get list of all supported columns.</p>
+
+<p>-r, --raw Use raw output format.</p>
+
+<p>-t, --topology Output info about block device topology.
+This option is equiva- lent to -o
+NAME,ALIGNMENT,MIN-IO,OPT-IO,PHY-SEC,LOG-
+SEC,ROTA,SCHED.</p>
+
+<p>AUTHORS Milan Broz &lt;mbroz@redhat.com&gt; Karel Zak
+&lt;kzak@redhat.com&gt;</p>
+
+<p>SEE ALSO findmnt(8), blkid(8), ls(1)</p>
+
+<p>AVAILABILITY The lsblk command is part of the util-linux
+package and is available from
+ftp://ftp.kernel.org/pub/linux/utils/util-linux/.</p>
+
+<p>Version 1.0 Apr 2010 LSBLK(8)</p>
+<hr>
+</body>
+</html>

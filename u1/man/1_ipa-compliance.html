@@ -1,0 +1,52 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 05:05:34 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>ipa-compliance(1) ipa-compliance(1)</p>
+
+<p>NAME ipa-compliance - Check entitlement compliance</p>
+
+<p>SYNOPSIS ipa-compliance [OPTION]</p>
+
+<p>DESCRIPTION Verify that the IPA installation is in
+compliance with the number of client entitlements it
+has.</p>
+
+<p>Entitlements are managed using the ipa entitle
+command.</p>
+
+<p>An enrolled host is an machine that has a host keytab in
+the IPA sys- tem.</p>
+
+<p>The entitlements take the form of x509v3 certificates.
+The certificates are examined and the quantities summed.
+This is compared to the number of enrolled hosts to
+determine compliance.</p>
+
+<p>The command logs to syslog and if run from a tty will
+log to the termi- nal as well.</p>
+
+<p>The IPA server provides 25 entitlements of its own.</p>
+
+<p>OPTIONS ---debug Enable debugging output in the
+command</p>
+
+<p>EXIT STATUS 0 if the command was successful</p>
+
+<p>1 if an error occurred</p>
+
+<p>NOTES Entitlements are not checked if the python-rhsm
+package is not installed.</p>
+
+<p>freeipa Dec 14 2010 ipa-compliance(1)</p>
+<hr>
+</body>
+</html>

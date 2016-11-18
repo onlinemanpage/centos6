@@ -1,0 +1,36 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 04:42:49 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>YIELD_TO(9) Driver Basics YIELD_TO(9)</p>
+
+<p>NAME yield_to - yield the current processor to another
+thread in your thread group, or accelerate that thread
+toward the processor it&acute;s on.</p>
+
+<p>SYNOPSIS bool __sched yield_to(struct task_struct * p,
+bool preempt);</p>
+
+<p>ARGUMENTS p -- undescribed --</p>
+
+<p>preempt -- undescribed --</p>
+
+<p>DESCRIPTION It&acute;s the caller&acute;s job to ensure
+that the target task struct can&acute;t go away on us before
+we can do any checks.</p>
+
+<p>Returns true if we indeed boosted the target task.</p>
+
+<p>COPYRIGHT Kernel Hackers Manual 2.6. January 2013
+YIELD_TO(9)</p>
+<hr>
+</body>
+</html>

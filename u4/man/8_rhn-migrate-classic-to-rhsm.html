@@ -1,0 +1,293 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 04:31:19 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>rhn-migrate-classic-to-rhsm(8)
+rhn-migrate-classic-to-rhsm(8)</p>
+
+<p>NAME rhn-migrate-classic-to-rhsm - Migrates a system
+profile from Red Hat Network Classic Hosted to Customer
+Portal Subscription Management (hosted) or Subscription
+Asset Manager (on-premise).</p>
+
+<p>SYNOPSIS rhn-migrate-classic-to-rhsm [--force | --gui |
+--no-auto | --ser- vicelevel=SERVICE_LEVEL | --serverurl=URL
+| --help]</p>
+
+<p>DESCRIPTION rhn-migrate-classic-to-rhsm migrates a
+system profile which is regis- tered with Red Hat Network
+Classic to Customer Portal Subscription Man- agement. This
+is intended for migrating from the host service, not for
+migrating from a Satellite system.</p>
+
+<p>This script migrates configuration, from a channel-based
+subscription framework to a certificate-based subscription
+framework. While the rhn- migrate-classic-to-rhsm script
+performs the migration operation, the data used to map the
+channels to the corresponding product certificates is
+defined in the subscription-manager-migration-data package.
+The sub- scription-manager-migration-data package must be
+installed before the rhn-migrate-classic-to-rhsm script can
+be run successfully.</p>
+
+<p>BACKGROUND Access to support and updates for products is
+determined through sub- scriptions. Subscriptions are
+attached to a system, which means that the system has the
+right to install and update a product with full sup- port.
+Subscriptions for an entire account are tracked through a
+sub- scription management service.</p>
+
+<p>With the channel-based framework, a subscription
+management service was either an on-premise Satellite or
+hosted Red Hat Network Classic. With the new
+certificate-based subscriptions, the subscription management
+service is either Customer Portal Subscription Management or
+Subscrip- tion Asset Manager. The differences between the
+two types of subscrip- tion management services are
+described in this Knowledgebase article:
+&lt;https://access.redhat.com/knowledge/articles/63269&gt;</p>
+
+<p>The system registers with the subscription management
+service and receives an inventory ID number. When
+subscriptions are attached to a system, that association is
+noted in the subscription management ser- vice.</p>
+
+<p>Registering with a subscription management service is
+exclusive. If a system is registered with Red Hat Network
+Classic, it cannot simultane- ously be registered with
+Customer Portal Subscription Management. The
+rhn-migrate-classic-to-rhsm tool is provided specifically so
+that there is a way to transition from the deprecated Red
+Hat Network Classic to Customer Portal Subscription
+Management or an on-premise Subscription Asset Manager.</p>
+
+<p>OPTIONS -h, --help Prints the specific help information
+for the given command.</p>
+
+<p>-f, --force Ignore channels not available through
+Customer Portal Subscrip- tion Management (or Subscription
+Asset Manager). The channels in Red Hat Network Classic are
+mapped to the product certificates used by the Customer
+Portal Subscription Management. However, not every channel
+has a certificate mapping, which can cause errors during
+migration. Using this option skips any channels which are
+not mapped to Customer Portal Subscription Management.</p>
+
+<p>-g, --gui Opens the Subscription Manager UI so that
+administrators can manually select which subscriptions to
+apply to the system rather than automatically applying
+best-matched subscriptions based on the existing channel
+subscriptions.</p>
+
+<p>-n, --no-auto Deletes the system from Red Hat Network
+Classic and registers it to Customer Portal Subscription
+Management, but does not attach any subscriptions to the
+system.</p>
+
+<p>-s SERVICE_LEVEL, --servicelevel=SERVICE_LEVEL Sets a
+preferred service level for the system, such as premium or
+standard. This service level preference is then used as one
+of the criteria for autoattaching subscriptions to the
+system.</p>
+
+<p>--serverurl=URL Gives the URL of the subscription
+management service to which to register the system. This is
+used for environments which have an on-premise subscription
+management service such as Subscription Asset Manager. If no
+URL is given, the migration tool uses the Customer Portal
+Subscription Management Service.</p>
+
+<p>USAGE The migration process moves the system from the
+inventory in one sub- scription management service (Red Hat
+Network Classic) to the new sub- scription management
+service (Customer Portal Subscription Management), and then
+re-applies the subscriptions to the system. The script runs
+through these steps:</p>
+
+<p>1. Authenticate to both Red Hat Network Classic and
+Customer Portal Subscription Management to verify the
+account settings.</p>
+
+<p>2. Get a channel list for the system.</p>
+
+<p>3. Match each channel to a corresponding certificate
+map.</p>
+
+<p>4. Copy over the product certificates for the old
+channels.</p>
+
+<p>5. Unregister from Red Hat Network Classic.</p>
+
+<p>6. Register with Customer Portal Subscription Management
+and autoattach the best-matched subscriptions.
+(Alternatively, the --gui option can be used to launch the
+Subscription Manager UI to attach subscriptions
+manually.)</p>
+
+<p>After migration, the system facts maintained by
+Subscription Manager display what script was used for
+migration and what the previous system ID was. [root@server
+~]# subscription-manager facts --list | grep migr
+migration.classic_system_id: 09876 migration.migrated_from:
+rhn_hosted_classic migration.migration_date:
+2012-09-14T14:55:29.280519</p>
+
+<p>MIGRATION AND AUTOSUBSCRIBE The
+rhn-migrate-classic-to-rhsm tool, by default, autoattaches
+the best-matching subscriptions to the system. This allows
+migrations to be automated. [root@server ~]#
+rhn-migrate-classic-to-rhsm Red Hat account:
+jsmith@example.com Password:</p>
+
+<p>Retrieving existing RHN Classic subscription information
+... +----------------------------------+ System is currently
+subscribed to: +----------------------------------+
+rhel-i386-client-5</p>
+
+<p>List of channels for which certs are being copied
+rhel-i386-client-5</p>
+
+<p>Product Certificates copied successfully to
+/etc/pki/product !!</p>
+
+<p>Preparing to unregister system from RHN Classic ...
+System successfully unregistered from RHN Classic.</p>
+
+<p>Attempting to register system to RHN ... The system has
+been registered with id: abcd1234 System server.example.com
+successfully registered to RHN.</p>
+
+<p>Attempting to auto-subscribe to appropriate
+subscriptions ... Installed Product Current Status:
+ProductName: Red Hat Enterprise Linux Desktop Status:
+Subscribed</p>
+
+<p>Successfully subscribed.</p>
+
+<p>Please visit
+https://access.redhat.com/management/consumers/abcd1234 to
+view the details, and to make changes if necessary.</p>
+
+<p>The script prompts for a username and password to use to
+register the system; this same account is used to
+authenticate with both Red Hat Network Classic and Customer
+Portal Subscription Management.</p>
+
+<p>Optionally, the --servicelevel argument sets an SLA
+preference to use with the system. The SLA associated with a
+subscription is then evalu- ated when determining what
+subscriptions to autoattach to the system, along with other
+factors like installed products, existing channel
+assignments, and architecture.</p>
+
+<p>[root@server ~]# rhn-migrate-classic-to-rhsm
+--servicelevel=premium Red Hat account: jsmith@example.com
+Password:</p>
+
+<p>MIGRATION TO ON-PREMISE SERVICES The
+rhn-migrate-classic-to-rhsm tool migrates the system to
+Customer Portal Subscription Management (hosted) services by
+default. This uses the default configuration for
+Subscription Manager, which points to the subscription
+management services for the Customer Portal. For infras-
+tructures which have an on-premise subscription management
+service such as Subscription Asset Manager, this
+configuration can be changed so that the migration process
+registers the systems to the on-premise sub- scription
+management service and attaches the appropriate subscrip-
+tions.</p>
+
+<p>This is done by using the --serverurl option, which
+specifies the URL of the on-premise service. In this case,
+the authorization credentials must also be given for the
+on-premise subscription management service account (which is
+independent of the RHN account).</p>
+
+<p>[root@server ~]# rhn-migrate-classic-to-rhsm
+--serverurl=sam.example.com Red Hat account:
+jsmith@example.com Password:</p>
+
+<p>MIGRATION AND MANUALLY SELECTING SUBSCRIPTIONS The
+--no-auto option prevents the autoattach step from running.
+The --gui option not only prevents autoattach from running,
+it automati- cally opens the Subscription Manager GUI so
+that administrators can attach subscriptions to the
+system.</p>
+
+<p>As with the autoattach process, the script prompts for
+the RHN username and password for the user.</p>
+
+<p>[root@server ~]# rhn-migrate-classic-to-rhsm --gui Red
+Hat account: jsmith@example.com Password:</p>
+
+<p>Retrieving existing RHN Classic subscription information
+... +----------------------------------+ System is currently
+subscribed to: +----------------------------------+
+rhel-i386-client-5</p>
+
+<p>List of channels for which certs are being copied
+rhel-i386-client-5</p>
+
+<p>Product Certificates copied successfully to
+/etc/pki/product !!</p>
+
+<p>Preparing to unregister system from RHN Classic ...
+System successfully unregistered from RHN Classic.</p>
+
+<p>Attempting to register system to RHN ... The system has
+been registered with id: abcd1234 System server.example.com
+successfully registered to RHN.</p>
+
+<p>Launching the GUI tool to manually subscribe the system
+...</p>
+
+<p>FILES /etc/sysconfig/rhn/systemid The digital server ID
+for this machine if the system has been registered with Red
+Hat Network Classic. This file does not exist otherwise.</p>
+
+<p>/etc/sysconfig/rhn/up2date The common configuration file
+used by RHN client programs.</p>
+
+<p>/var/log/rhsm/rhsm.log The Subscription Manager log
+file. This contains any errors reg- istering the system to
+Customer Portal Subscription Management or with attaching
+subscriptions to the system.</p>
+
+<p>subscription-manager-migration-data.rpm The package
+which contains the mappings for the migration script to
+migrate channels to the appropriate product
+certificates.</p>
+
+<p>SEE ALSO install-num-migrate-to-rhsm(8),
+subscription-manager(8).</p>
+
+<p>AUTHORS Deon Lackey &lt;dlackey@redhat.com&gt;, Paresh
+Mutha &lt;pmutha@redhat.com&gt;, Mark Huth
+&lt;mhuth@redhat.com&gt;, Tasos Papaioannou
+&lt;tpapaioa@redhat.com&gt;</p>
+
+<p>BUGS This script is part of the Red Hat Subscription
+Manager tool. Report bugs to
+&lt;http://bugzilla.redhat.com&gt;, using the Red Hat
+Enterprise Linux product and the subscription-manager
+component.</p>
+
+<p>COPYRIGHT Copyright &copy; 2012 Red Hat, Inc.</p>
+
+<p>This is free software; see the source for copying
+conditions. There is NO warranty; not even for
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p>
+
+<p>Version 0.7 January 7, 2013
+rhn-migrate-classic-to-rhsm(8)</p>
+<hr>
+</body>
+</html>

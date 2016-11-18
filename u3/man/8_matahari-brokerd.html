@@ -1,0 +1,49 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 04:27:01 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>MATAHARI-BROKERD(8) MATAHARI-BROKERD(8)</p>
+
+<p>NAME matahari-brokerd - A message broker for the
+Matahari suite of remote agents</p>
+
+<p>SYNOPSIS matahari-brokerd &lt;options&gt;</p>
+
+<p>DESCRIPTION matahari-brokerd is a wrapper around
+qpidd(1). It processes configura- tion from the environment
+and then runs qpidd.</p>
+
+<p>OPTIONS All options accepted by qpidd(1) are accepted by
+matahari-brokerd.</p>
+
+<p>ENVIRONMENT MATAHARI_PORT Sets the TCP port to listen on
+for connections. If this is not specified, the default port
+49000 will be used.</p>
+
+<p>FEDERATED_BROKERS A list of Qpid brokers to federate
+with. Brokers may be sepa- rated by spaces, commas and/or
+semicolons. There are two formats permitted, and the list
+may contain entries in both formats.</p>
+
+<p>&lt;fqdn&gt;:&lt;port&gt; A hostname and TCP port for
+the remote broker.</p>
+
+<p>_matahari._tcp.&lt;fqdn&gt; A DNS SRV query. Note that
+only the first (highest-pri- ority) SRV record returned by
+the DNS for each given query will be used.</p>
+
+<p>QPID_&lt;option&gt; All environment variables supported
+by qpidd(1) are also sup- ported.</p>
+
+<p>matahari-brokerd September 2011 MATAHARI-BROKERD(8)</p>
+<hr>
+</body>
+</html>

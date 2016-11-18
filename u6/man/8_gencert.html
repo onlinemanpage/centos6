@@ -1,0 +1,50 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 04:01:14 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>gencert(8) gencert(8)</p>
+
+<p>NAME gencert - Generate a test NSS database for
+mod_nss</p>
+
+<p>SYNOPSIS gencert DIRECTORY</p>
+
+<p>DESCRIPTION A tool to generate self-signed CA as well as
+server and user certifi- cates for mod_nss testing.</p>
+
+<p>This is used to generate a default NSS database for the
+mod_nss Apache module. It does not test to see if an
+existing database already exists so use with care.</p>
+
+<p>gencert will generate a new NSS database and set an
+empty database password.</p>
+
+<p>It generates a self-signed CA with the subject
+&quot;CN=Certificate Shack, O=example.com, C=US&quot;</p>
+
+<p>It also generates a certificate suitable for servers
+with the subject &quot;CN=FQDN, O=example.com, C=US&quot;
+and a user certificate with the subject &quot;E=alpha@FQDN,
+CN=Frank Alpha, UID=alpha, OU=People, O=example.com,
+C=US&quot;.</p>
+
+<p>The nicknames it uses are:</p>
+
+<p>CA: cacert</p>
+
+<p>Server certificate: Server-Cert</p>
+
+<p>User cert: alpha</p>
+
+<p>Rob Crittenden Feb 2 2011 gencert(8)</p>
+<hr>
+</body>
+</html>

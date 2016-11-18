@@ -1,0 +1,58 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 04:48:37 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>SSS_SSH_KNOWNHOSTSPR(1) SSSD Manual pages
+SSS_SSH_KNOWNHOSTSPR(1)</p>
+
+<p>NAME sss_ssh_knownhostsproxy - get OpenSSH host keys</p>
+
+<p>SYNOPSIS sss_ssh_knownhostsproxy [options] HOST
+[PROXY_COMMAND]</p>
+
+<p>DESCRIPTION sss_ssh_knownhostsproxy acquires SSH host
+public keys for host HOST, stores them in a custom OpenSSH
+known_hosts file (see the SSH_KNOWN_HOSTS FILE FORMAT
+section of sshd(8) for more information)
+/var/lib/sss/pubconf/known_hosts and estabilishes connection
+to the host.</p>
+
+<p>If PROXY_COMMAND is specified, it is used to create the
+connection to the host instead of opening a socket.</p>
+
+<p>ssh(1) can be configured to use sss_ssh_knownhostsproxy
+for host key authentication by using the following
+directives for ssh(1) configuration:</p>
+
+<p>ProxyCommand /usr/bin/sss_ssh_knownhostsproxy -p %p %h
+GlobalKnownHostsFile2 /var/lib/sss/pubconf/known_hosts</p>
+
+<p>This is an experimental feature, please use
+http://fedorahosted.org/sssd to report any issues.</p>
+
+<p>OPTIONS -p,--port PORT Use port PORT to connect to the
+host. By default, port 22 is used.</p>
+
+<p>-d,--domain DOMAIN Search for host public keys in SSSD
+domain DOMAIN.</p>
+
+<p>-h,--help Display help message and exit.</p>
+
+<p>SEE ALSO ssh(8), ssh_config(5),
+sss_ssh_authorizedkeys(1).</p>
+
+<p>AUTHORS The SSSD upstream -
+http://fedorahosted.org/sssd</p>
+
+<p>SSSD 05/29/2012 SSS_SSH_KNOWNHOSTSPR(1)</p>
+<hr>
+</body>
+</html>

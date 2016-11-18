@@ -1,0 +1,265 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 05:04:49 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>httpd_selinux(8) httpd Selinux Policy documentation
+httpd_selinux(8)</p>
+
+<p>NAME httpd_selinux - Security Enhanced Linux Policy for
+the httpd daemon</p>
+
+<p>DESCRIPTION Security-Enhanced Linux secures the httpd
+server via flexible mandatory access control.</p>
+
+<p>FILE_CONTEXTS SELinux requires files to have an extended
+attribute to define the file type. Policy governs the access
+daemons have to these files. SELinux httpd policy is very
+flexible allowing users to setup their web ser- vices in as
+secure a method as possible.</p>
+
+<p>The following file contexts types are defined for httpd:
+httpd_sys_content_t - Set files with httpd_sys_content_t if
+you want httpd_sys_script_exec_t scripts and the daemon to
+read the file, and disallow other non sys scripts from
+access. httpd_sys_script_exec_t - Set cgi scripts with
+httpd_sys_script_exec_t to allow them to run with access to
+all sys types. httpd_sys_rw_content_t - Set files with
+httpd_sys_rw_content_t if you want httpd_sys_script_exec_t
+scripts and the daemon to read/write the data, and disallow
+other non sys scripts from access. httpd_sys_ra_content_t -
+Set files with httpd_sys_ra_content_t if you want
+httpd_sys_script_exec_t scripts and the daemon to
+read/append to the file, and disallow other non sys scripts
+from access. httpd_unconfined_script_exec_t - Set cgi
+scripts with httpd_unconfined_script_exec_t to allow them to
+run without any SELinux protection. This should only be used
+for a very complex httpd scripts, after exhausting all other
+options. It is bet- ter to use this script rather than
+turning off SELinux protection for httpd.</p>
+
+<p>NOTE With certain policies you can define additional
+file contexts based on roles like user or staff.
+httpd_user_script_exec_t can be defined where it would only
+have access to &quot;user&quot; contexts.</p>
+
+<p>SHARING FILES If you want to share files with multiple
+domains (Apache, FTP, rsync, Samba), you can set a file
+context of public_content_t and public_con- tent_rw_t. These
+context allow any of the above domains to read the content.
+If you want a particular domain to write to the public_con-
+tent_rw_t domain, you must set the appropriate boolean.
+allow_DOMAIN_anon_write. So for httpd you would execute:</p>
+
+<p>setsebool -P allow_httpd_anon_write=1</p>
+
+<p>or</p>
+
+<p>setsebool -P allow_httpd_sys_script_anon_write=1</p>
+
+<p>BOOLEANS SELinux policy is customizable based on least
+access required. SElinux can be setup to prevent certain
+http scripts from working. httpd pol- icy is extremely
+flexible and has several booleans that allow you to
+manipulate the policy and run httpd with the tightest access
+possible.</p>
+
+<p>httpd can be setup to allow cgi scripts to be executed,
+set httpd_enable_cgi to allow this</p>
+
+<p>setsebool -P httpd_enable_cgi 1</p>
+
+<p>SELinux policy for httpd ca be setup to be allowed
+configured as a FTP server by listening on the ftp port. If
+you need httpd to be able to listen on the ftp port you can
+set the httpd_enable_ftp_server boolean on.</p>
+
+<p>setsebool -P httpd_enable_ftp_server 1</p>
+
+<p>SELinux policy for httpd can be setup to not allowed to
+access users home directories. If you want to allow access
+to users home directo- ries you need to set the
+httpd_enable_homedirs boolean and change the context of the
+files that you want people to access off the home dir.</p>
+
+<p>setsebool -P httpd_enable_homedirs 1 chcon -R -t
+httpd_sys_content_t ~user/public_html</p>
+
+<p>SELinux policy for httpd is setup to not allow execstack
+and execmem permissions by default. This is a security
+feature, since it would pre- vent some attacks based on a
+badly written source code. In certain sit- uations, you may
+want httpd modules allow these permissions. You can turn on
+the httpd_execmem boolean.</p>
+
+<p>setsebool -P httpd_execmem 1</p>
+
+<p>SELinux policy for httpd can be setup to not allowed to
+read users home content. If you want to allow read users
+home content you need to set the httpd_read_user_content
+boolean.</p>
+
+<p>setsebool -P httpd_read_user_content 1</p>
+
+<p>SELinux policy for httpd is setup to not allow to change
+system limits. In most cases this is preferred, but in
+certain situations httpd mod- ules or scripts need change
+system limits. In this case, you can set the httpd_setrlimit
+boolean.</p>
+
+<p>setsebool -P httpd_setrlimit 1</p>
+
+<p>httpd can be configured to use SSI (Server Side
+Includes) which are directives that are placed in HTML
+pages. SELinux policy for httpd is setup to not allow to run
+SSI executables in the same domain as system CGI scripts by
+default. If you want to allow SSI executables to run in the
+same domain as system CGI scripts you can set the
+httpd_ssi_exec boolean.</p>
+
+<p>setsebool -P httpd_ssi_exec 1</p>
+
+<p>SELinux policy for httpd is setup to not allow executing
+of content in the /tmp directory by default. This executing
+and writing the same con- tent could cause an easier way to
+take over an apache server. If you want to allow httpd
+modules or scripts to execute content in the /tmp directory
+you can set the httpd_tmp_exec boolean.</p>
+
+<p>setsebool -P httpd_tmp_exec 1</p>
+
+<p>SELinux policy for httpd can be setup to not allow
+access to the con- trolling terminal. In most cases this is
+preferred, because an intruder might be able to use the
+access to the terminal to gain privileges. But in certain
+situations httpd needs to prompt for a password to open a
+certificate file, in these cases, terminal access is
+required. Set the httpd_tty_comm boolean to allow terminal
+access.</p>
+
+<p>setsebool -P httpd_tty_comm 1</p>
+
+<p>httpd can be configured to not differentiate file
+controls based on context, i.e. all files labeled as httpd
+context can be read/write/exe- cute. Setting this boolean to
+false allows you to setup the security policy such that one
+httpd service can not interfere with another.</p>
+
+<p>setsebool -P httpd_unified 0</p>
+
+<p>SELinux policy for httpd is setup to not allow to use
+CIFS for public file transfer services. If you want to allow
+httpd modules or scripts to use CIFS for public file
+transfer services you can enable the httpd_use_cifs
+boolean.</p>
+
+<p>setsebool -P httpd_use_cifs 1</p>
+
+<p>SELinux policy for httpd is setup to not allow to change
+system limits for GPG extensions running in the same domain
+as httpd. If you want to allow to run httpd modules or
+scripts using GPG extensions in the gpg_web_t domain you can
+enable the httpd_use_gpg boolean.</p>
+
+<p>setsebool -P httpd_use_gpg 1</p>
+
+<p>SELinux policy for httpd is setup to not allow to use
+NFS for public file transfer services. If you want to allow
+httpd modules or scripts to use NFS for public file transfer
+services you can enable the httpd_use_nfs boolean.</p>
+
+<p>setsebool -P httpd_use_nfs 1</p>
+
+<p>SELinux policy for httpd can be configured to turn
+ability of spam check. You can turn on the
+httpd_can_check_spam boolean to allow this
+configuration.</p>
+
+<p>setsebool -P httpd_can_check_spam 1</p>
+
+<p>SELinux policy for httpd can be configured to turn on
+sending email. This is a security feature, since it would
+prevent a vulnerabiltiy in http from causing a spam attack.
+I certain situations, you may want http modules to send
+mail. You can turn on the httpd_send_mail boolean.</p>
+
+<p>setsebool -P httpd_can_sendmail 1</p>
+
+<p>httpd can be configured to turn off internal scripting
+(PHP). PHP and other loadable modules run under the same
+context as httpd. Therefore several policy rules allow httpd
+greater access to the system then is needed if you only use
+external cgi scripts.</p>
+
+<p>setsebool -P httpd_builtin_scripting 0</p>
+
+<p>SELinux policy can be setup such that httpd scripts are
+not allowed to connect out to the network. This would
+prevent a hacker from breaking into you httpd server and
+attacking other machines. If you need scripts to be able to
+connect you can set the httpd_can_network_connect boolean
+on.</p>
+
+<p>setsebool -P httpd_can_network_connect 1</p>
+
+<p>SELinux policy can be setup such that httpd scripts or
+modules are not allowed to connect to cobbler over the
+network. This would prevent a hacker from breaking into you
+httpd server and attacking other machines. If you need
+scripts or modules to be able to connect to cob- bler you
+can set the httpd_can_network_connect_cobbler boolean
+on.</p>
+
+<p>setsebool -P httpd_can_network_connect_cobbler 1</p>
+
+<p>SELinux policy can be setup such that httpd scripts or
+modules are not allowed to connect to databases over the
+network. This would prevent a hacker from breaking into you
+httpd server and attacking other machines. If you need
+scripts or modules to be able to connect to cob- bler you
+can set the httpd_can_network_connect_db boolean on.</p>
+
+<p>setsebool -P httpd_can_network_connect_db 1</p>
+
+<p>SELinux policy can be setup such that httpd scripts or
+modules are not allowed to connect to memcache server. This
+would prevent a hacker from breaking into you httpd server
+and attacking other machines. If you need scripts or modules
+to be able to connect to memcache server you can set the
+httpd_can_network_connect_memcache boolean on.</p>
+
+<p>setsebool -P httpd_can_network_connect_memcache 1</p>
+
+<p>httpd can be configured as relay server. If you want to
+allow httpd to be configured as relay server you can set the
+httpd_can_network_relay boolean on.</p>
+
+<p>setsebool -P httpd_can_network_relay 1</p>
+
+<p>httpd can be configured with avahi support. SELinux
+blocks dbus commu- nication between httpd and avahi service
+by defaullt. If you want to enable avahi support you can set
+the httpd_dbus_avahi boolean to on:</p>
+
+<p>setsebool -P httpd_dbus_avahi 1</p>
+
+<p>system-config-selinux is a GUI tool available to
+customize SELinux pol- icy settings .</p>
+
+<p>AUTHOR This manual page was written by Dan Walsh
+&lt;dwalsh@redhat.com&gt;.</p>
+
+<p>SEE ALSO selinux(8), httpd(8), chcon(1),
+setsebool(8)</p>
+
+<p>dwalsh@redhat.com 17 Jan 2005 httpd_selinux(8)</p>
+<hr>
+</body>
+</html>

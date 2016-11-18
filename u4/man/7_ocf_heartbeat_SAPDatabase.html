@@ -1,0 +1,164 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 04:12:03 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>OCF_HEARTBEAT_SAPDAT(7) OCF resource agents
+OCF_HEARTBEAT_SAPDAT(7)</p>
+
+<p>NAME ocf_heartbeat_SAPDatabase - Manages a SAP database
+instance as an HA resource.</p>
+
+<p>SYNOPSIS SAPDatabase [start | stop | status | monitor |
+meta-data | validate-all]</p>
+
+<p>DESCRIPTION Resource script for SAP databases. It
+manages a SAP database of any type as an HA resource.</p>
+
+<p>The purpose of the resource agent is to start, stop and
+monitor the database instance of a SAP system. Together with
+the RDBMS system it will also control the related network
+service for the database. Like the Oracle Listener and the
+xserver of MaxDB. The resource agent expects a standard SAP
+installation of the database and therefore needs less
+parameters to configure. The resource agent supports the
+following databases: - Oracle 10.2 and 11.2 - DB/2 UDB for
+Windows and Unix 9.x - SAP-DB / MaxDB 7.x - Sybase ASE 15.7
+- SAP HANA Database since 1.00 - with SAP node 1625203
+(http://sdn.sap.com)</p>
+
+<p>In fact this resource agent does not run any database
+commands directly. It uses the SAP standard process
+SAPHostAgent to control the database. The SAPHostAgent must
+be installed on each cluster node locally. It will not work,
+if you try to run the SAPHostAgent also as a HA resource.
+Please follow SAP note 1031096 for the installation of
+SAPHostAgent. The required minimum version of SAPHostAgent
+is: Release: 7.20 Patch Number: 90 or compile time after:
+Dec 17 2011</p>
+
+<p>SUPPORTED PARAMETERS SID The unique database system
+identifier. e.g. P01 (unique, required, string, no
+default)</p>
+
+<p>DIR_EXECUTABLE The full qualified path where to find
+saphostexec and saphostctrl. Usually you can leave this
+empty. Then the default: /usr/sap/hostctrl/exe is used.
+(optional, string, default /usr/sap/hostctrl/exe)</p>
+
+<p>DBTYPE The name of the database vendor you use. Set
+either: ADA, DB6, ORA, SYB, HDB (required, string, no
+default)</p>
+
+<p>DBINSTANCE Must be used for special database
+implementations, when database instance name is not equal to
+the SID (e.g. Oracle DataGuard) (unique, optional, string,
+no default)</p>
+
+<p>NETSERVICENAME Deprecated - do not use anymore. This
+parameter will be deleted in one of the next releases.
+(optional, string, no default)</p>
+
+<p>DBJ2EE_ONLY Deprecated - do not use anymore. This
+parameter will be deleted in one of the next releases.
+(optional, boolean, no default)</p>
+
+<p>JAVA_HOME Deprecated - do not use anymore. This
+parameter will be deleted in one of the next releases.
+(optional, string, no default)</p>
+
+<p>STRICT_MONITORING This controls how the resource agent
+monitors the database. If set to true, it will use
+&acute;saphostctrl -function GetDatabaseStatus&acute; to
+test the database state. If set to false, only operating
+system processes are monitored. (optional, boolean, default
+false)</p>
+
+<p>AUTOMATIC_RECOVER If you set this to true,
+&acute;saphostctrl -function StartDatabase&acute; will
+always be called with the &acute;-force&acute; option.
+(optional, boolean, default false)</p>
+
+<p>MONITOR_SERVICES Defines which services are monitored by
+the SAPDatabase resource agent, if STRICT_MONITORING is set
+to true. Service names must correspond with the output of
+the &acute;saphostctrl -function GetDatabaseStatus&acute;
+command. (optional, string, default
+Instance|Database|Listener)</p>
+
+<p>DIR_BOOTSTRAP Deprecated - do not use anymore. This
+parameter will be deleted in one of the next releases.
+(optional, string, no default)</p>
+
+<p>DIR_SECSTORE Deprecated - do not use anymore. This
+parameter will be deleted in one of the next releases.
+(optional, string, no default)</p>
+
+<p>DB_JARS Deprecated - do not use anymore. This parameter
+will be deleted in one of the next releases. (optional,
+string, no default)</p>
+
+<p>PRE_START_USEREXIT The full qualified path where to find
+a script or program which should be executed before this
+resource gets started. (optional, string, no default)</p>
+
+<p>POST_START_USEREXIT The full qualified path where to
+find a script or program which should be executed after this
+resource got started. (optional, string, no default)</p>
+
+<p>PRE_STOP_USEREXIT The full qualified path where to find
+a script or program which should be executed before this
+resource gets stopped. (optional, string, no default)</p>
+
+<p>POST_STOP_USEREXIT The full qualified path where to find
+a script or program which should be executed after this
+resource got stopped. (optional, string, no default)</p>
+
+<p>SUPPORTED ACTIONS This resource agent supports the
+following actions (operations):</p>
+
+<p>start Starts the resource. Suggested minimum timeout:
+1800.</p>
+
+<p>stop Stops the resource. Suggested minimum timeout:
+1800.</p>
+
+<p>status Performs a status check. Suggested minimum
+timeout: 60.</p>
+
+<p>monitor Performs a detailed status check. Suggested
+minimum timeout: 60. Suggested interval: 120.</p>
+
+<p>validate-all Performs a validation of the resource
+configuration. Suggested minimum timeout: 5.</p>
+
+<p>meta-data Retrieves resource agent metadata (internal
+use only). Suggested minimum timeout: 5.</p>
+
+<p>methods Suggested minimum timeout: 5.</p>
+
+<p>EXAMPLE The following is an example configuration for a
+SAPDatabase resource using the crm(8) shell:</p>
+
+<p>primitive p_SAPDatabase ocf:heartbeat:SAPDatabase params
+SID=string DBTYPE=string op monitor depth=&quot;0&quot;
+timeout=&quot;60&quot; interval=&quot;120&quot;</p>
+
+<p>SEE ALSO
+http://www.linux-ha.org/wiki/SAPDatabase_(resource_agent)</p>
+
+<p>AUTHOR Linux-HA contributors (see the resource agent
+source for information about individual authors)</p>
+
+<p>resource-agents 3.9.2 01/23/2013
+OCF_HEARTBEAT_SAPDAT(7)</p>
+<hr>
+</body>
+</html>

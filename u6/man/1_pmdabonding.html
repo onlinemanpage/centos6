@@ -1,0 +1,51 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 04:16:12 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>PMDABONDING(1) Performance Co-Pilot PMDABONDING(1)</p>
+
+<p>NAME pmdabonding - Linux bonded interface performance
+metrics domain agent (PMDA)</p>
+
+<p>DESCRIPTION pmdabonding is a Performance Metrics Domain
+Agent (PMDA) which exports metric values from bonded network
+interfaces in the Linux kernel.</p>
+
+<p>INSTALLATION If you want access to the names and values
+for the bonding performance metrics, do the following as
+root:</p>
+
+<p># cd $PCP_PMDAS_DIR/bonding # ./Install</p>
+
+<p>If you want to undo the installation, do the following
+as root:</p>
+
+<p># cd $PCP_PMDAS_DIR/bonding # ./Remove</p>
+
+<p>pmdabonding is launched by pmcd(1) and should never be
+executed directly. The Install and Remove scripts notify
+pmcd(1) when the agent is installed or removed.</p>
+
+<p>FILES $PCP_PMDAS_DIR/bonding/Install installation script
+for the pmdabonding agent</p>
+
+<p>$PCP_PMDAS_DIR/bonding/Remove undo installation script
+for the pmdabonding agent</p>
+
+<p>$PCP_LOG_DIR/pmcd/bonding.log default log file for error
+messages from pmdabonding</p>
+
+<p>SEE ALSO pmcd(1) and ifenslave(8).</p>
+
+<p>3.9.4 Performance Co-Pilot PMDABONDING(1)</p>
+<hr>
+</body>
+</html>

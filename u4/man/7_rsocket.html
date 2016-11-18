@@ -1,0 +1,116 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 04:31:59 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>RSOCKET(7) Librdmacm Programmer s Manual RSOCKET(7)</p>
+
+<p>NAME rsocket - RDMA socket API</p>
+
+<p>SYNOPSIS #include &lt;rdma/rsocket.h&gt;</p>
+
+<p>DESCRIPTION RDMA socket API and protocol</p>
+
+<p>NOTES rsockets is a protocol over RDMA that supports a
+socket-level API for applications. rsocket APIs are intended
+to match the behavior of cor- responding socket calls,
+except where noted. rsocket functions match the name and
+function signature of socket calls, with the exception that
+all function calls are prefixed with an r.</p>
+
+<p>The following functions are defined:</p>
+
+<p>rsocket</p>
+
+<p>rbind, rlisten, raccept, rconnect</p>
+
+<p>rshutdown, rclose</p>
+
+<p>rrecv, rrecvfrom, rrecvmsg, rread, rreadv</p>
+
+<p>rsend, rsendto, rsendmsg, rwrite, rwritev</p>
+
+<p>rpoll, rselect</p>
+
+<p>rgetpeername, rgetsockname</p>
+
+<p>rsetsockopt, rgetsockopt, rfcntl</p>
+
+<p>Functions take the same parameters as that use for
+sockets. The follow capabilities and flags are supported at
+this time:</p>
+
+<p>PF_INET, PF_INET6, SOCK_STREAM, IPPROTO_TCP,
+TCP_MAXSEG</p>
+
+<p>MSG_DONTWAIT, MSG_PEEK</p>
+
+<p>SO_REUSEADDR, TCP_NODELAY, SO_ERROR, SO_SNDBUF,
+SO_RCVBUF</p>
+
+<p>O_NONBLOCK</p>
+
+<p>In addition to standard socket options, rsockets
+supports options spe- cific to RDMA devices and protocols.
+These options are accessible through rsetsockopt using
+SOL_RDMA option level.</p>
+
+<p>RDMA_SQSIZE - Integer size of the underlying send
+queue.</p>
+
+<p>RDMA_RQSIZE - Integer size of the underlying receive
+queue.</p>
+
+<p>RDMA_INLINE - Integer size of inline data.</p>
+
+<p>Note that rsockets fds cannot be passed into non-rsocket
+calls. For applications which must mix rsocket fds with
+standard socket fds or opened files, rpoll and rselect
+support polling both rsockets and nor- mal fds.</p>
+
+<p>Existing applications can make use of rsockets through
+the use of a preload library. Because rsockets implements an
+end-to-end protocol, both sides of a connection must use
+rsockets. The rdma_cm library pro- vides such a preload
+library, librspreload. To reduce the chance of the preload
+library intercepting calls without the users explicit
+knowledge, the librspreload library is installed into
+%libdir%/rsocket subdirectory.</p>
+
+<p>The preload library can be used by setting LD_PRELOAD
+when running. Note that not all applications will work with
+rsockets. Support is limited based on the socket options
+used by the application. Addition- ally, applications which
+call fork are not supported.</p>
+
+<p>rsockets uses configuration files that give an
+administrator control over the default settings used by
+rsockets. Use files under %syscon- fig%/rdma/rsocket as
+shown:</p>
+
+<p>mem_default - default size of receive buffer(s)</p>
+
+<p>wmem_default - default size of send buffer(s)</p>
+
+<p>sqsize_default - default size of send queue</p>
+
+<p>rqsize_default - default size of receive queue</p>
+
+<p>inline_default - default size of inline data</p>
+
+<p>If configuration files are not available, rsockets uses
+internal defaults.</p>
+
+<p>SEE ALSO rdma_cm(7)</p>
+
+<p>librdmacm 2010-07-19 RSOCKET(7)</p>
+<hr>
+</body>
+</html>

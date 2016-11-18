@@ -1,0 +1,245 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 04:29:32 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>OCF_HEARTBEAT_SAPINS(7) OCF resource agents
+OCF_HEARTBEAT_SAPINS(7)</p>
+
+<p>NAME ocf_heartbeat_SAPInstance - Manages a SAP instance
+as an HA resource.</p>
+
+<p>SYNOPSIS SAPInstance [start | stop | status | monitor |
+promote | demote | meta-data | validate-all]</p>
+
+<p>DESCRIPTION Usually a SAP system consists of one
+database and at least one or more SAP instances (sometimes
+called application servers). One SAP Instance is defined by
+having exactly one instance profile. The instance profiles
+can usually be found in the directory /sapmnt/SID/profile.
+Each instance must be configured as it&acute;s own resource
+in the cluster configuration. The resource agent supports
+the following SAP versions: - SAP WebAS ABAP Release 6.20 -
+7.30 - SAP WebAS Java Release 6.40 - 7.30 - SAP WebAS ABAP +
+Java Add-In Release 6.20 - 7.30 (Java is not monitored by
+the cluster in that case) When using a SAP Kernel 6.40
+please check and implement the actions from the section
+&quot;Manual postprocessing&quot; from SAP note 995116
+(http://sdn.sap.com).</p>
+
+<p>All operations of the SAPInstance resource agent are
+done by using the startup framework called SAP Management
+Console or sapstartsrv that was introduced with SAP kernel
+release 6.40. Find more information about the SAP Management
+Console in SAP note 1014480. Using this framework defines a
+clear interface for the Heartbeat cluster, how it sees the
+SAP system. The options for monitoring the SAP system are
+also much better than other methods like just watching the
+ps command for running processes or doing some pings to the
+application. sapstartsrv uses SOAP messages to request the
+status of running SAP processes. Therefore it can actually
+ask a process itself what it&acute;s status is, independent
+from other problems that might exist at the same time.</p>
+
+<p>sapstartsrv knows 4 status colours: - GREEN = everything
+is fine - YELLOW = something is wrong, but the service is
+still working - RED = the service does not work - GRAY = the
+service has not been started</p>
+
+<p>The SAPInstance resource agent will interpret GREEN and
+YELLOW as OK. That means that minor problems will not be
+reported to the Heartbeat cluster. This prevents the cluster
+from doing an unwanted failover. The statuses RED and GRAY
+are reported as NOT_RUNNING to the cluster. Depending on the
+status the cluster expects from the resource, it will do a
+restart, failover or just nothing.</p>
+
+<p>SUPPORTED PARAMETERS InstanceName The full qualified SAP
+instance name. e.g. P01_DVEBMGS00_sapp01ci. Usually this is
+the name of the SAP instance profile. (unique, required,
+string, no default)</p>
+
+<p>DIR_EXECUTABLE The full qualified path where to find
+sapstartsrv and sapcontrol. Specify this parameter, if you
+have changed the SAP kernel directory location after the
+default SAP installation. (unique, optional, string, no
+default)</p>
+
+<p>DIR_PROFILE The full qualified path where to find the
+SAP START profile. Specify this parameter, if you have
+changed the SAP profile directory location after the default
+SAP installation. (unique, optional, string, no default)</p>
+
+<p>START_PROFILE The name of the SAP START profile. Specify
+this parameter, if you have changed the name of the SAP
+START profile after the default SAP installation. As SAP
+release 7.10 does not have a START profile anymore, you need
+to specify the Instance Profile than. (unique, optional,
+string, no default)</p>
+
+<p>START_WAITTIME After that time in seconds a monitor
+operation is executed by the resource agent. Does the
+monitor return SUCCESS, the start ishandled as SUCCESS. This
+is useful to resolve timing problems with e.g. the
+J2EE-Addin instance.Usually the resource agent waits until
+all services are started and the SAP Management Console
+reports a GREEN status. A double stack installation (ABAP +
+Java AddIn) consists of an ABAP dispatcher and aJAVA
+instance. Normally the start of the JAVA instance takes much
+longer than the start of the ABAP instance. For a JAVA
+Instance you may need to configure a much higher timeout for
+the start operation of the resource in Heartbeat. The
+disadvantage here is, that the discovery of a failed start
+by the cluster takes longer. Somebody might say: For me it
+is important, that the ABAP instance is up and running. A
+failure of the JAVA instance shall not cause a failover of
+the SAP instance. Actually the SAP MC reports a YELLOW
+status, if the JAVA instance of a double stack system fails.
+From the resource agent point of view YELLOW
+means:everything is OK. Setting START_WAITTIME to a lower
+value determines the resource agent to check the status of
+the instance during a start operation after that time. As it
+would wait normally for a GREEN status, now it reports
+SUCCESS to the cluster in case of a YELLOW status already
+after the specified time. .sp That is only useful for double
+stack systems. (unique, optional, string, default 3600)</p>
+
+<p>AUTOMATIC_RECOVER The SAPInstance resource agent tries
+to recover a failed start attempt automaticaly one time.
+This is done by killing runing instance processes, removing
+the kill.sap file and executing cleanipc. Sometimes a
+crashed SAP instance leaves some processes and/or shared
+memory segments behind. Setting this option to true will try
+to remove those leftovers during a start operation. That is
+to reduce manual work for the administrator. (unique,
+optional, boolean, default false)</p>
+
+<p>MONITOR_SERVICES Within a SAP instance there can be
+several services. Usually you will find the defined services
+in the START profile of the related instance (Attention:
+with SAP Release 7.10 the START profile content was moved to
+the instance profile). Not all of those services are worth
+to monitor by the cluster. For example you properly do not
+like to failover your SAP instance, if the central syslog
+collector daemon fails. Those services are monitored within
+the SAPInstance resource agent: .sp - disp+work - msg_server
+- enserver - enrepserver - jcontrol - jstart .sp That names
+match the strings used in the output of the command
+&acute;sapcontrol -nr [Instance-Nr] -function
+GetProcessList&acute;. The default should fit most cases
+where you want to manage a SAP Instance from the cluster.
+You may change this with this parameter, if you like to
+monitor more/less or other services that sapstartsrv
+supports. You may specify multiple services seperated by a |
+(pipe) sign in this parameter: disp+work|msg_server|enserver
+(unique, optional, string, default
+disp+work|msg_server|enserver|enrepserver|jcontrol|jstart)</p>
+
+<p>SHUTDOWN_METHOD Usual a SAP Instance is stopped by the
+command &acute;sapcontrol -nr InstanceNr -function
+Stop&acute;. SHUTDOWN_METHOD=KILL means to kill the SAP
+Instance using OS commands. SAP processes of the instance
+are terminated with &acute;kill -9&acute;, shared memory is
+deleted with &acute;cleanipc&acute; and the
+&acute;kill.sap&acute; file will be deleted. That method is
+much faster than the gracefull stop, but the instance does
+not have the chance to say goodbye to other SAPinstances in
+the same system. USE AT YOUR OWN RISK !! (unique, optional,
+string, default normal)</p>
+
+<p>ERS_InstanceName Only used in a Master/Slave resource
+configuration: The full qualified SAP enqueue replication
+instance name. e.g. P01_ERS02_sapp01ers. Usually this is the
+name of the SAP instance profile. The enqueue replication
+instance must be installed, before you want to configure a
+master-slave cluster recource. .sp The master-slave
+configuration in the cluster must use this properties:
+clone_max = 2 clone_node_max = 1 master_node_max = 1
+master_max = 1 (unique, optional, string, no default)</p>
+
+<p>ERS_START_PROFILE Only used in a Master/Slave resource
+configuration: The parameter ERS_InstanceName must also be
+set in this configuration. The name of the SAP START
+profile. Specify this parameter, if you have changed the
+name of the SAP START profile after the default SAP
+installation. As SAP release 7.10 does not have a START
+profile anymore, you need to specify the Instance Profile
+than. (unique, optional, string, no default)</p>
+
+<p>PRE_START_USEREXIT The full qualified path where to find
+a script or program which should be executed before this
+resource gets started. (unique, optional, string, no
+default)</p>
+
+<p>POST_START_USEREXIT The full qualified path where to
+find a script or program which should be executed after this
+resource got started. (unique, optional, string, no
+default)</p>
+
+<p>PRE_STOP_USEREXIT The full qualified path where to find
+a script or program which should be executed before this
+resource gets stopped. (unique, optional, string, no
+default)</p>
+
+<p>POST_STOP_USEREXIT The full qualified path where to find
+a script or program which should be executed after this
+resource got stopped. (unique, optional, string, no
+default)</p>
+
+<p>SUPPORTED ACTIONS This resource agent supports the
+following actions (operations):</p>
+
+<p>start Starts the resource. Suggested minimum timeout:
+180.</p>
+
+<p>stop Stops the resource. Suggested minimum timeout:
+240.</p>
+
+<p>status Performs a status check. Suggested minimum
+timeout: 60.</p>
+
+<p>monitor Performs a detailed status check. Suggested
+minimum timeout: 60. Suggested interval: 120.</p>
+
+<p>promote Promotes the resource to the Master role.
+Suggested minimum timeout: 320.</p>
+
+<p>demote Demotes the resource to the Slave role. Suggested
+minimum timeout: 320.</p>
+
+<p>validate-all Performs a validation of the resource
+configuration. Suggested minimum timeout: 5.</p>
+
+<p>meta-data Retrieves resource agent metadata (internal
+use only). Suggested minimum timeout: 5.</p>
+
+<p>methods Suggested minimum timeout: 5.</p>
+
+<p>EXAMPLE The following is an example configuration for a
+SAPInstance resource using the crm(8) shell:</p>
+
+<p>primitive p_SAPInstance ocf:heartbeat:SAPInstance params
+InstanceName=string op monitor depth=&quot;0&quot;
+timeout=&quot;60&quot; interval=&quot;120&quot;</p>
+
+<p>ms ms_SAPInstance p_SAPInstance meta
+notify=&quot;true&quot; interleave=&quot;true&quot;</p>
+
+<p>SEE ALSO
+http://www.linux-ha.org/wiki/SAPInstance_(resource_agent)</p>
+
+<p>AUTHOR Linux-HA contributors (see the resource agent
+source for information about individual authors)</p>
+
+<p>resource-agents 3.9.2 04/30/2012
+OCF_HEARTBEAT_SAPINS(7)</p>
+<hr>
+</body>
+</html>

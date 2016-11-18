@@ -1,0 +1,327 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 04:35:59 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>sshd_selinux(8) SELinux Policy documentation for sshd
+sshd_selinux(8)</p>
+
+<p>NAME sshd_selinux - Security Enhanced Linux Policy for
+the sshd processes</p>
+
+<p>DESCRIPTION Security-Enhanced Linux secures the sshd
+processes via flexible manda- tory access control.</p>
+
+<p>The sshd processes execute with the sshd_t SELinux type.
+You can check if you have these processes running by
+executing the ps command with the -Z qualifier.</p>
+
+<p>For example:</p>
+
+<p>ps -eZ | grep sshd_t</p>
+
+<p>ENTRYPOINTS The sshd_t SELinux type can be entered via
+the &quot;sshd_exec_t&quot; file type. The default
+entrypoint paths for the sshd_t domain are the
+following:&quot;</p>
+
+<p>/usr/sbin/sshd</p>
+
+<p>PROCESS TYPES SELinux defines process types (domains)
+for each process running on the system</p>
+
+<p>You can see the context of a process using the -Z option
+to ps</p>
+
+<p>Policy governs the access confined processes have to
+files. SELinux sshd policy is very flexible allowing users
+to setup their sshd pro- cesses in as secure a method as
+possible.</p>
+
+<p>The following process types are defined for sshd:</p>
+
+<p>ssh_keysign_t, ssh_keygen_t, ssh_t, sshd_t</p>
+
+<p>Note: semanage permissive -a sshd_t</p>
+
+<p>can be used to make the process type sshd_t permissive.
+Permissive pro- cess types are not denied access by SELinux.
+AVC messages will still be generated.</p>
+
+<p>BOOLEANS SELinux policy is customizable based on least
+access required. sshd policy is extremely flexible and has
+several booleans that allow you to manipulate the policy and
+run sshd with the tightest access possible.</p>
+
+<p>If you want to allow host key based authentication, you
+must turn on the allow_ssh_keysign boolean.</p>
+
+<p>setsebool -P allow_ssh_keysign 1</p>
+
+<p>If you want to allow ssh with chroot env to read and
+write files in the user home directories, you must turn on
+the ssh_chroot_rw_homedirs boolean.</p>
+
+<p>setsebool -P ssh_chroot_rw_homedirs 1</p>
+
+<p>If you want to allow ssh with chroot env to manage all
+files, you must turn on the ssh_chroot_full_access
+boolean.</p>
+
+<p>setsebool -P ssh_chroot_full_access 1</p>
+
+<p>If you want to allow fenced domain to execute ssh, you
+must turn on the fenced_can_ssh boolean.</p>
+
+<p>setsebool -P fenced_can_ssh 1</p>
+
+<p>If you want to allow ssh with chroot env to apache
+content, you must turn on the
+ssh_chroot_manage_apache_content boolean.</p>
+
+<p>setsebool -P ssh_chroot_manage_apache_content 1</p>
+
+<p>If you want to allow ssh logins as sysadm_r:sysadm_t,
+you must turn on the ssh_sysadm_login boolean.</p>
+
+<p>setsebool -P ssh_sysadm_login 1</p>
+
+<p>If you want to allow host key based authentication, you
+must turn on the allow_ssh_keysign boolean.</p>
+
+<p>setsebool -P allow_ssh_keysign 1</p>
+
+<p>If you want to allow ssh with chroot env to read and
+write files in the user home directories, you must turn on
+the ssh_chroot_rw_homedirs boolean.</p>
+
+<p>setsebool -P ssh_chroot_rw_homedirs 1</p>
+
+<p>If you want to allow ssh with chroot env to manage all
+files, you must turn on the ssh_chroot_full_access
+boolean.</p>
+
+<p>setsebool -P ssh_chroot_full_access 1</p>
+
+<p>If you want to allow fenced domain to execute ssh, you
+must turn on the fenced_can_ssh boolean.</p>
+
+<p>setsebool -P fenced_can_ssh 1</p>
+
+<p>If you want to allow ssh with chroot env to apache
+content, you must turn on the
+ssh_chroot_manage_apache_content boolean.</p>
+
+<p>setsebool -P ssh_chroot_manage_apache_content 1</p>
+
+<p>If you want to allow ssh logins as sysadm_r:sysadm_t,
+you must turn on the ssh_sysadm_login boolean.</p>
+
+<p>setsebool -P ssh_sysadm_login 1</p>
+
+<p>FILE CONTEXTS SELinux requires files to have an extended
+attribute to define the file type.</p>
+
+<p>You can see the context of a file using the -Z option to
+ls</p>
+
+<p>Policy governs the access confined processes have to
+these files. SELinux sshd policy is very flexible allowing
+users to setup their sshd processes in as secure a method as
+possible.</p>
+
+<p>The following file types are defined for sshd:</p>
+
+<p>sshd_exec_t</p>
+
+<p>- Set files with the sshd_exec_t type, if you want to
+transition an executable to the sshd_t domain.</p>
+
+<p>sshd_initrc_exec_t</p>
+
+<p>- Set files with the sshd_initrc_exec_t type, if you
+want to transition an executable to the sshd_initrc_t
+domain.</p>
+
+<p>sshd_key_t</p>
+
+<p>- Set files with the sshd_key_t type, if you want to
+treat the files as sshd key data.</p>
+
+<p>sshd_keytab_t</p>
+
+<p>- Set files with the sshd_keytab_t type, if you want to
+treat the files as kerberos keytab files.</p>
+
+<p>sshd_tmpfs_t</p>
+
+<p>- Set files with the sshd_tmpfs_t type, if you want to
+store sshd files on a tmpfs file system.</p>
+
+<p>sshd_var_run_t</p>
+
+<p>- Set files with the sshd_var_run_t type, if you want to
+store the sshd files under the /run directory.</p>
+
+<p>Note: File context can be temporarily modified with the
+chcon command. If you want to permanently change the file
+context you need to use the semanage fcontext command. This
+will modify the SELinux labeling database. You will need to
+use restorecon to apply the labels.</p>
+
+<p>PORT TYPES SELinux defines port types to represent TCP
+and UDP ports.</p>
+
+<p>You can see the types associated with a port by using
+the following command:</p>
+
+<p>semanage port -l</p>
+
+<p>Policy governs the access confined processes have to
+these ports. SELinux sshd policy is very flexible allowing
+users to setup their sshd processes in as secure a method as
+possible.</p>
+
+<p>The following port types are defined for sshd:</p>
+
+<p>ssh_port_t</p>
+
+<p>Default Defined Ports: tcp 22</p>
+
+<p>MANAGED FILES The SELinux process type sshd_t can manage
+files labeled with the fol- lowing file types. The paths
+listed are the default paths for these file types. Note the
+processes UID still need to have DAC permissions.</p>
+
+<p>auth_cache_t</p>
+
+<p>/var/cache/coolkey(/.*)?</p>
+
+<p>condor_var_lib_t</p>
+
+<p>/var/lib/condor(/.*)? /var/lib/condor/spool(/.*)?
+/var/lib/condor/execute(/.*)?</p>
+
+<p>faillog_t</p>
+
+<p>/var/log/btmp.* /var/log/faillog.* /var/log/tallylog.*
+/var/run/faillock(/.*)?</p>
+
+<p>gitosis_var_lib_t</p>
+
+<p>/var/lib/gitosis(/.*)? /var/lib/gitolite(3)?(/.*)?</p>
+
+<p>initrc_tmp_t</p>
+
+<p>initrc_var_run_t</p>
+
+<p>/var/run/utmp /var/run/random-seed /var/run/runlevel.dir
+/var/run/setmixer_flag</p>
+
+<p>krb5_host_rcache_t</p>
+
+<p>/var/cache/krb5rcache(/.*)? /var/tmp/host_0
+/var/tmp/HTTP_23</p>
+
+<p>lastlog_t</p>
+
+<p>/var/log/lastlog.*</p>
+
+<p>mnt_t</p>
+
+<p>/mnt(/[^/]*) /mnt(/[^/]*)? /rhev(/[^/]*)? /media(/[^/]*)
+/media(/[^/]*)? /etc/rhgb(/.*)? /media/.hal-.* /net /afs
+/misc /rhev</p>
+
+<p>openshift_tmp_t</p>
+
+<p>/var/lib/openshift/.*/.tmp(/.*)?
+/var/lib/openshift/.*/.sandbox(/.*)?
+/var/lib/stickshift/.*/.tmp(/.*)?
+/var/lib/stickshift/.*/.sandbox(/.*)?</p>
+
+<p>pam_var_run_t</p>
+
+<p>/var/run/sudo(/.*)? /var/run/sepermit(/.*)?
+/var/run/pam_mount(/.*)?</p>
+
+<p>pcscd_var_run_t</p>
+
+<p>/var/run/pcscd.events(/.*)? /var/run/pcscd.pid
+/var/run/pcscd.pub /var/run/pcscd.comm</p>
+
+<p>root_t</p>
+
+<p>/ /initrd</p>
+
+<p>security_t</p>
+
+<p>ssh_home_t</p>
+
+<p>/root/.ssh(/.*)? /var/lib/gitolite(3)?/.ssh(/.*)?
+/var/lib/openshift/[^/]+/.ssh(/.*)?
+/var/lib/amanda/.ssh(/.*)?
+/var/lib/stickshift/[^/]+/.ssh(/.*)? /root/.shosts
+/home/[^/]*/.ssh(/.*)? /home/[^/]*/.shosts</p>
+
+<p>sshd_tmpfs_t</p>
+
+<p>sshd_var_run_t</p>
+
+<p>/var/run/sshd.init.pid</p>
+
+<p>tmp_t</p>
+
+<p>/tmp /usr/tmp /var/tmp /var/tmp/vi.recover</p>
+
+<p>user_tmp_t</p>
+
+<p>/tmp/gconfd-.*</p>
+
+<p>var_auth_t</p>
+
+<p>/var/lib/abl(/.*)? /var/lib/pam_ssh(/.*)?
+/var/run/pam_ssh(/.*)? /var/lib/pam_shield(/.*)?
+/var/opt/quest/vas/vasd(/.*)?</p>
+
+<p>wtmp_t</p>
+
+<p>/var/log/wtmp.*</p>
+
+<p>COMMANDS semanage fcontext can also be used to
+manipulate default file context mappings.</p>
+
+<p>semanage permissive can also be used to manipulate
+whether or not a process type is permissive.</p>
+
+<p>semanage module can also be used to
+enable/disable/install/remove pol- icy modules.</p>
+
+<p>semanage port can also be used to manipulate the port
+definitions</p>
+
+<p>semanage boolean can also be used to manipulate the
+booleans</p>
+
+<p>system-config-selinux is a GUI tool available to
+customize SELinux pol- icy settings.</p>
+
+<p>AUTHOR This manual page was auto-generated using
+sepolicy manpage by mgrepl.</p>
+
+<p>SEE ALSO selinux(8), sshd(8), semanage(8),
+restorecon(8), chcon(1), sepolicy(8) , setsebool(8),
+ssh_selinux(8), ssh_selinux(8), ssh_keygen_selinux(8),
+ssh_keysign_selinux(8)</p>
+
+<p>sshd 13-01-04 sshd_selinux(8)</p>
+<hr>
+</body>
+</html>

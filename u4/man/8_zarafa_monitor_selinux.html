@@ -1,0 +1,136 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 04:42:59 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>zarafa_monitor_sSELinux8Policy documentation for
+zarazarafa_monitor_selinux(8)</p>
+
+<p>NAME zarafa_monitor_selinux - Security Enhanced Linux
+Policy for the zarafa_monitor processes</p>
+
+<p>DESCRIPTION Security-Enhanced Linux secures the
+zarafa_monitor processes via flexi- ble mandatory access
+control.</p>
+
+<p>The zarafa_monitor processes execute with the
+zarafa_monitor_t SELinux type. You can check if you have
+these processes running by executing the ps command with the
+-Z qualifier.</p>
+
+<p>For example:</p>
+
+<p>ps -eZ | grep zarafa_monitor_t</p>
+
+<p>ENTRYPOINTS The zarafa_monitor_t SELinux type can be
+entered via the
+&quot;mtrr_device_t,unlabeled_t,proc_type,zarafa_moni-
+tor_exec_t,sysctl_type,filesystem_type,file_type&quot; file
+types. The default entrypoint paths for the zarafa_monitor_t
+domain are the fol- lowing:&quot;</p>
+
+<p>/dev/cpu/mtrr, /usr/bin/zarafa-monitor, all files on the
+system</p>
+
+<p>PROCESS TYPES SELinux defines process types (domains)
+for each process running on the system</p>
+
+<p>You can see the context of a process using the -Z option
+to ps</p>
+
+<p>Policy governs the access confined processes have to
+files. SELinux zarafa_monitor policy is very flexible
+allowing users to setup their zarafa_monitor processes in as
+secure a method as possible.</p>
+
+<p>The following process types are defined for
+zarafa_monitor:</p>
+
+<p>zarafa_monitor_t</p>
+
+<p>Note: semanage permissive -a zarafa_monitor_t</p>
+
+<p>can be used to make the process type zarafa_monitor_t
+permissive. Per- missive process types are not denied access
+by SELinux. AVC messages will still be generated.</p>
+
+<p>FILE CONTEXTS SELinux requires files to have an extended
+attribute to define the file type.</p>
+
+<p>You can see the context of a file using the -Z option to
+ls</p>
+
+<p>Policy governs the access confined processes have to
+these files. SELinux zarafa_monitor policy is very flexible
+allowing users to setup their zarafa_monitor processes in as
+secure a method as possible.</p>
+
+<p>The following file types are defined for
+zarafa_monitor:</p>
+
+<p>zarafa_monitor_exec_t</p>
+
+<p>- Set files with the zarafa_monitor_exec_t type, if you
+want to transi- tion an executable to the zarafa_monitor_t
+domain.</p>
+
+<p>zarafa_monitor_log_t</p>
+
+<p>- Set files with the zarafa_monitor_log_t type, if you
+want to treat the data as zarafa monitor log data, usually
+stored under the /var/log directory.</p>
+
+<p>zarafa_monitor_var_run_t</p>
+
+<p>- Set files with the zarafa_monitor_var_run_t type, if
+you want to store the zarafa monitor files under the /run
+directory.</p>
+
+<p>Note: File context can be temporarily modified with the
+chcon command. If you want to permanently change the file
+context you need to use the semanage fcontext command. This
+will modify the SELinux labeling database. You will need to
+use restorecon to apply the labels.</p>
+
+<p>MANAGED FILES The SELinux process type zarafa_monitor_t
+can manage files labeled with the following file types. The
+paths listed are the default paths for these file types.
+Note the processes UID still need to have DAC per-
+missions.</p>
+
+<p>file_type</p>
+
+<p>all files on the system</p>
+
+<p>COMMANDS semanage fcontext can also be used to
+manipulate default file context mappings.</p>
+
+<p>semanage permissive can also be used to manipulate
+whether or not a process type is permissive.</p>
+
+<p>semanage module can also be used to
+enable/disable/install/remove pol- icy modules.</p>
+
+<p>system-config-selinux is a GUI tool available to
+customize SELinux pol- icy settings.</p>
+
+<p>AUTHOR This manual page was auto-generated using
+sepolicy manpage by mgrepl.</p>
+
+<p>SEE ALSO selinux(8), zarafa_monitor(8), semanage(8),
+restorecon(8), chcon(1), sepolicy(8) ,
+zarafa_deliver_selinux(8), zarafa_gateway_selinux(8),
+zarafa_ical_selinux(8), zarafa_indexer_selinux(8),
+zarafa_server_selinux(8), zarafa_spooler_selinux(8)</p>
+
+<p>zarafa_monitor 13-01-04 zarafa_monitor_selinux(8)</p>
+<hr>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 04:16:15 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>PMDANFSCLIENT(1) Performance Co-Pilot
+PMDANFSCLIENT(1)</p>
+
+<p>NAME pmdanfsclient - nfs client statistics performance
+metrics domain agent (PMDA)</p>
+
+<p>DESCRIPTION pmdanfsclient is a Performance Metrics
+Domain Agent (PMDA) which exports metric values from the
+/proc/self/mountstats interface to provide information on
+nfs mounts.</p>
+
+<p>INSTALLATION If you want access to the names and values
+for the nfsclient performance metrics, do the following as
+root:</p>
+
+<p># cd $PCP_PMDAS_DIR/nfsclient # ./Install</p>
+
+<p>If you want to undo the installation, do the following
+as root:</p>
+
+<p># cd $PCP_PMDAS_DIR/nfsclient # ./Remove</p>
+
+<p>pmdanfsclient is launched by pmcd(1) and should never be
+executed directly. The Install and Remove scripts notify
+pmcd(1) when the agent is installed or removed.</p>
+
+<p>FILES $PCP_PMDAS_DIR/nfsclient/Install installation
+script for the pmdanfsclient agent</p>
+
+<p>$PCP_PMDAS_DIR/nfsclient/Remove undo installation script
+for the pmdanfsclient agent</p>
+
+<p>$PCP_LOG_DIR/pmcd/nfsclient.log default log file for
+error messages from pmdanfsclient</p>
+
+<p>SEE ALSO pmcd(1) and nfs(5) and mountstats(8).</p>
+
+<p>3.9.4 Performance Co-Pilot PMDANFSCLIENT(1)</p>
+<hr>
+</body>
+</html>

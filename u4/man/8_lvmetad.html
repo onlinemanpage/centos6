@@ -1,0 +1,56 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 04:08:46 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>LVMETAD(8) LVMETAD(8)</p>
+
+<p>NAME lvmetad - LVM metadata cache daemon</p>
+
+<p>SYNOPSIS lvmetad [-l {all|wire|debug} ] [-s path ] [-f]
+[-h] [-V] [-?]</p>
+
+<p>DESCRIPTION lvmetad is a metadata caching daemon for
+LVM. The daemon receives noti- fications from udev rules
+(which must be installed for LVM to work cor- rectly when
+lvmetad is in use). Through these notifications, lvmetad has
+an up-to-date and consistent image of the volume groups
+available in the system.</p>
+
+<p>By default, lvmetad, even if running, is not used by
+LVM. See lvm.conf(5).</p>
+
+<p>OPTIONS -l {all|wire|debug} Select the type of log
+messages to generate. Messages are logged by syslog.
+Additionally, when -f is given they are also sent to
+standard error. Since release 2.02.98, there are two classes
+of messages: wire and debug. Selecting all supplies both and
+is equivalent to a comma-separated list -l wire,debug. Prior
+to release 2.02.98, repeating -d from 1 to 3 times, viz. -d,
+-dd, -ddd, increased the detail of messages.</p>
+
+<p>-f Dont fork, run in the foreground.</p>
+
+<p>-h, -? Show help information.</p>
+
+<p>-s path Path to the socket file to use. The option
+overrides both the built-in default
+(/var/run/lvm/lvmetad.socket) and the environ- ment variable
+LVM_LVMETAD_SOCKET.</p>
+
+<p>-V Show version of dmeventd.</p>
+
+<p>SEE ALSO lvm(8), lvm.conf(5)</p>
+
+<p>Red Hat Inc LVM TOOLS 2.02.98(2)-RHEL6 (2012-10-15)
+LVMETAD(8)</p>
+<hr>
+</body>
+</html>

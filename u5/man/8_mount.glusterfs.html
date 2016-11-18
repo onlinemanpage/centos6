@@ -1,0 +1,76 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 04:09:05 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>GlusterFS(8) Gluster Inc. GlusterFS(8)</p>
+
+<p>NAME mount.glusterfs - script to mount native GlusterFS
+volume</p>
+
+<p>SYNOPSIS mount -t glusterfs [-o &lt;options&gt;]
+&lt;volumeserver&gt;:&lt;volumeid&gt; &lt;mount-
+point&gt;</p>
+
+<p>mount -t glusterfs [-o &lt;options&gt;]
+&lt;path/to/volumefile&gt; &lt;mountpoint&gt;</p>
+
+<p>DESCRIPTION This tool is part of glusterfs(8) package,
+which is used to mount using GlusterFS native binary.</p>
+
+<p>mount.glusterfs is meant to be used by the mount(8)
+command for mount- ing native GlusterFS client. This
+subcommand, however, can also be used as a standalone
+command with limited functionality.</p>
+
+<p>OPTIONS Basic options log-file=LOG-FILE File to use for
+logging [default:/var/log/glusterfs/glus- terfs.log]</p>
+
+<p>log-level=LOG-LEVEL Logging severity. Valid options are
+TRACE, DEBUG, WARNING, ERROR, CRITICAL INFO and NONE
+[default: INFO]</p>
+
+<p>ro Mount the filesystem read-only</p>
+
+<p>Advanced options volfile-id=KEY Volume key or name of
+the volume file to be fetched from server</p>
+
+<p>transport=TRANSPORT-TYPE Transport type to get volume
+file from server [default: tcp]</p>
+
+<p>volume-name=VOLUME-NAME Volume name to be used for
+MOUNT-POINT [default: top most volume in VOLUME-FILE]</p>
+
+<p>direct-io-mode=disable Disable direct I/O mode in fuse
+kernel module</p>
+
+<p>FILES</p>
+
+<p>/etc/fstab A typical GlusterFS entry in /etc/fstab looks
+like below</p>
+
+<p>server1.gluster.com:mirror /mnt/mirror glusterfs log-
+file=/var/log/mirror.vol,ro,defaults 0 0</p>
+
+<p>/etc/mtab An example entry of a GlusterFS mountpoint in
+/etc/mtab looks like below</p>
+
+<p>mirror.vol /mnt/glusterfs fuse.glusterfs
+rw,allow_other,default_permissions,max_read=131072 0 0</p>
+
+<p>SEE ALSO glusterfs(8), mount(8), gluster(8)</p>
+
+<p>COPYRIGHT Copyright(c) 2006-2011 Gluster, Inc.
+&lt;http://www.gluster.com&gt;</p>
+
+<p>18 March 2010 Cluster Filesystem GlusterFS(8)</p>
+<hr>
+</body>
+</html>

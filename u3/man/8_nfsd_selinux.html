@@ -1,0 +1,178 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 04:29:10 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>nfsd_selinux(8) nfsd SELinux Policy documentation
+nfsd_selinux(8)</p>
+
+<p>NAME nfsd_selinux - Security Enhanced Linux Policy for
+the nfsd processes</p>
+
+<p>DESCRIPTION BOOLEANS SELinux policy is customizable
+based on least access required. nfsd policy is extremely
+flexible and has several booleans that allow you to
+manipulate the policy and run nfsd with the tightest access
+possible.</p>
+
+<p>If you want to allow virt to manage nfs file, you must
+turn on the virt_use_nfs boolean.</p>
+
+<p>setsebool -P virt_use_nfs 1</p>
+
+<p>If you want to support NFS home directorie, you must
+turn on the use_nfs_home_dirs boolean.</p>
+
+<p>setsebool -P use_nfs_home_dirs 1</p>
+
+<p>If you want to allow xen to manage nfs file, you must
+turn on the xen_use_nfs boolean.</p>
+
+<p>setsebool -P xen_use_nfs 1</p>
+
+<p>If you want to allow ftp servers to use nfs used for
+public file trans- fer services, you must turn on the
+allow_ftpd_use_nfs boolean.</p>
+
+<p>setsebool -P allow_ftpd_use_nfs 1</p>
+
+<p>If you want to allow Git daemon system to access nfs
+file systems, you must turn on the git_system_use_nfs
+boolean.</p>
+
+<p>setsebool -P git_system_use_nfs 1</p>
+
+<p>If you want to allow qemu to use nfs file system, you
+must turn on the qemu_use_nfs boolean.</p>
+
+<p>setsebool -P qemu_use_nfs 1</p>
+
+<p>If you want to allow rsync servers to share nfs files
+system, you must turn on the rsync_use_nfs boolean.</p>
+
+<p>setsebool -P rsync_use_nfs 1</p>
+
+<p>If you want to allow Cobbler to access nfs file systems,
+you must turn on the cobbler_use_nfs boolean.</p>
+
+<p>setsebool -P cobbler_use_nfs 1</p>
+
+<p>If you want to allow httpd to access nfs file system,
+you must turn on the httpd_use_nfs boolean.</p>
+
+<p>setsebool -P httpd_use_nfs 1</p>
+
+<p>If you want to allow sge to access nfs file systems, you
+must turn on the sge_use_nfs boolean.</p>
+
+<p>setsebool -P sge_use_nfs 1</p>
+
+<p>If you want to allow confined virtual guests to manage
+nfs file, you must turn on the sanlock_use_nfs boolean.</p>
+
+<p>setsebool -P sanlock_use_nfs 1</p>
+
+<p>If you want to allow samba to export NFS volumes, you
+must turn on the samba_share_nfs boolean.</p>
+
+<p>setsebool -P samba_share_nfs 1</p>
+
+<p>FILE CONTEXTS SELinux requires files to have an extended
+attribute to define the file type.</p>
+
+<p>You can see the context of a file using the -Z option to
+ls</p>
+
+<p>Policy governs the access confined processes have to
+these files. SELinux nfsd policy is very flexible allowing
+users to setup their nfsd processes in as secure a method as
+possible.</p>
+
+<p>The following file types are defined for nfsd:</p>
+
+<p>nfs_t</p>
+
+<p>- Set files with the nfs_t type, if you want to treat
+the files as nfs data.</p>
+
+<p>nfsd_exec_t</p>
+
+<p>- Set files with the nfsd_exec_t type, if you want to
+transition an executable to the nfsd_t domain.</p>
+
+<p>Paths: /usr/sbin/rpc.mountd, /usr/sbin/rpc.nfsd</p>
+
+<p>nfsd_initrc_exec_t</p>
+
+<p>- Set files with the nfsd_initrc_exec_t type, if you
+want to transition an executable to the nfsd_initrc_t
+domain.</p>
+
+<p>nfsd_ro_t</p>
+
+<p>- Set files with the nfsd_ro_t type, if you want to
+treat the files as nfsd read/only content.</p>
+
+<p>nfsd_rw_t</p>
+
+<p>- Set files with the nfsd_rw_t type, if you want to
+treat the files as nfsd read/write content.</p>
+
+<p>Note: File context can be temporarily modified with the
+chcon command. If you want to permanently change the file
+context you need to use the semanage fcontext command. This
+will modify the SELinux labeling database. You will need to
+use restorecon to apply the labels.</p>
+
+<p>PROCESS TYPES SELinux defines process types (domains)
+for each process running on the system</p>
+
+<p>You can see the context of a process using the -Z option
+to ps</p>
+
+<p>Policy governs the access confined processes have to
+files. SELinux nfsd policy is very flexible allowing users
+to setup their nfsd pro- cesses in as secure a method as
+possible.</p>
+
+<p>The following process types are defined for nfsd:</p>
+
+<p>nfsd_t</p>
+
+<p>Note: semanage permissive -a PROCESS_TYPE can be used to
+make a process type permissive. Permissive process types are
+not denied access by SELinux. AVC messages will still be
+generated.</p>
+
+<p>COMMANDS semanage fcontext can also be used to
+manipulate default file context mappings.</p>
+
+<p>semanage permissive can also be used to manipulate
+whether or not a process type is permissive.</p>
+
+<p>semanage module can also be used to
+enable/disable/install/remove pol- icy modules.</p>
+
+<p>semanage boolean can also be used to manipulate the
+booleans</p>
+
+<p>system-config-selinux is a GUI tool available to
+customize SELinux pol- icy settings.</p>
+
+<p>AUTHOR This manual page was autogenerated by
+genman.py.</p>
+
+<p>SEE ALSO selinux(8), nfsd(8), semanage(8),
+restorecon(8), chcon(1) , setse- bool(8)</p>
+
+<p>dwalsh@redhat.com nfsd nfsd_selinux(8)</p>
+<hr>
+</body>
+</html>

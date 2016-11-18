@@ -1,0 +1,59 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 04:59:14 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>CGCREATE(1) libcgroup Manual CGCREATE(1)</p>
+
+<p>NAME cgcreate - create new cgroup(s)</p>
+
+<p>SYNOPSIS cgcreate [-h] [-s] [-t
+&lt;tuid&gt;:&lt;tgid&gt;] [-a &lt;agid&gt;:&lt;auid&gt;]
+[-f mode] [-d mode] -g &lt;controllers&gt;:&lt;path&gt; [-g
+...]</p>
+
+<p>DESCRIPTION The command creates new cgroup(s) defined by
+option -g.</p>
+
+<p>-t &lt;tuid&gt;:&lt;tgid&gt; defines the name of the
+user and the group, which owns tasks file of the defined
+control group. I.e. this user and members of this group have
+write access to the file. The default value is the same as
+has the parent cgroup.</p>
+
+<p>-a &lt;agid&gt;:&lt;auid&gt; defines the name of the
+user and the group, which owns the rest of the defined
+control groups files. These users are allowed to set
+subsystem parameters and create subgroups. The default value
+is the same as has the parent cgroup.</p>
+
+<p>-d, --dperm mode sets the permission mode of control
+groups directory. The mode have to be set using octal
+numbers e.g. -d 775.</p>
+
+<p>-f, --fperm mode sets the permission mode of control
+groups files. The mode have to be set using octal numbers
+e.g. -f 775.</p>
+
+<p>-g &lt;controllers&gt;:&lt;path&gt; defines control
+groups which will be added. controllers is a list of
+controllers and path is the relative path to control groups
+in the given controllers list. This option can be speci-
+fied multiple times.</p>
+
+<p>-h, --help display this help and exit</p>
+
+<p>FILES SEE ALSO cgrules.conf (5) cgexec (1) cgclassify
+(1)</p>
+
+<p>Linux 2009-03-15 CGCREATE(1)</p>
+<hr>
+</body>
+</html>

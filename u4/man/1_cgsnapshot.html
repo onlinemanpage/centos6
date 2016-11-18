@@ -1,0 +1,78 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 03:54:08 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>CGSNAPSHOT(1) libcgroup Manual CGSNAPSHOT(1)</p>
+
+<p>NAME cgsnapshot - generate the configuration file for
+given controllers</p>
+
+<p>SYNOPSIS cgsnapshot [-h] [-s] [-t] [-b file] [-w file]
+[-f output_file] [con- troller] [...]</p>
+
+<p>DESCRIPTION cgsnapshot generates the cgconfig compatible
+configuration file for given controllers. If no controller
+is set, then cgsnapshot shows all mounted hierarchies. The
+output is in the same format as cgconfig.conf configuration
+file.</p>
+
+<p>-b file Display only variables from blacklist. The
+default location of the blacklist is
+/etc/cgsnapshot_blacklist.conf. This list con- tains all
+variables which should be ignored by cgsnapshot tool. If the
+variable is blacklisted, then it will not be displayed. If
+it is not present on the blacklist, then the whitelist is
+checked.</p>
+
+<p>-h, --help display this help and exit</p>
+
+<p>-f, --file Redirect the output to output_file</p>
+
+<p>-s, --silent Ignore all warnings</p>
+
+<p>-t, --strict Do not display the variables which are not
+on the whitelist</p>
+
+<p>-w file Set the blacklist configuration file. This list
+contains all variables which should be displayed by
+cgsnapshot tool. If the variable is not blacklisted then
+whitelist is checked. If the variable is on the whitelist,
+then it is displayed by cgsnapshot tool. If the variable is
+not on the whitelist, then the vari- able is displayed and
+warning message is produced. By default the whitelist is not
+used.</p>
+
+<p>The warning message can be omitted using -s, --silent
+flag. If -t, --strict flag is used then the variable which
+is not on whitelist is not displayed.</p>
+
+<p>controller defines controller whose hierarchies will be
+output</p>
+
+<p>ENVIRONMENT VARIABLES CGROUP_LOGLEVEL controls verbosity
+of the tool. Allowed values are DEBUG, INFO, WARNING or
+ERROR.</p>
+
+<p>FILES /etc/cgsnapshot_blacklist.conf default location of
+the blacklist</p>
+
+<p>/etc/cgsnapshot_whitelist.conf default location of the
+whitelist</p>
+
+<p>/etc/cgconfig.conf default libcgroup configuration
+file</p>
+
+<p>SEE ALSO cgconfig.conf (5)</p>
+
+<p>Linux 2010-07-28 CGSNAPSHOT(1)</p>
+<hr>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 05:01:37 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>fence_brocade(8) fence_brocade(8)</p>
+
+<p>NAME fence_brocade - I/O Fencing agent for Brocade FC
+switches</p>
+
+<p>SYNOPSIS fence_brocade [OPTION]...</p>
+
+<p>DESCRIPTION fence_brocade is an I/O Fencing agent which
+can be used with Brocade FC switches. It logs into a Brocade
+switch via telnet and disables a specified port. Disabling
+the port which a machine is connected to effectively fences
+that machine. Lengthy telnet connections to the switch
+should be avoided while a GFS cluster is running because the
+connection will block any necessary fencing actions.</p>
+
+<p>fence_brocade accepts options on the command line as
+well as from stdin. fenced sends parameters through stdin
+when it execs the agent. fence_brocade can be run by itself
+with command line options which is useful for testing.</p>
+
+<p>After a fence operation has taken place the fenced
+machine can no longer connect to the Brocade FC switch. When
+the fenced machine is ready to be brought back into the GFS
+cluster (after reboot) the port on the Brocade FC switch
+needs to be enabled. This can be done by run- ning
+fence_brocade and specifying the enable action.</p>
+
+<p>Vendor URL: http://www.brocade.com</p>
+
+<p>OPTIONS -a IPaddress IP address of the switch.</p>
+
+<p>-h Print out a help message describing available
+options, then exit.</p>
+
+<p>-l login Login name for the switch.</p>
+
+<p>-n port The port number to disable on the switch.</p>
+
+<p>-o action The action required. disable (default) or
+enable.</p>
+
+<p>-p password Password for login.</p>
+
+<p>-S path Full path to an executable to generate the
+password for login.</p>
+
+<p>-q Quiet mode: print only error messages.</p>
+
+<p>-V Print out a version message, then exit.</p>
+
+<p>STDIN PARAMETERS agent = &lt; param &gt; This option is
+used by fence_node(8) and is ignored by fence_brocade.</p>
+
+<p>ipaddr = &lt; hostname | ip &gt; IP address or hostname
+of the switch.</p>
+
+<p>login = &lt; param &gt; Login name.</p>
+
+<p>option = &lt; param &gt; The action required. disable
+(default) or enable.</p>
+
+<p>passwd = &lt; param &gt; Password for login.</p>
+
+<p>passwd_script = &lt; param &gt; Full path to an
+executable to generate the password for login.</p>
+
+<p>port = &lt; param &gt; The port number to disable on the
+switch.</p>
+
+<p>SEE ALSO fence(8), fence_node(8)</p>
+
+<p>fence_brocade(8)</p>
+<hr>
+</body>
+</html>

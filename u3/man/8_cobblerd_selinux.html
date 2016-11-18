@@ -1,0 +1,210 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 04:11:43 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>cobblerd_selinux(8) cobblerd SELinux Policy
+documentation cobblerd_selinux(8)</p>
+
+<p>NAME cobblerd_selinux - Security Enhanced Linux Policy
+for the cobblerd pro- cesses</p>
+
+<p>DESCRIPTION BOOLEANS SELinux policy is customizable
+based on least access required. cob- blerd policy is
+extremely flexible and has several booleans that allow you
+to manipulate the policy and run cobblerd with the tightest
+access possible.</p>
+
+<p>If you want to allow Cobbler to connect to the network
+using TCP, you must turn on the cobbler_can_network_connect
+boolean.</p>
+
+<p>setsebool -P cobbler_can_network_connect 1</p>
+
+<p>If you want to allow Cobbler to access nfs file systems,
+you must turn on the cobbler_use_nfs boolean.</p>
+
+<p>setsebool -P cobbler_use_nfs 1</p>
+
+<p>If you want to allow HTTPD scripts and modules to
+connect to cobbler over the network, you must turn on the
+httpd_can_network_connect_cob- bler boolean.</p>
+
+<p>setsebool -P httpd_can_network_connect_cobbler 1</p>
+
+<p>If you want to allow Cobbler to access cifs file
+systems, you must turn on the cobbler_use_cifs boolean.</p>
+
+<p>setsebool -P cobbler_use_cifs 1</p>
+
+<p>SHARING FILES If you want to share files with multiple
+domains (Apache, FTP, rsync, Samba), you can set a file
+context of public_content_t and public_con- tent_rw_t. These
+context allow any of the above domains to read the content.
+If you want a particular domain to write to the public_con-
+tent_rw_t domain, you must set the appropriate boolean.</p>
+
+<p>Allow cobblerd servers to read the /var/cobblerd
+directory by adding the public_content_t file type to the
+directory and by restoring the file type.</p>
+
+<p>semanage fcontext -a -t public_content_t
+&quot;/var/cobblerd(/.*)?&quot; restorecon -F -R -v
+/var/cobblerd</p>
+
+<p>Allow cobblerd servers to read and write
+/var/tmp/incoming by adding the public_content_rw_t type to
+the directory and by restoring the file type. This also
+requires the allow_cobblerd_anon_write boolean to be
+set.</p>
+
+<p>semanage fcontext -a -t public_content_rw_t
+&quot;/var/cobblerd/incom- ing(/.*)?&quot; restorecon -F -R
+-v /var/cobblerd/incoming</p>
+
+<p>If you want to allow Cobbler to modify public files used
+for public file transfer services., you must turn on the
+cobbler_anon_write boolean.</p>
+
+<p>setsebool -P cobbler_anon_write 1</p>
+
+<p>FILE CONTEXTS SELinux requires files to have an extended
+attribute to define the file type.</p>
+
+<p>You can see the context of a file using the -Z option to
+ls</p>
+
+<p>Policy governs the access confined processes have to
+these files. SELinux cobblerd policy is very flexible
+allowing users to setup their cobblerd processes in as
+secure a method as possible.</p>
+
+<p>The following file types are defined for cobblerd:</p>
+
+<p>cobbler_etc_t</p>
+
+<p>- Set files with the cobbler_etc_t type, if you want to
+store cobbler files in the /etc directories.</p>
+
+<p>cobbler_tmp_t</p>
+
+<p>- Set files with the cobbler_tmp_t type, if you want to
+store cobbler temporary files in the /tmp directories.</p>
+
+<p>cobbler_var_lib_t</p>
+
+<p>- Set files with the cobbler_var_lib_t type, if you want
+to store the cobbler files under the /var/lib directory.</p>
+
+<p>Paths: /var/lib/cobbler(/.*)?,
+/var/www/cobbler/images(/.*)?,
+/var/www/cobbler/repo_mirror(/.*)?, /var/lib/tftp-
+boot/pxelinux.cfg(/.*)?, /var/lib/tftpboot/memdisk,
+/var/lib/tftp- boot/s390x(/.*)?,
+/var/lib/tftpboot/images(/.*)?, /var/www/cob-
+bler/links(/.*)?, /var/lib/tftpboot/menu.c32, /var/lib/tftp-
+boot/yaboot, /var/www/cobbler/localmirror(/.*)?,
+/var/www/cob- bler/ks_mirror(/.*)?,
+/var/lib/tftpboot/grub(/.*)?, /var/www/cob- bler/pub(/.*)?,
+/var/lib/tftpboot/ppc(/.*)?, /var/lib/tftp- boot/pxelinux.0,
+/var/lib/tftpboot/etc(/.*)?, /var/www/cob-
+bler/rendered(/.*)?</p>
+
+<p>cobbler_var_log_t</p>
+
+<p>- Set files with the cobbler_var_log_t type, if you want
+to treat the data as cobbler var log data, usually stored
+under the /var/log direc- tory.</p>
+
+<p>cobblerd_exec_t</p>
+
+<p>- Set files with the cobblerd_exec_t type, if you want
+to transition an executable to the cobblerd_t domain.</p>
+
+<p>cobblerd_initrc_exec_t</p>
+
+<p>- Set files with the cobblerd_initrc_exec_t type, if you
+want to tran- sition an executable to the cobblerd_initrc_t
+domain.</p>
+
+<p>Note: File context can be temporarily modified with the
+chcon command. If you want to permanently change the file
+context you need to use the semanage fcontext command. This
+will modify the SELinux labeling database. You will need to
+use restorecon to apply the labels.</p>
+
+<p>PORT TYPES SELinux defines port types to represent TCP
+and UDP ports.</p>
+
+<p>You can see the types associated with a port by using
+the following command:</p>
+
+<p>semanage port -l</p>
+
+<p>Policy governs the access confined processes have to
+these ports. SELinux cobblerd policy is very flexible
+allowing users to setup their cobblerd processes in as
+secure a method as possible.</p>
+
+<p>The following port types are defined for cobblerd:</p>
+
+<p>cobbler_port_t</p>
+
+<p>Default Defined Ports: tcp 8021</p>
+
+<p>PROCESS TYPES SELinux defines process types (domains)
+for each process running on the system</p>
+
+<p>You can see the context of a process using the -Z option
+to ps</p>
+
+<p>Policy governs the access confined processes have to
+files. SELinux cobblerd policy is very flexible allowing
+users to setup their cobblerd processes in as secure a
+method as possible.</p>
+
+<p>The following process types are defined for
+cobblerd:</p>
+
+<p>cobblerd_t</p>
+
+<p>Note: semanage permissive -a PROCESS_TYPE can be used to
+make a process type permissive. Permissive process types are
+not denied access by SELinux. AVC messages will still be
+generated.</p>
+
+<p>COMMANDS semanage fcontext can also be used to
+manipulate default file context mappings.</p>
+
+<p>semanage permissive can also be used to manipulate
+whether or not a process type is permissive.</p>
+
+<p>semanage module can also be used to
+enable/disable/install/remove pol- icy modules.</p>
+
+<p>semanage port can also be used to manipulate the port
+definitions</p>
+
+<p>semanage boolean can also be used to manipulate the
+booleans</p>
+
+<p>system-config-selinux is a GUI tool available to
+customize SELinux pol- icy settings.</p>
+
+<p>AUTHOR This manual page was autogenerated by
+genman.py.</p>
+
+<p>SEE ALSO selinux(8), cobblerd(8), semanage(8),
+restorecon(8), chcon(1) , setse- bool(8)</p>
+
+<p>dwalsh@redhat.com cobblerd cobblerd_selinux(8)</p>
+<hr>
+</body>
+</html>

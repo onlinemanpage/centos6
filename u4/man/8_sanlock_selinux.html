@@ -1,0 +1,204 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 04:32:23 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>sanlock_selinux(8) SELinux Policy documentation for
+sanlock sanlock_selinux(8)</p>
+
+<p>NAME sanlock_selinux - Security Enhanced Linux Policy
+for the sanlock pro- cesses</p>
+
+<p>DESCRIPTION Security-Enhanced Linux secures the sanlock
+processes via flexible mandatory access control.</p>
+
+<p>The sanlock processes execute with the sanlock_t SELinux
+type. You can check if you have these processes running by
+executing the ps command with the -Z qualifier.</p>
+
+<p>For example:</p>
+
+<p>ps -eZ | grep sanlock_t</p>
+
+<p>ENTRYPOINTS The sanlock_t SELinux type can be entered
+via the &quot;sanlock_exec_t&quot; file type. The default
+entrypoint paths for the sanlock_t domain are the
+following:&quot;</p>
+
+<p>/usr/sbin/sanlock</p>
+
+<p>PROCESS TYPES SELinux defines process types (domains)
+for each process running on the system</p>
+
+<p>You can see the context of a process using the -Z option
+to ps</p>
+
+<p>Policy governs the access confined processes have to
+files. SELinux sanlock policy is very flexible allowing
+users to setup their sanlock processes in as secure a method
+as possible.</p>
+
+<p>The following process types are defined for sanlock:</p>
+
+<p>sanlock_t</p>
+
+<p>Note: semanage permissive -a sanlock_t</p>
+
+<p>can be used to make the process type sanlock_t
+permissive. Permissive process types are not denied access
+by SELinux. AVC messages will still be generated.</p>
+
+<p>BOOLEANS SELinux policy is customizable based on least
+access required. sanlock policy is extremely flexible and
+has several booleans that allow you to manipulate the policy
+and run sanlock with the tightest access possi- ble.</p>
+
+<p>If you want to allow sanlock to read/write fuse files,
+you must turn on the sanlock_use_fusefs boolean.</p>
+
+<p>setsebool -P sanlock_use_fusefs 1</p>
+
+<p>If you want to allow sanlock to manage cifs files, you
+must turn on the sanlock_use_samba boolean.</p>
+
+<p>setsebool -P sanlock_use_samba 1</p>
+
+<p>If you want to allow confined virtual guests to interact
+with the san- lock, you must turn on the virt_use_sanlock
+boolean.</p>
+
+<p>setsebool -P virt_use_sanlock 1</p>
+
+<p>If you want to allow sanlock to manage nfs files, you
+must turn on the sanlock_use_nfs boolean.</p>
+
+<p>setsebool -P sanlock_use_nfs 1</p>
+
+<p>If you want to allow sanlock to read/write fuse files,
+you must turn on the sanlock_use_fusefs boolean.</p>
+
+<p>setsebool -P sanlock_use_fusefs 1</p>
+
+<p>If you want to allow sanlock to manage cifs files, you
+must turn on the sanlock_use_samba boolean.</p>
+
+<p>setsebool -P sanlock_use_samba 1</p>
+
+<p>If you want to allow confined virtual guests to interact
+with the san- lock, you must turn on the virt_use_sanlock
+boolean.</p>
+
+<p>setsebool -P virt_use_sanlock 1</p>
+
+<p>If you want to allow sanlock to manage nfs files, you
+must turn on the sanlock_use_nfs boolean.</p>
+
+<p>setsebool -P sanlock_use_nfs 1</p>
+
+<p>FILE CONTEXTS SELinux requires files to have an extended
+attribute to define the file type.</p>
+
+<p>You can see the context of a file using the -Z option to
+ls</p>
+
+<p>Policy governs the access confined processes have to
+these files. SELinux sanlock policy is very flexible
+allowing users to setup their sanlock processes in as secure
+a method as possible.</p>
+
+<p>The following file types are defined for sanlock:</p>
+
+<p>sanlock_exec_t</p>
+
+<p>- Set files with the sanlock_exec_t type, if you want to
+transition an executable to the sanlock_t domain.</p>
+
+<p>sanlock_initrc_exec_t</p>
+
+<p>- Set files with the sanlock_initrc_exec_t type, if you
+want to transi- tion an executable to the sanlock_initrc_t
+domain.</p>
+
+<p>sanlock_log_t</p>
+
+<p>- Set files with the sanlock_log_t type, if you want to
+treat the data as sanlock log data, usually stored under the
+/var/log directory.</p>
+
+<p>sanlock_var_run_t</p>
+
+<p>- Set files with the sanlock_var_run_t type, if you want
+to store the sanlock files under the /run directory.</p>
+
+<p>Note: File context can be temporarily modified with the
+chcon command. If you want to permanently change the file
+context you need to use the semanage fcontext command. This
+will modify the SELinux labeling database. You will need to
+use restorecon to apply the labels.</p>
+
+<p>MANAGED FILES The SELinux process type sanlock_t can
+manage files labeled with the following file types. The
+paths listed are the default paths for these file types.
+Note the processes UID still need to have DAC
+permissions.</p>
+
+<p>initrc_tmp_t</p>
+
+<p>mnt_t</p>
+
+<p>/mnt(/[^/]*) /mnt(/[^/]*)? /rhev(/[^/]*)? /media(/[^/]*)
+/media(/[^/]*)? /etc/rhgb(/.*)? /media/.hal-.* /net /afs
+/misc /rhev</p>
+
+<p>root_t</p>
+
+<p>/ /initrd</p>
+
+<p>sanlock_log_t</p>
+
+<p>/var/log/sanlock.log.*</p>
+
+<p>sanlock_var_run_t</p>
+
+<p>/var/run/sanlock(/.*)?</p>
+
+<p>tmp_t</p>
+
+<p>/tmp /usr/tmp /var/tmp /var/tmp/vi.recover</p>
+
+<p>virt_var_lib_t</p>
+
+<p>/var/lib/oz(/.*)? /var/lib/libvirt(/.*)?</p>
+
+<p>COMMANDS semanage fcontext can also be used to
+manipulate default file context mappings.</p>
+
+<p>semanage permissive can also be used to manipulate
+whether or not a process type is permissive.</p>
+
+<p>semanage module can also be used to
+enable/disable/install/remove pol- icy modules.</p>
+
+<p>semanage boolean can also be used to manipulate the
+booleans</p>
+
+<p>system-config-selinux is a GUI tool available to
+customize SELinux pol- icy settings.</p>
+
+<p>AUTHOR This manual page was auto-generated using
+sepolicy manpage by mgrepl.</p>
+
+<p>SEE ALSO selinux(8), sanlock(8), semanage(8),
+restorecon(8), chcon(1), sepol- icy(8) , setsebool(8)</p>
+
+<p>sanlock 13-01-04 sanlock_selinux(8)</p>
+<hr>
+</body>
+</html>

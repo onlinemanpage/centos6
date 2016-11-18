@@ -1,0 +1,58 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 04:37:26 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>VIRT-WHO-CONFIG(5) VIRT-WHO-CONFIG(5)</p>
+
+<p>NAME virt-who-config - configuration for virt-who</p>
+
+<p>SYNOPISIS /etc/virt-who.d/*</p>
+
+<p>DESCRIPTION Configuration format is ini-like, where
+group name (in square brackets) is arbitrary name of the
+configuration.</p>
+
+<p>Only required key is type that has to have one of the
+allowed virtual- ization backend names, see virt-who(8).</p>
+
+<p>Another options that could be supplied are:</p>
+
+<p>server hostname, IP address or URL of the server that
+provides virtual- ization information (not applicable for
+libvirt and vdsm mode).</p>
+
+<p>username username for authentication to the server (not
+applicable for libvirt and vdsm mode).</p>
+
+<p>password password for authentication to the server (not
+applicable for libvirt and vdsm mode).</p>
+
+<p>encrypted_password encrypted password that is generated
+by virt-who-password(8) utility</p>
+
+<p>owner owner for use with Subscription Asset Manager (not
+applicable for Satellite)</p>
+
+<p>env environment for use with Subscription Asset Manager
+(not appli- cable for Satellite)</p>
+
+<p>EXAMPLE [test-esx] type=esx server=1.2.3.4
+username=admin password=password owner=test env=staging</p>
+
+<p>AUTHOR Radek Novacek &lt;rnovacek at redhat dot
+com&gt;</p>
+
+<p>SEE ALSO virt-who(8), virt-who-password(8)</p>
+
+<p>virt-who June 2014 VIRT-WHO-CONFIG(5)</p>
+<hr>
+</body>
+</html>

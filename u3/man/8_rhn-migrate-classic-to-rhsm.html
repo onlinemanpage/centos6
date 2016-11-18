@@ -1,0 +1,262 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 04:45:45 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>rhn-migrate-classic-to-rhsm(8)
+rhn-migrate-classic-to-rhsm(8)</p>
+
+<p>NAME rhn-migrate-classic-to-rhsm - Migrates a system
+profile from Red Hat Network Classic Hosted to
+Certificate-based Red Hat Network Hosted.</p>
+
+<p>SYNOPSIS rhn-migrate-classic-to-rhsm
+[--force|--cli-only|--help|--no-auto]</p>
+
+<p>DESCRIPTION rhn-migrate-classic-to-rhsm migrates a
+system profile which is regis- tered with Red Hat Network
+Classic to Certificate-based Red Hat Net- work. This is
+intended for hosted-to-hosted migrations, not for migrat-
+ing from a Satellite system.</p>
+
+<p>This script migrates configuration, from a channel-based
+subscription framework to a certificate-based subscription
+framework. While the rhn- migrate-classic-to-rhsm script
+performs the migration operation, the data used to map the
+channels to the corresponding product certificates is
+defined in the subscription-manager-migration-data package.
+The sub- scription-manager-migration-data package must be
+installed before the rhn-migrate-classic-to-rhsm script can
+be run successfully.</p>
+
+<p>BACKGROUND Access to support and updates for products is
+determined through sub- scriptions. Subscriptions are
+assigned to a system, which means that the system has the
+right to install and update a product with full sup- port.
+Subscriptions for an entire organization are tracked through
+a subscription service, either a local Satellite or hosted
+Red Hat Net- work. The system registers with the
+subscription service and receives an inventory ID number.
+When subscriptions are allocated to a system, it is noted in
+the subscription service.</p>
+
+<p>For environments which use a hosted subscription service
+rather than a local Satellite system, systems were
+registered with Red Hat Network Classic. Red Hat Network
+Classic, however, has been replaced by Cer- tificate-based
+Red Hat Network. The differences between the two systems are
+described in this Knowledgebase article:
+&lt;https://access.red- hat.com/kb/docs/DOC-45987&gt;</p>
+
+<p>Registering with a subscription service is exclusive. If
+a system is registered with Red Hat Network Classic, it
+cannot simultaneously be registered with Certificate-based
+Red Hat Network. The rhn-migrate- classic-to-rhsm tool is
+provided specifically so that there is a way to transition
+from the deprecated Red Hat Network Classic to the new Cer-
+tificate-based Red Hat Network.</p>
+
+<p>OPTIONS -h, --help Prints the specific help information
+for the given command.</p>
+
+<p>-f, --force Ignore channels not available on
+Certificate-based Red Hat Net- work. The channels in Red Hat
+Network Classic are mapped to the product certificates used
+by Certificate-based Red Hat Network. However, not every
+channel has a certificate mapping, which can cause errors
+during migration. Using this option skips any chan- nels
+which are not mapped to Certificate-based Red Hat
+Network.</p>
+
+<p>-c, --cli-only Uses subscription-manager register
+--autosubscribe to apply all relevant subscriptions from
+Certificate-based Red Hat Network to the system
+automatically.</p>
+
+<p>-n, --no-auto Unsubscribes the system from Red Hat
+Network Classic but does not subsequently register the
+system to Certificate-based Red Hat Network or subscribe the
+system to any entitlements.</p>
+
+<p>USAGE The migration process moves the system from the
+inventory in one sub- scription service (Red Hat Network
+Classic) to the new subscription service (Certificate-based
+Red Hat Network), and then re-applies the subscriptions to
+the system. The script runs through these steps:</p>
+
+<p>1. Authenticate to both Red Hat Network Classic and
+Certificate- based Red Hat Network to verify the account
+settings.</p>
+
+<p>2. Get a channel list for the system.</p>
+
+<p>3. Match each channel to a corresponding certificate
+map.</p>
+
+<p>4. Copy over the product certificates for the old
+channels.</p>
+
+<p>5. Unregister from Red Hat Network Classic.</p>
+
+<p>6. Register with Certificate-based Red Hat Network.</p>
+
+<p>7. Open Subscription Manager to subscribe to the new
+entitle- ments. By default, this opens the GUI to allow
+administrators to assign subscriptions manually, but it is
+also possible to auto- subscribe to the best-matching
+subscriptions.</p>
+
+<p>After migration, the system facts maintained by
+Subscription Manager display what script was used for
+migration and what the previous system ID was. [root@server
+~]# subscription-manager facts --list | grep migr
+migration.classic_system_id: 09876 migration.migrated_from:
+rhn_hosted_classic</p>
+
+<p>BASIC MIGRATION Simply running the
+rhn-migrate-classic-to-rhsm tool migrates the system profile
+and then open the Subscription Manager GUI so that
+administra- tors can assign subscriptions to the system.</p>
+
+<p>The script prompts for the RHN username and password for
+the user; this same account is used to authenticate with
+both Red Hat Network Classic and Certificate-based Red Hat
+Network.</p>
+
+<p>[root@server ~]# rhn-migrate-classic-to-rhsm RHN
+Username: jsmith@example.com Password:</p>
+
+<p>Retrieving existing RHN classic subscription information
+... +----------------------------------+ System is currently
+subscribed to: +----------------------------------+
+rhel-i386-client-5</p>
+
+<p>List of channels for which certs are being copied
+rhel-i386-client-5</p>
+
+<p>Product Certificates copied successfully to
+/etc/pki/product !!</p>
+
+<p>Preparing to unregister system from RHN classic ...
+System successfully unregistered from RHN Classic.</p>
+
+<p>Attempting to register system to Certificate-based RHN
+... The system has been registered with id: abcd1234 System
+server.example.com successfully registered to
+Certificate-based RHN.</p>
+
+<p>Launching the GUI tool to manually subscribe the system
+...</p>
+
+<p>MIGRATION AND AUTOSUBSCRIBE Instead of opening the
+Subscription Manager GUI after migration, the
+rhn-migrate-classic-to-rhsm tool can use the Subscription
+Manager CLI to autosubscribe the system to the best-matching
+subscriptions. This allows migrations to be fully automated,
+without administrator inter- vention.</p>
+
+<p>[root@server ~]# rhn-migrate-classic-to-rhsm --cli-only
+RHN Username: jsmith@example.com Password:</p>
+
+<p>Retrieving existing RHN classic subscription information
+... +----------------------------------+ System is currently
+subscribed to: +----------------------------------+
+rhel-i386-client-5</p>
+
+<p>List of channels for which certs are being copied
+rhel-i386-client-5</p>
+
+<p>Product Certificates copied successfully to
+/etc/pki/product !!</p>
+
+<p>Preparing to unregister system from RHN classic ...
+System successfully unregistered from RHN Classic.</p>
+
+<p>Attempting to register system to Certificate-based RHN
+... The system has been registered with id: abcd1234 System
+server.example.com successfully registered to
+Certificate-based RHN.</p>
+
+<p>Attempting to auto-subscribe to appropriate
+subscriptions ... Installed Product Current Status:
+ProductName: Red Hat Enterprise Linux Desktop Status:
+Subscribed</p>
+
+<p>Successfully subscribed.</p>
+
+<p>Please visit
+https://access.redhat.com/management/consumers/abcd1234 to
+view the details, and to make changes if necessary.</p>
+
+<p>UNREGISTER FROM RED HAT NETWORK CLASSIC ONLY The
+rhn-migrate-classic-to-rhsm tool can be used simply to
+unregister a system from Red Hat Network Classic without
+registering it to Certificate-based Red Hat Network or
+assigning subscriptions to the system.</p>
+
+<p>[root@server ~]# rhn-migrate-classic-to-rhsm --no-auto
+RHN Username: jsmith@example.com Password:</p>
+
+<p>Retrieving existing RHN classic subscription information
+... +----------------------------------+ System is currently
+subscribed to: +----------------------------------+
+rhel-i386-client-5</p>
+
+<p>List of channels for which certs are being copied
+rhel-i386-client-5</p>
+
+<p>Product Certificates copied successfully to
+/etc/pki/product !!</p>
+
+<p>Preparing to unregister system from RHN classic ...
+System successfully unregistered from RHN Classic.</p>
+
+<p>FILES /etc/sysconfig/rhn/systemid The digital server ID
+for this machine if the system has been registered with Red
+Hat Network Classic. This file does not exist otherwise.</p>
+
+<p>/etc/sysconfig/rhn/up2date The common configuration file
+used by RHN client programs.</p>
+
+<p>/var/log/rhsm/rhsm.log The Subscription Manager log
+file. This contains any errors reg- istering the system to
+Certificate-based Red Hat Network or with subscribing the
+system to entitlements.</p>
+
+<p>/etc/rhsm/facts/migration.facts The file which contains
+the migration information. This is dis- played as one of the
+system facts by Subscription Manager.</p>
+
+<p>subscription-manager-migration-data.rpm The package
+which contains the mappings for the migration script to
+migrate channels to the appropriate product
+certificates.</p>
+
+<p>SEE ALSO install-num-migrate-to-rhsm(8),
+subscription-manager(8).</p>
+
+<p>AUTHORS Paresh Mutha &lt;pmutha@redhat.com&gt;, Mark
+Huth &lt;mhuth@redhat.com&gt;, Tasos Papaioannou
+&lt;tpapaioa@redhat.com&gt;</p>
+
+<p>BUGS Report bugs to
+&lt;http://bugzilla.redhat.com&gt;.</p>
+
+<p>COPYRIGHT Copyright &copy; 2011 Red Hat, Inc.</p>
+
+<p>This is free software; see the source for copying
+conditions. There is NO warranty; not even for
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p>
+
+<p>Version 0.3 May 3, 2012
+rhn-migrate-classic-to-rhsm(8)</p>
+<hr>
+</body>
+</html>

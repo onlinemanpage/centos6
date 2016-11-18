@@ -1,0 +1,136 @@
+<!-- Creator     : groff version 1.18.1.4 -->
+<!-- CreationDate: Fri Nov 18 04:10:56 2016 -->
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta name="Content-Style" content="text/css">
+<title></title>
+</head>
+<body>
+
+<hr>
+
+<p>OCF_HEARTBEAT_SLAPD(7) OCF resource agents
+OCF_HEARTBEAT_SLAPD(7)</p>
+
+<p>NAME ocf_heartbeat_slapd - Manages a Stand-alone LDAP
+Daemon (slapd) instance</p>
+
+<p>SYNOPSIS slapd [start | stop | monitor | meta-data |
+validate-all]</p>
+
+<p>DESCRIPTION Resource script for Stand-alone LDAP Daemon
+(slapd). It manages a slapd instance as an OCF resource.</p>
+
+<p>SUPPORTED PARAMETERS slapd Full path to the slapd
+binary. For example, &quot;/usr/sbin/slapd&quot;.</p>
+
+<p>(optional, string, default
+&quot;/usr/sbin/slapd&quot;)</p>
+
+<p>ldapsearch Full path to the ldapsearch binary. For
+example, &quot;/usr/bin/ldapsearch&quot;.</p>
+
+<p>(optional, string, default &quot;ldapsearch&quot;)</p>
+
+<p>config Full path to a slapd configuration directory or a
+slapd configuration file. For example,
+&quot;/etc/ldap/slapd.d&quot; or
+&quot;/etc/ldap/slapd.conf&quot;.</p>
+
+<p>(unique, optional, string, no default)</p>
+
+<p>pidfile File to read the PID from; read from
+olcPidFile/pidfile in config if not set.</p>
+
+<p>(optional, string, no default)</p>
+
+<p>user User name or id slapd will run with. The group id
+is also changed to this user&acute;s gid, unless the group
+parameter is used to override.</p>
+
+<p>(optional, string, no default)</p>
+
+<p>group Group name or id slapd will run with.</p>
+
+<p>(optional, string, no default)</p>
+
+<p>services LDAP (and other scheme) URLs slapd will serve.
+For example, &quot;ldap://127.0.0.1:389 ldaps:///
+ldapi:///&quot;</p>
+
+<p>(unique, optional, string, default
+&quot;ldap:///&quot;)</p>
+
+<p>watch_suffix Suffix (database backend) that will be
+monitored for availability. Multiple suffixes can be
+specified by providing a space seperated list. By providing
+one or more suffixes here, the ignore_suffix parameter is
+discarded. All suffixes will be monitored if left blank.</p>
+
+<p>(optional, string, no default)</p>
+
+<p>ignore_suffix Suffix (database backend) that will not be
+monitored for availability. Multiple suffixes can be
+specified by providing a space seperated list. No suffix
+will be excluded if left blank.</p>
+
+<p>(optional, string, no default)</p>
+
+<p>bind_dn Distinguished Name used to bind to the LDAP
+directory for testing. Leave blank to bind to the LDAP
+directory anonymously.</p>
+
+<p>(optional, string, no default)</p>
+
+<p>password Password used to bind to the LDAP directory for
+testing.</p>
+
+<p>(optional, string, no default)</p>
+
+<p>parameters slapd may be called with additional
+parameters. Specify any of them here.</p>
+
+<p>(optional, string, no default)</p>
+
+<p>stop_escalate Number of seconds to wait for shutdown
+(using SIGTERM) before resorting to SIGKILL</p>
+
+<p>(optional, integer, default 15)</p>
+
+<p>SUPPORTED ACTIONS This resource agent supports the
+following actions (operations):</p>
+
+<p>start Starts the resource. Suggested minimum timeout:
+20s.</p>
+
+<p>stop Stops the resource. Suggested minimum timeout:
+20s.</p>
+
+<p>monitor Performs a detailed status check. Suggested
+minimum timeout: 20s. Suggested interval: 60s.</p>
+
+<p>validate-all Performs a validation of the resource
+configuration. Suggested minimum timeout: 20s.</p>
+
+<p>meta-data Retrieves resource agent metadata (internal
+use only). Suggested minimum timeout: 5s.</p>
+
+<p>EXAMPLE The following is an example configuration for a
+slapd resource using the crm(8) shell:</p>
+
+<p>primitive p_slapd ocf:heartbeat:slapd op monitor
+depth=&quot;0&quot; timeout=&quot;20s&quot;
+interval=&quot;60s&quot;</p>
+
+<p>SEE ALSO
+http://www.linux-ha.org/wiki/slapd_(resource_agent)</p>
+
+<p>AUTHOR Linux-HA contributors (see the resource agent
+source for information about individual authors)</p>
+
+<p>resource-agents 3.9.2 10/10/2013
+OCF_HEARTBEAT_SLAPD(7)</p>
+<hr>
+</body>
+</html>
