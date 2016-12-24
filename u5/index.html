@@ -73,7 +73,7 @@
           for (i = 0; i < tr.length; i++) {
               td = tr[i].getElementsByTagName("td")[2];
               if (td) {
-                  if (re.test(td.childNodes[0].text)) {
+                  if (re.test(td.textContent)) {
                       tr[i].style.display = "";
                   } else {
                       tr[i].style.display = "none";
